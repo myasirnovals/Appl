@@ -1,0 +1,22 @@
+@startuml
+|Mahasiswa|
+start
+repeat
+:Daftar Seminar TA 1;
+fork
+|Mahasiswa|
+:Upload proposal TA 1;
+fork again
+|Dosen Pembimbing|
+:Upload surat kelayakan
+    maju seminar TA 1;
+|Koordinator TA 1|
+end fork
+: Cek kehadiran bimbingan;
+: Cek surat kelayakan TA 1;
+: Cek pengumpulan proposal TA 1;
+repeat while () is (Mahasiswa tidak layak maju seminar) not (Mahasiswa Layak maju seminar)
+  :     Menyimpan data
+   kelayakan seminar TA 1;
+  stop
+@enduml

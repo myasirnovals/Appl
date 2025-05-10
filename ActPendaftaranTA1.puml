@@ -1,0 +1,16 @@
+@startuml
+|Mahasiswa|
+start
+repeat
+: Mengisi data pendaftaran TA 1;
+: Upload data pendaftaran TA 1;
+|Koordinator TA 1|
+: Cek SKS mahasiswa;
+: Cek tagihan mahasiswa;
+: Cek nilai mata kuliah wajib;
+: Cek IPK mahasiswa;
+repeat while () is (Data mahasiswa tidak valid) not (Data mahasiswa valid)
+  : Menyimpan data pendaftaran;
+  stop
+@enduml
+

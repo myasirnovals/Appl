@@ -1,0 +1,87 @@
+@startuml
+title Use Case Diagram Sistem Manajemen Administrasi Tugas Akhir
+
+left to right direction
+
+actor Mahasiswa
+actor "Dosen Pembimbing" as Pembimbing
+actor "Dosen Penguji" as Penguji
+actor "Koordinator TA" as Koordinator
+actor "Ketua KBK" as KBK
+actor "Ketua Jurusan" as Ketua
+
+rectangle "Sistem Manajemen Administrasi Tugas Akhir" {
+    (Login)
+    (Daftar Tugas Akhir 1)
+    (Ajukan Tema dan Judul TA)
+    (Pilih Dosen Pembimbing)
+    (Unggah Dokumen TA1/TA2)
+    (Catat Pertemuan Bimbingan)
+    (Ajukan Seminar TA1)
+    (Ajukan Seminar TA2)
+    (Upload Bukti Publikasi)
+    (Lihat Status & Jadwal Seminar)
+    (Lihat Nilai Seminar TA)
+
+    (Login)
+    (Verifikasi Judul Mahasiswa)
+    (Setujui Bimbingan)
+    (Isi Nilai Bimbingan)
+    (Terbitkan Surat Kelayakan Seminar)
+
+    (Login)
+    (Isi Nilai Pengujian)
+    (Lihat Jadwal Seminar)
+
+    (Verifikasi Kelayakan TA1)
+    (Verifikasi Kelayakan TA2)
+    (Jadwalkan Seminar)
+    (Input Nilai Administrasi)
+    (Umumkan Nilai Akhir)
+    (Verifikasi Publikasi Ilmiah)
+
+    (Menunjuk Dosen Penguji)
+    (Mengakses Laporan Akademik)
+}
+
+Mahasiswa -- (Login)
+Mahasiswa -- (Daftar Tugas Akhir 1)
+Mahasiswa -- (Ajukan Tema dan Judul TA)
+Mahasiswa -- (Pilih Dosen Pembimbing)
+Mahasiswa -- (Unggah Dokumen TA1/TA2)
+Mahasiswa -- (Catat Pertemuan Bimbingan)
+Mahasiswa -- (Ajukan Seminar TA1)
+Mahasiswa -- (Ajukan Seminar TA2)
+Mahasiswa -- (Upload Bukti Publikasi)
+Mahasiswa -- (Lihat Status & Jadwal Seminar)
+Mahasiswa -- (Lihat Nilai Seminar TA)
+
+Pembimbing -- (Login)
+Pembimbing -- (Verifikasi Judul Mahasiswa)
+Pembimbing -- (Setujui Bimbingan)
+Pembimbing -- (Isi Nilai Bimbingan)
+Pembimbing -- (Terbitkan Surat Kelayakan Seminar)
+
+Penguji -- (Login)
+Penguji -- (Isi Nilai Pengujian)
+Penguji -- (Lihat Jadwal Seminar)
+
+(Verifikasi Kelayakan TA1) -- Koordinator
+(Verifikasi Kelayakan TA2) -- Koordinator
+(Jadwalkan Seminar) -- Koordinator
+(Input Nilai Administrasi) -- Koordinator
+(Umumkan Nilai Akhir) -- Koordinator
+(Verifikasi Publikasi Ilmiah) -- Koordinator
+
+KBK -- (Menunjuk Dosen Penguji)
+Ketua -- (Mengakses Laporan Akademik)
+
+(Daftar Tugas Akhir 1) ..> (Verifikasi Kelayakan TA1) : <<include>>
+(Ajukan Seminar TA1) ..> (Verifikasi Kelayakan TA1) : <<include>>
+(Ajukan Seminar TA2) ..> (Verifikasi Kelayakan TA2) : <<include>>
+(Upload Bukti Publikasi) ..> (Verifikasi Publikasi Ilmiah) : <<include>>
+(Lihat Nilai Seminar TA) ..> (Umumkan Nilai Akhir) : <<include>>
+(Ajukan Seminar TA2) ..> (Upload Bukti Publikasi) : <<extend>>
+(Verifikasi Publikasi Ilmiah) ..> (Umumkan Nilai Akhir) : <<extend>>
+
+@enduml

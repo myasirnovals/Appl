@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+left to right direction
+
+actor "Dosen Pembimbing" as db
+actor "koordinator TA" as kta
+actor "Dosen Penguji" as dp
+actor "Mahasiswa" as mhs
+
+rectangle "Tugas Akhir" {
+  usecase "Pengajuan Pendaftaran TA" as UC1
+  usecase "Pengajuan Proposal" as UC2
+  usecase "Pelaksanaan Bimbingan" as UC3
+  usecase "Pendaftaran Seminar" as UC4
+  usecase "Pelaksanaan Seminar" as UC5
+  usecase "Melakukan Validasi Pendaftaran TA" as UC6
+  usecase "Persetujuan Proposal" as UC7
+  usecase "Melakukan Validasi Pendaftaran seminar" as UC8
+  usecase "Pembuatan Jadwal Seminar" as UC9
+  usecase "Penilaian Seminar" as UC10
+}
+
+mhs -- UC1
+mhs -- UC2
+mhs -- UC3
+mhs -- UC4
+mhs -- UC5
+
+UC6 -- kta
+UC8 -- kta
+UC9 -- kta
+UC10 -- kta
+
+UC7 -- db
+UC3 -- db
+UC10 -- db
+
+UC10 -- dp
+
+UC2 ..> UC7 : <<extend>>
+UC1 <.. UC6 : <<include>>
+UC4 <.. UC8 : <<include>>
+UC5 ..> UC10 : <<extend>>
+
+@enduml

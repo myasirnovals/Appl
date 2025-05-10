@@ -1,0 +1,26 @@
+@startuml
+|Mahasiswa|
+start
+:Menampilkan berita acara;
+|Koordinator TA 1|
+|Dosen Pembimbing|
+fork
+:       Menilai
+Bimbingan TA 1;
+fork again
+|Koordinator TA 1|
+:       Menilai
+administrasi TA 1;
+fork again
+|Dosen Penguji|
+:     Menilai
+seminar TA 1;
+
+|Dosen Pembimbing|
+end fork
+|Koordinator TA 1|
+:Menghitung hasil
+nilai seminar TA 1;
+stop
+@enduml
+
