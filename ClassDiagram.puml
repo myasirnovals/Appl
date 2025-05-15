@@ -1,0 +1,139 @@
+@startuml
+
+class Mahasiswa {
+ -namaMhs: String
+ -nim: String
+ -email: String
+ -programStudi: String
+ +setNamaMhs(): void
+ +getNamaMhs(): String
+ +setNim(): void
+ +getNim(): String
+ +setEmail(): void
+ +getEmail(): String
+ +setProgramStudi(): void
+ +getProgramStudi(): String
+}
+
+class PendaftaranTA {
+ +jumlahSks: int
+ +nilaiPrak: double
+ +nilaiMatKul: double
+ +tambahData(): void
+ +deleteData(): void
+ +updateData(): void
+ +cekSyarat(): boolean
+}
+
+class PendaftaranSeminarTA {
+ +bimbinganTA: int
+ +suratKelayakan: boolean
+ +proposal: boolean
+ +cekSyarat(): boolean
+ +tambahData(): void
+ +deleteData(): void
+ +updateData(): void
+}
+
+class JadwalSeminarTA {
+ +tglSeminar: Date
+ +listSeminar: ArrayList
+ +tambahJadwal(): void
+ +updateJadwal(): void
+ +deleteJadwal(): void
+}
+
+class KoordinatorTA {
+ +namaKoordinator: String
+ +noKoordinator: String
+ +setNamaKoordinator(): void
+ +getNamaKoordinator(): String
+ +setNoKoordinator: void
+ +getNoKoordinator: String
+}
+
+class PenilaianTA {
+ +nilaiAdm: double
+ +nilaiBimbingan: double
+ +nilaiSeminar: double
+ +jumlahNilai: double
+ +rataRata: double
+ +statusLulus: boolean
+ +tambahNilai(): void
+ +jumlahNilai(): double
+ +rataRataNilai(): double
+ +uploadStatusLulus(): boolean
+}
+
+class Dosen {
+ -nama: String
+ -nid: String
+ -email: String
+ +setNama(): void
+ +getNama(): String
+ +setNid(): void
+ +getNid(): String
+ +setEmail(): void
+ +getEmail(): String
+}
+
+class DosenPembimbing {
+ -jumlahMahasiswaBimbingan: int
+ -bidangKeahlian: String
+ -jadwalBimbingan: ArrayList<Date>
+ -statusKetersediaan: boolean
+ #mahasiswaBimbingan: ArrayList<Mahasiswa>
+ +tambahMahasiswaBimbingan(Mahasiswa): void
+ +hapusMahasiswaBimbingan(Mahasiswa): void
+ +setJadwalBimbingan(Date): void
+ +getJadwalBimbingan(): ArrayList<Date>
+ +verifikasiProposal(PendaftaranSeminarTA): boolean
+ +berikanPersetujuanSeminar(boolean): void
+ +inputNilaiBimbingan(double): void
+ +getBidangKeahlian(): String
+ +setBidangKeahlian(String): void
+ +getStatusKetersediaan(): boolean
+ +setStatusKetersediaan(boolean): void
+ #hitungJumlahMahasiswa(): int
+}
+
+class DosenPenguji {
+ -jadwalUjian: ArrayList<Date>
+ -bidangKeahlian: String
+ -jumlahUjian: int
+ -statusKehadiran: boolean
+ #mahasiswaUjian: ArrayList<Mahasiswa>
+ +tambahJadwalUjian(Date): void
+ +getJadwalUjian(): ArrayList<Date>
+ +inputNilaiUjian(double): void
+ +berikanKomentar(String): void
+ +setStatusKehadiran(boolean): void
+ +getStatusKehadiran(): boolean
+ +verifikasiRevisi(boolean): void
+ +getBidangKeahlian(): String
+ +setBidangKeahlian(String): void
+ +getJumlahUjian(): int
+ #updateJumlahUjian(): void
+}
+
+Mahasiswa "1" -- "1" PendaftaranTA
+Mahasiswa "1" -- "0..1" PendaftaranSeminarTA
+PendaftaranTA "1" -- "0..1" PendaftaranSeminarTA
+PendaftaranSeminarTA "1" -- "1" PenilaianTA
+
+KoordinatorTA "1" -- "0..*" PendaftaranTA
+KoordinatorTA "1" -- "0..*" PendaftaranSeminarTA
+KoordinatorTA "1" -- "1" JadwalSeminarTA
+
+JadwalSeminarTA "1" -- "0..*" PendaftaranSeminarTA
+
+Dosen <|-- DosenPembimbing
+Dosen <|-- DosenPenguji
+
+DosenPembimbing "1" -- "1..*" Mahasiswa : membimbing
+DosenPenguji "1..*" -- "1..*" Mahasiswa : menguji
+
+DosenPembimbing "1..*" -- "0..*" PenilaianTA : nilai bimbingan
+DosenPenguji "1..*" -- "0..*" PenilaianTA : nilai ujian
+
+@enduml
