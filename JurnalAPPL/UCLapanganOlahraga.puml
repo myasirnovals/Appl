@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+left to right direction
+
+actor "Member"
+actor "Guest"
+actor "Employee"
+actor "Manager"
+actor "Admin"
+
+rectangle "Sistem Penyewaan Lapangan Olahraga" {
+  usecase "Reset \nPassword" as uc1
+  usecase "Registrasi" as uc2
+  usecase "Kelola \nData Diri" as uc3
+  usecase "Print \nTiket" as uc4
+  usecase "Melakukan \nPembayaran" as uc5
+  usecase "Menyewa \nLapangan" as uc6
+  usecase "Batalkan \nPesanan" as uc7
+  usecase "Rating dan Komentar" as uc8
+  usecase "Melihat Riwayat \nTranksaksi" as uc9
+  usecase "Melihat \nArena" as uc10
+  usecase "Memilih Kategori \nLokasi" as uc11
+  usecase "Memilih Kategori \nHarga" as uc12
+  usecase "Memilih Kategori \nJenis Lapangan" as uc13
+  usecase "Login" as uc14
+  usecase "Menetukan \nKategori Arena" as uc15
+  usecase "Mengelola \nArena" as uc16
+  usecase "Mengelola \nTransaksi Sewa" as uc17
+  usecase "List \nPenyewa" as uc18
+  usecase "Mengelola \nPembayaran" as uc19
+  usecase "Print Transaksi \nPembayaran" as uc20
+  usecase "Mengelola \nRekening Bank" as uc21
+  usecase "Mengelola \nMember" as uc22
+  usecase "Mengelola \nTransaksi" as uc23
+  usecase "Forum \nDiskusi" as uc24
+}
+
+Member -- uc14
+uc14 -- Employee
+uc14 -- Manager
+uc14 -- Admin
+
+Guest -- uc2
+
+@enduml
