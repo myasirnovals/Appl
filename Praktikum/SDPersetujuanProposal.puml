@@ -1,0 +1,34 @@
+@startuml
+actor "Dosen Pembimbing" as Pembimbing
+participant "UI Dosen" as UI
+participant "SistemTA" as Sistem
+participant "ProposalTA" as Proposal
+
+Pembimbing -> UI: buka daftar proposal
+activate UI
+UI -> Sistem: getListProposal()
+activate Sistem
+Sistem -> Proposal: ambilDataProposal()
+activate Proposal
+Proposal --> Sistem: dataProposal
+deactivate Proposal
+Sistem --> UI: tampilkan daftar
+deactivate Sistem
+UI --> Pembimbing: tampilkan daftar proposal
+deactivate UI
+
+Pembimbing -> UI: setujui proposal
+activate UI
+UI -> Sistem: setujuiProposal()
+activate Sistem
+Sistem -> Proposal: updateStatus(setuju)
+activate Proposal
+Proposal --> Sistem: status updated
+deactivate Proposal
+Sistem --> UI: tampilkan status
+deactivate Sistem
+UI --> Pembimbing: notifikasi persetujuan berhasil
+deactivate UI
+
+destroy Proposal
+@enduml
