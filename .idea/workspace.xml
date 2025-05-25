@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="menambahkan Sequence diagram">
-      <change afterPath="$PROJECT_DIR$/Praktikum/DeploymentDiagramUniversitasXYZ.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Praktikum/StateDiagramUniversitasXYZ.puml" afterDir="false" />
+    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="menambahkan state dan deployment diagram">
+      <change afterPath="$PROJECT_DIR$/Praktikum/SDPelaksanaanBimbingan.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Praktikum/SDPengajuanProposal.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Praktikum/SDValidasiPendaftaranSeminar.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Praktikum/SDValidasiPendaftaranTA.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,9 +25,9 @@
         <option value="UML Activity" />
         <option value="UML Use Case" />
         <option value="UML Class" />
-        <option value="UML Sequence" />
         <option value="UML State" />
         <option value="UML Deployment" />
+        <option value="UML Sequence" />
       </list>
     </option>
   </component>
@@ -43,7 +45,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "DefaultPlantUmlFileTemplate": "UML Deployment",
+    "DefaultPlantUmlFileTemplate": "UML Sequence",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
@@ -97,7 +99,7 @@
       <workItem from="1747641875548" duration="3522000" />
       <workItem from="1748050127144" duration="665000" />
       <workItem from="1748068305171" duration="2960000" />
-      <workItem from="1748131346256" duration="4407000" />
+      <workItem from="1748131346256" duration="6187000" />
     </task>
     <task id="LOCAL-00001" summary="update directory">
       <option name="closed" value="true" />
@@ -115,7 +117,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748134779465</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="menambahkan state dan deployment diagram">
+      <option name="closed" value="true" />
+      <created>1748135787402</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748135787402</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -124,7 +134,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update directory" />
     <MESSAGE value="menambahkan Sequence diagram" />
-    <option name="LAST_COMMIT_MESSAGE" value="menambahkan Sequence diagram" />
+    <MESSAGE value="menambahkan state dan deployment diagram" />
+    <option name="LAST_COMMIT_MESSAGE" value="menambahkan state dan deployment diagram" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,0 +1,34 @@
+@startuml
+actor "Koordinator TA" as Koordinator
+participant "UI Koordinator" as UI
+participant "SistemTA" as Sistem
+participant "PendaftaranTA" as Pendaftaran
+
+Koordinator -> UI: buka daftar pendaftaran TA
+activate UI
+UI -> Sistem: getListPendaftaranTA()
+activate Sistem
+Sistem -> Pendaftaran: ambilDataPendaftaran()
+activate Pendaftaran
+Pendaftaran --> Sistem: dataPendaftaran
+deactivate Pendaftaran
+Sistem --> UI: tampilkan daftar
+deactivate Sistem
+UI --> Koordinator: tampilkan daftar pendaftaran
+deactivate UI
+
+Koordinator -> UI: validasi pendaftaran TA
+activate UI
+UI -> Sistem: validasiPendaftaranTA()
+activate Sistem
+Sistem -> Pendaftaran: updateStatus(valid)
+activate Pendaftaran
+Pendaftaran --> Sistem: status updated
+deactivate Pendaftaran
+Sistem --> UI: tampilkan status
+deactivate Sistem
+UI --> Koordinator: notifikasi validasi berhasil
+deactivate UI
+
+destroy Pendaftaran
+@enduml

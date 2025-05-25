@@ -1,0 +1,35 @@
+@startuml
+actor Mahasiswa
+actor "Dosen Pembimbing" as Pembimbing
+participant "UI Bimbingan" as UI
+participant "SistemTA" as Sistem
+participant "BimbinganTA" as Bimbingan
+
+Mahasiswa -> UI: ajukan bimbingan
+activate UI
+UI -> Sistem: requestBimbingan()
+activate Sistem
+Sistem -> Bimbingan: catatBimbingan()
+activate Bimbingan
+Bimbingan --> Sistem: konfirmasi
+deactivate Bimbingan
+Sistem --> UI: status bimbingan
+deactivate Sistem
+UI --> Mahasiswa: tampilkan status
+deactivate UI
+
+Pembimbing -> UI: lihat daftar bimbingan
+activate UI
+UI -> Sistem: getListBimbingan()
+activate Sistem
+Sistem -> Bimbingan: ambilDataBimbingan()
+activate Bimbingan
+Bimbingan --> Sistem: dataBimbingan
+deactivate Bimbingan
+Sistem --> UI: tampilkan daftar
+deactivate Sistem
+UI --> Pembimbing: tampilkan daftar bimbingan
+deactivate UI
+
+destroy Bimbingan
+@enduml

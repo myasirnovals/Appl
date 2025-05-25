@@ -1,0 +1,68 @@
+@startuml
+actor "Koordinator TA" as Koordinator
+participant "UI Koordinator" as UI
+participant "SistemTA" as Sistem
+participant "PendaftaranSeminarTA" as PendaftaranSeminar
+
+Koordinator -> UI: buka daftar pendaftaran seminar
+activate UI
+UI -> Sistem: getListPendaftaranSeminar()
+activate Sistem
+Sistem -> PendaftaranSeminar: ambilDataPendaftaran()
+activate PendaftaranSeminar
+PendaftaranSeminar --> Sistem: dataPendaftaran
+deactivate PendaftaranSeminar
+Sistem --> UI: tampilkan daftar
+deactivate Sistem
+UI --> Koordinator: tampilkan daftar seminar
+deactivate UI
+
+Koordinator -> UI: validasi pendaftaran seminar
+activate UI
+UI -> Sistem: validasiPendaftaranSeminar()
+activate Sistem
+Sistem -> PendaftaranSeminar: updateStatus(valid)
+activate PendaftaranSeminar
+PendaftaranSeminar --> Sistem: status updated
+deactivate PendaftaranSeminar
+Sistem --> UI: tampilkan status
+deactivate Sistem
+UI --> Koordinator: notifikasi validasi berhasil
+deactivate UI
+
+destroy PendaftaranSeminar
+@enduml
+@startuml
+actor "Koordinator TA" as Koordinator
+participant "UI Koordinator" as UI
+participant "SistemTA" as Sistem
+participant "PendaftaranSeminarTA" as PendaftaranSeminar
+
+Koordinator -> UI: buka daftar pendaftaran seminar
+activate UI
+UI -> Sistem: getListPendaftaranSeminar()
+activate Sistem
+Sistem -> PendaftaranSeminar: ambilDataPendaftaran()
+activate PendaftaranSeminar
+PendaftaranSeminar --> Sistem: dataPendaftaran
+deactivate PendaftaranSeminar
+Sistem --> UI: tampilkan daftar
+deactivate Sistem
+UI --> Koordinator: tampilkan daftar seminar
+deactivate UI
+
+Koordinator -> UI: validasi pendaftaran seminar
+activate UI
+UI -> Sistem: validasiPendaftaranSeminar()
+activate Sistem
+Sistem -> PendaftaranSeminar: updateStatus(valid)
+activate PendaftaranSeminar
+PendaftaranSeminar --> Sistem: status updated
+deactivate PendaftaranSeminar
+Sistem --> UI: tampilkan status
+deactivate Sistem
+UI --> Koordinator: notifikasi validasi berhasil
+deactivate UI
+
+destroy PendaftaranSeminar
+@enduml

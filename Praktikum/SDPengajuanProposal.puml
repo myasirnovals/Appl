@@ -1,0 +1,26 @@
+@startuml
+actor Mahasiswa
+participant "UI TA" as UI
+participant "SistemTA" as Sistem
+participant "ProposalTA" as Proposal
+
+Mahasiswa -> UI: buka menu pengajuan proposal
+activate UI
+UI -> Mahasiswa: tampilkan form proposal
+deactivate UI
+
+Mahasiswa -> UI: isi & submit proposal
+activate UI
+UI -> Sistem: kirimDataProposal()
+activate Sistem
+Sistem -> Proposal: simpanProposal()
+activate Proposal
+Proposal --> Sistem: konfirmasi simpan
+deactivate Proposal
+Sistem --> UI: tampilkan status pengajuan
+deactivate Sistem
+UI --> Mahasiswa: notifikasi pengajuan berhasil
+deactivate UI
+
+destroy Proposal
+@enduml
