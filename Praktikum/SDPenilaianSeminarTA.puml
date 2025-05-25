@@ -1,0 +1,35 @@
+@startuml
+actor "Dosen Penguji" as Penguji
+participant "UI Penilaian Seminar" as UI
+participant "SistemTA" as Sistem
+participant "SeminarTA" as Seminar
+participant "NilaiSeminar" as Nilai
+
+Penguji -> UI: login & pilih menu penilaian seminar
+activate UI
+UI -> Sistem: getListSeminarTA()
+activate Sistem
+Sistem -> Seminar: ambilDaftarSeminar()
+activate Seminar
+Seminar --> Sistem: daftarSeminar
+deactivate Seminar
+Sistem --> UI: tampilkan daftar seminar
+deactivate Sistem
+UI --> Penguji: tampilkan daftar seminar
+deactivate UI
+
+Penguji -> UI: pilih seminar & input nilai
+activate UI
+UI -> Sistem: submitNilaiSeminar(dataNilai)
+activate Sistem
+Sistem -> Nilai: simpanNilaiSeminar()
+activate Nilai
+Nilai --> Sistem: konfirmasi simpan
+deactivate Nilai
+Sistem --> UI: tampilkan status penilaian
+deactivate Sistem
+UI --> Penguji: notifikasi penilaian berhasil
+deactivate UI
+
+destroy Nilai
+@enduml

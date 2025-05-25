@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="menambahkan state dan deployment diagram">
-      <change afterPath="$PROJECT_DIR$/Praktikum/SDPelaksanaanBimbingan.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Praktikum/SDPengajuanProposal.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Praktikum/SDValidasiPendaftaranSeminar.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Praktikum/SDValidasiPendaftaranTA.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="menambahkan sequence yang belum dibuat">
+      <change afterPath="$PROJECT_DIR$/Praktikum/SDPenilaianSeminarTA.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +95,7 @@
       <workItem from="1747641875548" duration="3522000" />
       <workItem from="1748050127144" duration="665000" />
       <workItem from="1748068305171" duration="2960000" />
-      <workItem from="1748131346256" duration="6187000" />
+      <workItem from="1748131346256" duration="6356000" />
     </task>
     <task id="LOCAL-00001" summary="update directory">
       <option name="closed" value="true" />
@@ -125,7 +121,23 @@
       <option name="project" value="LOCAL" />
       <updated>1748135787402</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="menambahkan sequence yang belum dibuat">
+      <option name="closed" value="true" />
+      <created>1748137608026</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748137608026</updated>
+    </task>
+    <task id="LOCAL-00005" summary="menambahkan sequence yang belum dibuat">
+      <option name="closed" value="true" />
+      <created>1748137676787</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748137676787</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,7 +147,8 @@
     <MESSAGE value="update directory" />
     <MESSAGE value="menambahkan Sequence diagram" />
     <MESSAGE value="menambahkan state dan deployment diagram" />
-    <option name="LAST_COMMIT_MESSAGE" value="menambahkan state dan deployment diagram" />
+    <MESSAGE value="menambahkan sequence yang belum dibuat" />
+    <option name="LAST_COMMIT_MESSAGE" value="menambahkan sequence yang belum dibuat" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
