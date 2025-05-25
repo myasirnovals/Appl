@@ -4,19 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="update directory">
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/CDLapanganOlahraga.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Praktikum/SDPelaksanaanSeminarTA.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Praktikum/SDPendaftaranSeminarTA.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Praktikum/SDPendaftaranTA.puml" afterDir="false" />
+    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="menambahkan Sequence diagram">
+      <change afterPath="$PROJECT_DIR$/Praktikum/DeploymentDiagramUniversitasXYZ.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Praktikum/StateDiagramUniversitasXYZ.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JurnalAPPL/UCLapanganOlahraga.puml" beforeDir="false" afterPath="$PROJECT_DIR$/JurnalAPPL/UCLapanganOlahraga.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikum/ActPendaftaranTA2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikum/ClassDiagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikum/CDUniversitasXYZ.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikum/SMATA-Use_Case_Diagram_Sistem_Manajemen_Administrasi_Tugas_Akhir.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikum/SMATA.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikum/UniversitasXYZ.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Praktikum/UniversitasXYZ.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Praktikum/UCUniversitasXYZ.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +24,8 @@
         <option value="UML Use Case" />
         <option value="UML Class" />
         <option value="UML Sequence" />
+        <option value="UML State" />
+        <option value="UML Deployment" />
       </list>
     </option>
   </component>
@@ -50,7 +43,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "DefaultPlantUmlFileTemplate": "UML Sequence",
+    "DefaultPlantUmlFileTemplate": "UML Deployment",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
@@ -104,7 +97,7 @@
       <workItem from="1747641875548" duration="3522000" />
       <workItem from="1748050127144" duration="665000" />
       <workItem from="1748068305171" duration="2960000" />
-      <workItem from="1748131346256" duration="2784000" />
+      <workItem from="1748131346256" duration="4407000" />
     </task>
     <task id="LOCAL-00001" summary="update directory">
       <option name="closed" value="true" />
@@ -114,7 +107,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748050408812</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="menambahkan Sequence diagram">
+      <option name="closed" value="true" />
+      <created>1748134779465</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748134779465</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -122,7 +123,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update directory" />
-    <option name="LAST_COMMIT_MESSAGE" value="update directory" />
+    <MESSAGE value="menambahkan Sequence diagram" />
+    <option name="LAST_COMMIT_MESSAGE" value="menambahkan Sequence diagram" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

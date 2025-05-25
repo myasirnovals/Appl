@@ -1,0 +1,46 @@
+@startuml
+node "Client Mahasiswa" {
+  [Browser Mahasiswa]
+}
+
+node "Client Dosen" {
+  [Browser Dosen]
+}
+
+node "Client Koordinator" {
+  [Browser Koordinator]
+}
+
+node "Web Server" {
+  [Aplikasi Web TA]
+}
+
+node "Application Server" {
+  [SistemTA]
+  [PenilaianTA]
+  [PendaftaranTA]
+  [PendaftaranSeminarTA]
+  [JadwalSeminarTA]
+}
+
+node "Database Server" {
+  [Database TA]
+}
+
+' Koneksi antar node
+[Browser Mahasiswa] --> [Aplikasi Web TA] : HTTP/HTTPS
+[Browser Dosen] --> [Aplikasi Web TA] : HTTP/HTTPS
+[Browser Koordinator] --> [Aplikasi Web TA] : HTTP/HTTPS
+
+[Aplikasi Web TA] --> [SistemTA] : API Call
+[SistemTA] --> [PenilaianTA]
+[SistemTA] --> [PendaftaranTA]
+[SistemTA] --> [PendaftaranSeminarTA]
+[SistemTA] --> [JadwalSeminarTA]
+
+[SistemTA] --> [Database TA] : JDBC/ODBC
+[PenilaianTA] --> [Database TA]
+[PendaftaranTA] --> [Database TA]
+[PendaftaranSeminarTA] --> [Database TA]
+[JadwalSeminarTA] --> [Database TA]
+@enduml

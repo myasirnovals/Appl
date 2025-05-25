@@ -1,0 +1,34 @@
+@startuml
+[*] --> BelumDaftarTA
+
+BelumDaftarTA : Mahasiswa belum melakukan pendaftaran TA
+
+BelumDaftarTA --> DaftarTA : Mengisi data pendaftaran TA
+DaftarTA --> VerifikasiPendaftaranTA : Data pendaftaran dikirim ke sistem
+VerifikasiPendaftaranTA --> PendaftaranTADitolak : Syarat tidak terpenuhi
+VerifikasiPendaftaranTA --> PendaftaranTADiterima : Syarat terpenuhi
+
+PendaftaranTADitolak --> DaftarTA : Perbaiki/melengkapi data
+
+PendaftaranTADiterima --> ProsesTA : Mulai bimbingan TA
+
+ProsesTA --> DaftarSeminar : Mengajukan pendaftaran seminar TA
+DaftarSeminar --> VerifikasiPendaftaranSeminar : Verifikasi syarat seminar
+VerifikasiPendaftaranSeminar --> PendaftaranSeminarDitolak : Syarat tidak terpenuhi
+VerifikasiPendaftaranSeminar --> PendaftaranSeminarDiterima : Syarat terpenuhi
+
+PendaftaranSeminarDitolak --> DaftarSeminar : Perbaiki/melengkapi syarat seminar
+
+PendaftaranSeminarDiterima --> MenungguJadwalSeminar : Menunggu jadwal seminar
+MenungguJadwalSeminar --> PelaksanaanSeminar : Seminar dilaksanakan
+PelaksanaanSeminar --> PenilaianSeminar : Penilaian seminar oleh dosen
+
+PenilaianSeminar --> SeminarLulus : Nilai seminar memenuhi syarat
+PenilaianSeminar --> SeminarTidakLulus : Nilai seminar tidak memenuhi syarat
+
+SeminarTidakLulus --> DaftarSeminar : Ajukan seminar ulang
+
+SeminarLulus --> SelesaiTA : Proses TA selesai, mahasiswa dinyatakan lulus
+
+SelesaiTA --> [*]
+@enduml
