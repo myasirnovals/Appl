@@ -1,0 +1,19 @@
+@startuml
+actor User
+participant "ArenaDetailPage/PriceInfoPage" as UI
+participant "PriceController" as Controller
+participant "PriceService" as Service
+participant "Arena" as ArenaEntity
+participant "Harga" as PriceEntity
+
+User -> UI : Buka halaman detail arena/harga
+UI -> Controller : getPriceInfo(arenaId)
+Controller -> Service : fetchPriceInfo(arenaId)
+Service -> ArenaEntity : getArena(arenaId)
+ArenaEntity --> Service : arenaData
+Service -> PriceEntity : getPrice(arenaId)
+PriceEntity --> Service : priceList
+Service -> Controller : priceList
+Controller -> UI : priceList
+UI -> User : tampilkan informasi harga
+@enduml

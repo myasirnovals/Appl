@@ -1,0 +1,43 @@
+@startuml
+actor Admin
+participant "PromoManagementPage" as UI
+participant "PromoController" as Controller
+participant "PromoService" as Service
+participant "Promo" as PromoEntity
+
+Admin -> UI : Buka halaman kelola promo/diskon
+UI -> Controller : getPromoList()
+Controller -> Service : fetchPromoList()
+Service -> PromoEntity : getAllPromo()
+PromoEntity --> Service : promoList
+Service -> Controller : promoList
+Controller -> UI : promoList
+UI -> Admin : tampilkan daftar promo/diskon
+
+== Tambah Promo/Diskon ==
+Admin -> UI : Input data promo/diskon baru
+UI -> Controller : addPromo(data)
+Controller -> Service : addPromo(data)
+Service -> PromoEntity : insertPromo(data)
+PromoEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil tambah
+
+== Update Promo/Diskon ==
+Admin -> UI : Edit data promo/diskon
+UI -> Controller : updatePromo(id, data)
+Controller -> Service : updatePromo(id, data)
+Service -> PromoEntity : updatePromo(id, data)
+PromoEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil update
+
+== Hapus Promo/Diskon ==
+Admin -> UI : Hapus promo/diskon
+UI -> Controller : deletePromo(id)
+Controller -> Service : deletePromo(id)
+Service -> PromoEntity : deletePromo(id)
+PromoEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil hapus
+@enduml

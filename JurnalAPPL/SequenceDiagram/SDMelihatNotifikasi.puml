@@ -1,0 +1,26 @@
+@startuml
+actor User
+participant "NotificationPage" as UI
+participant "NotificationController" as Controller
+participant "NotificationService" as Service
+participant "Notification" as NotificationEntity
+
+User -> UI : Buka halaman notifikasi
+UI -> Controller : getNotificationList(userId)
+Controller -> Service : fetchUserNotifications(userId)
+Service -> NotificationEntity : getNotificationsByUser(userId)
+NotificationEntity --> Service : notificationList
+Service -> Controller : notificationList
+Controller -> UI : notificationList
+UI -> User : tampilkan daftar notifikasi
+
+== Melihat Detail Notifikasi ==
+User -> UI : Pilih notifikasi
+UI -> Controller : getNotificationDetail(notificationId)
+Controller -> Service : fetchNotificationDetail(notificationId)
+Service -> NotificationEntity : getNotificationById(notificationId)
+NotificationEntity --> Service : notificationDetail
+Service -> Controller : notificationDetail
+Controller -> UI : notificationDetail
+UI -> User : tampilkan detail notifikasi
+@enduml

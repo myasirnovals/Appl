@@ -1,0 +1,48 @@
+@startuml
+actor Admin
+participant "ArenaFacilityManagementPage" as UI
+participant "ArenaController" as Controller
+participant "ArenaService" as Service
+participant "Arena" as ArenaEntity
+participant "Fasilitas" as FasilitasEntity
+
+Admin -> UI : Buka halaman kelola arena & fasilitas
+UI -> Controller : getArenaFacilityList()
+Controller -> Service : fetchArenaFacilityList()
+Service -> ArenaEntity : getAllArena()
+ArenaEntity --> Service : arenaList
+Service -> FasilitasEntity : getAllFasilitas()
+FasilitasEntity --> Service : fasilitasList
+Service -> Controller : arenaList, fasilitasList
+Controller -> UI : arenaList, fasilitasList
+UI -> Admin : tampilkan daftar arena & fasilitas
+
+== Tambah Arena ==
+Admin -> UI : Tambah arena
+UI -> Controller : addArena(data)
+Controller -> Service : createArena(data)
+Service -> ArenaEntity : saveArena(data)
+ArenaEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Edit Arena ==
+Admin -> UI : Edit arena
+UI -> Controller : editArena(id, data)
+Controller -> Service : updateArena(id, data)
+Service -> ArenaEntity : updateArena(id, data)
+ArenaEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Hapus Arena ==
+Admin -> UI : Hapus arena
+UI -> Controller : deleteArena(id)
+Controller -> Service : deleteArena(id)
+Service -> ArenaEntity : deleteArena(id)
+ArenaEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Tambah/Edit/Hapus Fasilitas (alur sama seperti arena) ==
+@enduml

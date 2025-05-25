@@ -1,0 +1,36 @@
+@startuml
+actor User
+participant "BookingDetailPage" as UI
+participant "BookingController" as Controller
+participant "BookingService" as Service
+participant "Lapangan" as LapanganEntity
+participant "Booking" as BookingEntity
+
+User -> UI : Buka detail booking
+UI -> Controller : getBookingDetail(bookingId)
+Controller -> Service : fetchBookingDetail(bookingId)
+Service -> BookingEntity : getBooking(bookingId)
+BookingEntity --> Service : bookingDetail
+Service -> Controller : bookingDetail
+Controller -> UI : bookingDetail
+UI -> User : tampilkan detail booking
+
+User -> UI : Pilih "Reschedule"
+UI -> User : tampilkan form jadwal baru
+User -> UI : Pilih tanggal & jam baru
+UI -> Controller : rescheduleBooking(bookingId, newDate, newTime)
+Controller -> Service : rescheduleBooking(bookingId, newDate, newTime)
+Service -> LapanganEntity : checkAvailability(lapanganId, newDate, newTime)
+LapanganEntity --> Service : isAvailable
+alt Jika tersedia
+    Service -> BookingEntity : updateBooking(bookingId, newDate, newTime)
+    BookingEntity --> Service : result
+    Service -> Controller : rescheduleSuccess
+    Controller -> UI : rescheduleSuccess
+    UI -> User : tampilkan konfirmasi reschedule
+else Jika tidak tersedia
+    Service -> Controller : rescheduleFailed
+    Controller -> UI : rescheduleFailed
+    UI -> User : tampilkan pesan gagal reschedule
+end
+@enduml

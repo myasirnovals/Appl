@@ -1,0 +1,43 @@
+@startuml
+actor Admin
+participant "RefundManagementPage" as UI
+participant "RefundController" as Controller
+participant "RefundService" as Service
+participant "Refund" as RefundEntity
+
+Admin -> UI : Buka halaman kelola refund
+UI -> Controller : getRefundList()
+Controller -> Service : fetchRefundList()
+Service -> RefundEntity : getAllRefund()
+RefundEntity --> Service : refundList
+Service -> Controller : refundList
+Controller -> UI : refundList
+UI -> Admin : tampilkan daftar refund
+
+== Tambah Refund ==
+Admin -> UI : Input data refund baru
+UI -> Controller : addRefund(data)
+Controller -> Service : addRefund(data)
+Service -> RefundEntity : insertRefund(data)
+RefundEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil tambah
+
+== Update Status Refund ==
+Admin -> UI : Update status refund
+UI -> Controller : updateRefundStatus(id, status)
+Controller -> Service : updateRefundStatus(id, status)
+Service -> RefundEntity : updateStatus(id, status)
+RefundEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil update
+
+== Hapus Refund ==
+Admin -> UI : Hapus refund
+UI -> Controller : deleteRefund(id)
+Controller -> Service : deleteRefund(id)
+Service -> RefundEntity : deleteRefund(id)
+RefundEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil hapus
+@enduml

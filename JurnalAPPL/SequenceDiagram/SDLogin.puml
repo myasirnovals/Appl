@@ -1,0 +1,23 @@
+@startuml
+actor User
+participant "LoginPage" as UI
+participant "AuthController" as Controller
+participant "AuthService" as Service
+participant "User" as Entity
+
+User -> UI : Buka halaman login
+User -> UI : Input username & password\nKlik Login
+UI -> Controller : login(username, password)
+Controller -> Service : authenticate(username, password)
+Service -> Entity : findByUsername(username)
+Entity --> Service : userData
+Service -> Service : verifyPassword(userData, password)
+alt Login sukses
+    Service -> Entity : updateLastLogin(userData)
+    Service -> Controller : loginSuccess(userData)
+    Controller -> UI : tampilkan dashboard (berdasarkan role)
+else Login gagal
+    Service -> Controller : loginFailed(error)
+    Controller -> UI : tampilkan pesan error
+end
+@enduml

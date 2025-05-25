@@ -1,0 +1,76 @@
+@startuml
+title Activity Diagram - Proses Booking Lapangan Olahraga
+
+|Guest/Member|
+start
+: Buka aplikasi sistem booking;
+: Browse arena & fasilitas;
+: Lihat jadwal ketersediaan;
+: Lihat informasi harga;
+
+if () then (Belum Login)
+  : Login/Register;
+  : Verifikasi email/telepon;
+else (Sudah Login)
+endif
+
+: Pilih arena dan lapangan;
+: Pilih tanggal dan waktu;
+: Cek ketersediaan jadwal;
+
+|System|
+if () then (Jadwal Tidak Tersedia)
+  |Guest/Member|
+  : Pilih jadwal lain;
+else (Jadwal Tersedia)
+endif
+
+|Guest/Member|
+: Isi data penyewaan;
+: Pilih durasi sewa;
+
+if () then (Ada Promo)
+  : Lihat dan pilih promo;
+  : Hitung diskon;
+else (Tidak Ada Promo)
+endif
+
+: Konfirmasi detail booking;
+: Pilih metode pembayaran;
+: Lakukan pembayaran;
+
+|System|
+: Proses pembayaran;
+
+if () then (Pembayaran Tidak Berhasil)
+  |Guest/Member|
+  : Ulangi pembayaran;
+else (Pembayaran Berhasil)
+endif
+
+|Employee|
+if () then (Pembayaran manual)
+  : Konfirmasi pembayaran manual;
+else (Pembayaran tidak manual)
+endif
+
+|System|
+: Generate tiket booking;
+: Update status lapangan;
+: Kirim notifikasi ke member;
+
+|Guest/Member|
+: Terima konfirmasi booking;
+: Print tiket;
+
+note right
+  Member dapat:
+  - Reschedule booking
+  - Cancel booking
+  - Lihat riwayat transaksi
+  - Berikan rating & komentar
+end note
+
+stop
+
+@enduml

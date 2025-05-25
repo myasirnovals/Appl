@@ -1,0 +1,321 @@
+@startuml
+title Class Diagram - Sistem Booking Lapangan Olahraga
+
+' ===== ENUMERATIONS =====
+enum UserRole {
+    ADMIN
+    MANAJER
+    EMPLOYEE
+    MEMBER
+    GUEST
+}
+
+enum BookingStatus {
+    PENDING
+    CONFIRMED
+    CANCELLED
+    COMPLETED
+    EXPIRED
+}
+
+enum PaymentStatus {
+    PENDING
+    PAID
+    FAILED
+    REFUNDED
+    PARTIAL
+}
+
+enum PaymentMethod {
+    CASH
+    TRANSFER_BANK
+    E_WALLET
+    VIRTUAL_ACCOUNT
+    CREDIT_CARD
+}
+
+enum ArenaCategory {
+    FUTSAL
+    BADMINTON
+    BASKETBALL
+    TENNIS
+    VOLLEYBALL
+    MULTIPURPOSE
+}
+
+enum LapanganStatus {
+    AVAILABLE
+    BOOKED
+    MAINTENANCE
+    CLOSED
+}
+
+' ===== CORE ENTITIES =====
+
+class User {
+    -userId: String
+    -username: String
+    -email: String
+    -password: String
+    -fullName: String
+    -phoneNumber: String
+    -address: String
+    -role: UserRole
+    -isActive: boolean
+    -isVerified: boolean
+    -createdAt: DateTime
+    -updatedAt: DateTime
+    +login(username: String, password: String): boolean
+    +logout(): void
+    +updateProfile(): boolean
+    +changePassword(): boolean
+    +resetPassword(): boolean
+    +verifyEmail(): boolean
+    +deactivateAccount(): void
+}
+
+class Member {
+    -memberId: String
+    -membershipType: String
+    -joinDate: DateTime
+    -totalBookings: int
+    -totalSpent: double
+    -loyaltyPoints: int
+    -blacklisted: boolean
+    -blacklistReason: String
+    +addLoyaltyPoints(points: int): void
+    +redeemPoints(points: int): boolean
+    +getMembershipBenefits(): List
+    +getBookingHistory(): List
+    +blacklistMember(reason: String): void
+}
+
+class Arena {
+    -arenaId: String
+    -arenaName: String
+    -category: ArenaCategory
+    -description: String
+    -location: String
+    -facilities: String
+    -operatingHours: String
+    -contactInfo: String
+    -isActive: boolean
+    -createdAt: DateTime
+    +addLapangan(): void
+    +removeLapangan(): void
+    +updateFacilities(): void
+    +setOperatingHours(): void
+    +getAvailableLapangan(): List
+}
+
+class Lapangan {
+    -lapanganId: String
+    -lapanganName: String
+    -arenaId: String
+    -capacity: int
+    -pricePerHour: double
+    -status: LapanganStatus
+    -description: String
+    -equipment: String
+    -maintenanceSchedule: DateTime
+    -createdAt: DateTime
+    +updateStatus(): void
+    +setPricing(): void
+    +scheduleMaintenance(): void
+    +checkAvailability(): boolean
+    +getBookingSchedule(): List
+}
+
+class Booking {
+    -bookingId: String
+    -memberId: String
+    -lapanganId: String
+    -bookingDate: Date
+    -startTime: Time
+    -endTime: Time
+    -duration: int
+    -totalPrice: double
+    -discount: double
+    -finalPrice: double
+    -status: BookingStatus
+    -notes: String
+    -createdAt: DateTime
+    -confirmedBy: String
+    +calculateTotalPrice(): double
+    +applyDiscount(): void
+    +confirmBooking(): void
+    +cancelBooking(): void
+    +extendBooking(): boolean
+    +checkConflict(): boolean
+}
+
+class Payment {
+    -paymentId: String
+    -bookingId: String
+    -amount: double
+    -method: PaymentMethod
+    -status: PaymentStatus
+    -transactionId: String
+    -bankAccount: String
+    -proofOfPayment: String
+    -paidAt: DateTime
+    -verifiedBy: String
+    -verifiedAt: DateTime
+    +processPayment(): boolean
+    +verifyPayment(): boolean
+    +refundPayment(): boolean
+    +generateInvoice(): Invoice
+    +sendPaymentConfirmation(): void
+}
+
+class Invoice {
+    -invoiceId: String
+    -paymentId: String
+    -invoiceNumber: String
+    -issueDate: DateTime
+    -dueDate: DateTime
+    -subtotal: double
+    -tax: double
+    -discount: double
+    -totalAmount: double
+    -notes: String
+    +generateInvoiceNumber(): String
+    +addItem(): void
+    +calculateTotal(): double
+    +printInvoice(): void
+    +sendInvoiceEmail(): void
+}
+
+class InvoiceItem {
+    -itemId: String
+    -description: String
+    -quantity: int
+    -unitPrice: double
+    -totalPrice: double
+    +calculateItemTotal(): double
+}
+
+class Notification {
+    -notificationId: String
+    -userId: String
+    -title: String
+    -message: String
+    -type: String
+    -isRead: boolean
+    -sentAt: DateTime
+    -readAt: DateTime
+    +markAsRead(): void
+    +sendNotification(): boolean
+    +scheduleNotification(): void
+}
+
+class Promo {
+    -promoId: String
+    -promoCode: String
+    -promoName: String
+    -description: String
+    -discountType: String
+    -discountValue: double
+    -minimumAmount: double
+    -startDate: DateTime
+    -endDate: DateTime
+    -usageLimit: int
+    -usedCount: int
+    -isActive: boolean
+    +validatePromo(): boolean
+    +applyPromo(): double
+    +incrementUsage(): void
+    +deactivatePromo(): void
+}
+
+class Schedule {
+    -scheduleId: String
+    -lapanganId: String
+    -date: Date
+    -isHoliday: boolean
+    -specialPricing: double
+    -notes: String
+    +addTimeSlot(): void
+    +removeTimeSlot(): void
+    +checkAvailability(): boolean
+    +setSpecialPricing(): void
+}
+
+class TimeSlot {
+    -slotId: String
+    -startTime: Time
+    -endTime: Time
+    -isAvailable: boolean
+    -price: double
+    -bookingId: String
+    +bookSlot(): void
+    +releaseSlot(): void
+    +updatePrice(): void
+}
+
+class Report {
+    -reportId: String
+    -reportType: String
+    -title: String
+    -description: String
+    -generatedBy: String
+    -generatedAt: DateTime
+    -filePath: String
+    -format: String
+    +generateReport(): boolean
+    +exportToPDF(): String
+    +exportToExcel(): String
+    +exportToCSV(): String
+    +scheduleReport(): void
+}
+
+class SystemLog {
+    -logId: String
+    -userId: String
+    -action: String
+    -description: String
+    -ipAddress: String
+    -userAgent: String
+    -timestamp: DateTime
+    -severity: String
+    +logUserAction(): void
+    +logSystemEvent(): void
+    +getLogsByUser(): List
+    +getLogsByDate(): List
+}
+
+class BankAccount {
+    -accountId: String
+    -bankName: String
+    -accountNumber: String
+    -accountHolder: String
+    -isActive: boolean
+    -createdAt: DateTime
+    +activateAccount(): void
+    +deactivateAccount(): void
+    +updateAccountInfo(): void
+}
+
+' ===== RELATIONSHIPS =====
+
+User <|-- Member
+
+User "1" -- "0..*" Booking : creates
+User "1" -- "0..*" Notification : receives
+User "1" -- "0..*" SystemLog : generates
+User "1" -- "0..*" Report : generates
+
+Arena "1" -- "1..*" Lapangan : contains
+Lapangan "1" -- "0..*" Booking : booked_for
+Lapangan "1" -- "0..*" Schedule : has
+
+Booking "1" -- "1" Payment : has
+Booking "0..*" -- "0..1" Promo : uses
+
+Payment "1" -- "1" Invoice : generates
+Invoice "1" -- "1..*" InvoiceItem : contains
+
+Schedule "1" -- "1..*" TimeSlot : contains
+TimeSlot "0..1" -- "1" Booking : reserved_by
+
+@enduml

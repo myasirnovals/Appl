@@ -1,0 +1,37 @@
+@startuml
+actor User
+participant "BookingDetailPage" as UI
+participant "TicketController" as Controller
+participant "TicketService" as Service
+participant "Booking" as BookingEntity
+participant "Ticket" as TicketEntity
+participant "PDFGenerator" as PDFGen
+
+User -> UI : Buka detail booking
+UI -> Controller : getBookingDetail(bookingId)
+Controller -> Service : fetchBookingDetail(bookingId)
+Service -> BookingEntity : getBooking(bookingId)
+BookingEntity --> Service : bookingDetail
+Service -> Controller : bookingDetail
+Controller -> UI : bookingDetail
+UI -> User : tampilkan detail booking
+
+User -> UI : Klik "Print Tiket"
+UI -> Controller : printTicket(bookingId)
+Controller -> Service : generateTicket(bookingId)
+Service -> BookingEntity : getBooking(bookingId)
+BookingEntity --> Service : bookingDetail
+alt Jika booking valid dan sudah dibayar
+    Service -> TicketEntity : createTicket(bookingId)
+    TicketEntity --> Service : ticketData
+    Service -> PDFGen : generatePDF(ticketData)
+    PDFGen --> Service : ticketPDF
+    Service -> Controller : ticketPDF
+    Controller -> UI : ticketPDF
+    UI -> User : tampilkan/unduh tiket PDF
+else Jika booking tidak valid/belum dibayar
+    Service -> Controller : error("Tiket tidak bisa dicetak")
+    Controller -> UI : error
+    UI -> User : tampilkan pesan error
+end
+@enduml

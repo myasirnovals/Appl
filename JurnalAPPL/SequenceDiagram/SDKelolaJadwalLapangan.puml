@@ -1,0 +1,43 @@
+@startuml
+actor Admin
+participant "FieldScheduleManagementPage" as UI
+participant "FieldScheduleController" as Controller
+participant "FieldScheduleService" as Service
+participant "JadwalLapangan" as JadwalLapanganEntity
+
+Admin -> UI : Buka halaman kelola jadwal lapangan
+UI -> Controller : getJadwalLapanganList()
+Controller -> Service : fetchJadwalLapanganList()
+Service -> JadwalLapanganEntity : getAllJadwalLapangan()
+JadwalLapanganEntity --> Service : jadwalLapanganList
+Service -> Controller : jadwalLapanganList
+Controller -> UI : jadwalLapanganList
+UI -> Admin : tampilkan daftar jadwal lapangan
+
+== Tambah Jadwal Lapangan ==
+Admin -> UI : Tambah jadwal lapangan
+UI -> Controller : addJadwalLapangan(data)
+Controller -> Service : createJadwalLapangan(data)
+Service -> JadwalLapanganEntity : saveJadwalLapangan(data)
+JadwalLapanganEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Edit Jadwal Lapangan ==
+Admin -> UI : Edit jadwal lapangan
+UI -> Controller : editJadwalLapangan(id, data)
+Controller -> Service : updateJadwalLapangan(id, data)
+Service -> JadwalLapanganEntity : updateJadwalLapangan(id, data)
+JadwalLapanganEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Hapus Jadwal Lapangan ==
+Admin -> UI : Hapus jadwal lapangan
+UI -> Controller : deleteJadwalLapangan(id)
+Controller -> Service : deleteJadwalLapangan(id)
+Service -> JadwalLapanganEntity : deleteJadwalLapangan(id)
+JadwalLapanganEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+@enduml

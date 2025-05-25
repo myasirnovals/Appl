@@ -1,0 +1,19 @@
+@startuml
+actor Admin
+participant "ReportManagementPage" as UI
+participant "ReportController" as Controller
+participant "ReportService" as Service
+participant "Report" as Entity
+participant "ExportService" as Export
+
+Admin -> UI : Pilih filter laporan\nKlik Export
+UI -> Controller : exportReport(filter, format)
+Controller -> Service : getReportData(filter)
+Service -> Entity : getReports(filter)
+Entity --> Service : reportList
+Service -> Export : generateExportFile(reportList, format)
+Export --> Service : exportFile
+Service -> Controller : exportFile
+Controller -> UI : Kirim file export
+UI -> Admin : Download file laporan
+@enduml

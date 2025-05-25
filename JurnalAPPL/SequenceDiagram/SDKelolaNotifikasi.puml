@@ -1,0 +1,43 @@
+@startuml
+actor Admin
+participant "NotificationManagementPage" as UI
+participant "NotificationController" as Controller
+participant "NotificationService" as Service
+participant "Notification" as NotificationEntity
+
+Admin -> UI : Buka halaman kelola notifikasi
+UI -> Controller : getNotificationList()
+Controller -> Service : fetchNotifications()
+Service -> NotificationEntity : getAllNotifications()
+NotificationEntity --> Service : notificationList
+Service -> Controller : notificationList
+Controller -> UI : notificationList
+UI -> Admin : tampilkan daftar notifikasi
+
+== Tambah Notifikasi ==
+Admin -> UI : Tambah notifikasi
+UI -> Controller : addNotification(data)
+Controller -> Service : createNotification(data)
+Service -> NotificationEntity : saveNotification(data)
+NotificationEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Edit Notifikasi ==
+Admin -> UI : Edit notifikasi
+UI -> Controller : updateNotification(id, data)
+Controller -> Service : updateNotification(id, data)
+Service -> NotificationEntity : updateNotification(id, data)
+NotificationEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Hapus Notifikasi ==
+Admin -> UI : Hapus notifikasi
+UI -> Controller : deleteNotification(id)
+Controller -> Service : deleteNotification(id)
+Service -> NotificationEntity : deleteNotification(id)
+NotificationEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+@enduml

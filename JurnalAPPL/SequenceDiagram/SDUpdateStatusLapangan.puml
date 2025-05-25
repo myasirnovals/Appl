@@ -1,0 +1,25 @@
+@startuml
+actor Admin
+participant "FieldStatusUpdatePage" as UI
+participant "FieldStatusController" as Controller
+participant "FieldStatusService" as Service
+participant "Lapangan" as LapanganEntity
+
+Admin -> UI : Buka halaman update status lapangan
+UI -> Controller : getLapanganList()
+Controller -> Service : fetchLapanganList()
+Service -> LapanganEntity : getAllLapangan()
+LapanganEntity --> Service : lapanganList
+Service -> Controller : lapanganList
+Controller -> UI : lapanganList
+UI -> Admin : tampilkan daftar lapangan & status
+
+== Update Status Lapangan ==
+Admin -> UI : Update status lapangan (pilih lapangan, pilih status)
+UI -> Controller : updateStatusLapangan(id, status)
+Controller -> Service : updateStatusLapangan(id, status)
+Service -> LapanganEntity : updateStatus(id, status)
+LapanganEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil update
+@enduml

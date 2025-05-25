@@ -1,0 +1,53 @@
+@startuml
+actor Admin
+participant "RolePermissionManagementPage" as UI
+participant "RoleController" as RoleCtrl
+participant "PermissionController" as PermCtrl
+participant "RoleService" as RoleSvc
+participant "PermissionService" as PermSvc
+participant "Role" as RoleEntity
+participant "Permission" as PermEntity
+participant "RolePermission" as RPAssoc
+
+Admin -> UI : Buka halaman kelola role & permission
+UI -> RoleCtrl : getRoleList()
+RoleCtrl -> RoleSvc : fetchRoles()
+RoleSvc -> RoleEntity : getAllRoles()
+RoleEntity --> RoleSvc : roleList
+RoleSvc -> RoleCtrl : roleList
+RoleCtrl -> UI : roleList
+
+UI -> PermCtrl : getPermissionList()
+PermCtrl -> PermSvc : fetchPermissions()
+PermSvc -> PermEntity : getAllPermissions()
+PermEntity --> PermSvc : permissionList
+PermSvc -> PermCtrl : permissionList
+PermCtrl -> UI : permissionList
+
+== Menambah/Mengedit/Menghapus Role ==
+Admin -> UI : Tambah/Edit/Hapus role
+UI -> RoleCtrl : add/update/deleteRole(data)
+RoleCtrl -> RoleSvc : processRole(data/action)
+RoleSvc -> RoleEntity : saveOrUpdateOrDelete(data/action)
+RoleEntity --> RoleSvc : result
+RoleSvc -> RoleCtrl : result
+RoleCtrl -> UI : tampilkan hasil
+
+== Menambah/Mengedit/Menghapus Permission ==
+Admin -> UI : Tambah/Edit/Hapus permission
+UI -> PermCtrl : add/update/deletePermission(data)
+PermCtrl -> PermSvc : processPermission(data/action)
+PermSvc -> PermEntity : saveOrUpdateOrDelete(data/action)
+PermEntity --> PermSvc : result
+PermSvc -> PermCtrl : result
+PermCtrl -> UI : tampilkan hasil
+
+== Mengatur Hak Akses Role ==
+Admin -> UI : Atur permission pada role
+UI -> RoleCtrl : updateRolePermissions(roleId, permissionIds)
+RoleCtrl -> RoleSvc : setRolePermissions(roleId, permissionIds)
+RoleSvc -> RPAssoc : updateRolePermissionAssociations(roleId, permissionIds)
+RPAssoc --> RoleSvc : result
+RoleSvc -> RoleCtrl : result
+RoleCtrl -> UI : tampilkan hasil
+@enduml

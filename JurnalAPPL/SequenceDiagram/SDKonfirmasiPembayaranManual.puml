@@ -1,0 +1,25 @@
+@startuml
+actor Admin
+participant "ManualPaymentConfirmationPage" as UI
+participant "PaymentController" as Controller
+participant "PaymentService" as Service
+participant "Pembayaran" as PembayaranEntity
+
+Admin -> UI : Buka halaman konfirmasi pembayaran manual
+UI -> Controller : getUnconfirmedPayments()
+Controller -> Service : fetchUnconfirmedPayments()
+Service -> PembayaranEntity : getUnconfirmedPayments()
+PembayaranEntity --> Service : unconfirmedPaymentList
+Service -> Controller : unconfirmedPaymentList
+Controller -> UI : unconfirmedPaymentList
+UI -> Admin : tampilkan daftar pembayaran belum terkonfirmasi
+
+== Konfirmasi Pembayaran Manual ==
+Admin -> UI : Pilih pembayaran & input data konfirmasi
+UI -> Controller : confirmPaymentManually(id, dataKonfirmasi)
+Controller -> Service : confirmPaymentManually(id, dataKonfirmasi)
+Service -> PembayaranEntity : updateStatus(id, "confirmed", dataKonfirmasi)
+PembayaranEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil konfirmasi
+@enduml

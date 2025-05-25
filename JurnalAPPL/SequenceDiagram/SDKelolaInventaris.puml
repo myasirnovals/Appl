@@ -1,0 +1,43 @@
+@startuml
+actor Admin
+participant "InventoryManagementPage" as UI
+participant "InventoryController" as Controller
+participant "InventoryService" as Service
+participant "Inventaris" as InventarisEntity
+
+Admin -> UI : Buka halaman kelola inventaris
+UI -> Controller : getInventarisList()
+Controller -> Service : fetchInventarisList()
+Service -> InventarisEntity : getAllInventaris()
+InventarisEntity --> Service : inventarisList
+Service -> Controller : inventarisList
+Controller -> UI : inventarisList
+UI -> Admin : tampilkan daftar inventaris
+
+== Tambah Inventaris ==
+Admin -> UI : Tambah inventaris
+UI -> Controller : addInventaris(data)
+Controller -> Service : createInventaris(data)
+Service -> InventarisEntity : saveInventaris(data)
+InventarisEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Edit Inventaris ==
+Admin -> UI : Edit inventaris
+UI -> Controller : editInventaris(id, data)
+Controller -> Service : updateInventaris(id, data)
+Service -> InventarisEntity : updateInventaris(id, data)
+InventarisEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Hapus Inventaris ==
+Admin -> UI : Hapus inventaris
+UI -> Controller : deleteInventaris(id)
+Controller -> Service : deleteInventaris(id)
+Service -> InventarisEntity : deleteInventaris(id)
+InventarisEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+@enduml

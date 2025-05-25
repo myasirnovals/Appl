@@ -1,0 +1,21 @@
+@startuml
+actor Admin
+participant "BackupPage" as UI
+participant "BackupController" as Controller
+participant "BackupService" as Service
+participant "Database" as DB
+participant "StorageService" as Storage
+
+Admin -> UI : Buka halaman backup
+Admin -> UI : Klik Backup Data
+UI -> Controller : requestBackup()
+Controller -> Service : startBackupProcess()
+Service -> DB : dumpDatabase()
+DB --> Service : databaseDump
+Service -> Service : compressBackup(databaseDump)
+Service -> Storage : storeBackupFile(backupFile)
+Storage --> Service : storageResult (success/link)
+Service -> Controller : backupStatus(storageResult)
+Controller -> UI : Tampilkan status/link download backup
+UI -> Admin : Tampilkan notifikasi/unduhan
+@enduml

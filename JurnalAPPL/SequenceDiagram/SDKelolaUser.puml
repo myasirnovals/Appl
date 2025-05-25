@@ -1,0 +1,55 @@
+@startuml
+actor Admin
+participant "UserManagementPage" as UI
+participant "UserController" as Controller
+participant "UserService" as Service
+participant "User" as UserEntity
+participant "Role" as RoleEntity
+participant "UserRole" as UserRoleEntity
+
+Admin -> UI : Buka halaman kelola user
+UI -> Controller : getUserList()
+Controller -> Service : fetchUsers()
+Service -> UserEntity : getAllUsers()
+UserEntity --> Service : userList
+Service -> Controller : userList
+Controller -> UI : userList
+
+== Menambah User ==
+Admin -> UI : Tambah user
+UI -> Controller : addUser(data)
+Controller -> Service : createUser(data)
+Service -> UserEntity : saveUser(data)
+UserEntity --> Service : user
+Service -> UserRoleEntity : assignRole(userId, roleId)
+UserRoleEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Edit User ==
+Admin -> UI : Edit user
+UI -> Controller : updateUser(userId, data)
+Controller -> Service : updateUser(userId, data)
+Service -> UserEntity : updateUser(userId, data)
+UserEntity --> Service : user
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Hapus User ==
+Admin -> UI : Hapus user
+UI -> Controller : deleteUser(userId)
+Controller -> Service : deleteUser(userId)
+Service -> UserEntity : deleteUser(userId)
+UserEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Reset Password User ==
+Admin -> UI : Reset password user
+UI -> Controller : resetPassword(userId)
+Controller -> Service : resetUserPassword(userId)
+Service -> UserEntity : resetPassword(userId)
+UserEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+@enduml

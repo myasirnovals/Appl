@@ -1,0 +1,34 @@
+@startuml
+actor User
+participant "BookingPage" as UI
+participant "BookingController" as Controller
+participant "BookingService" as Service
+participant "Lapangan" as LapanganEntity
+participant "Booking" as BookingEntity
+
+User -> UI : Buka halaman booking/sewa lapangan
+UI -> Controller : getAvailableLapangan(tanggal, jam)
+Controller -> Service : fetchAvailableLapangan(tanggal, jam)
+Service -> LapanganEntity : getAvailableLapangan(tanggal, jam)
+LapanganEntity --> Service : lapanganList
+Service -> Controller : lapanganList
+Controller -> UI : lapanganList
+UI -> User : tampilkan daftar lapangan
+
+User -> UI : Pilih lapangan & input detail booking
+UI -> Controller : createBooking(data)
+Controller -> Service : createBooking(data)
+Service -> BookingEntity : checkAvailability(lapangan, tanggal, jam)
+BookingEntity --> Service : isAvailable
+alt Jika tersedia
+    Service -> BookingEntity : insertBooking(data)
+    BookingEntity --> Service : result
+    Service -> Controller : bookingSuccess
+    Controller -> UI : bookingSuccess
+    UI -> User : tampilkan konfirmasi booking
+else Jika tidak tersedia
+    Service -> Controller : bookingFailed
+    Controller -> UI : bookingFailed
+    UI -> User : tampilkan pesan gagal booking
+end
+@enduml

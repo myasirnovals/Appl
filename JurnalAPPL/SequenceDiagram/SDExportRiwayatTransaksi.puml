@@ -1,0 +1,19 @@
+@startuml
+actor User
+participant "TransactionHistoryPage/ExportDialog" as UI
+participant "TransactionController" as Controller
+participant "ExportService" as ExportService
+participant "TransactionEntity" as TransactionEntity
+participant "ExportedFile" as File
+
+User -> UI : Pilih ekspor riwayat transaksi
+UI -> Controller : exportTransactionHistory(userId, format)
+Controller -> ExportService : generateExportFile(userId, format)
+ExportService -> TransactionEntity : getTransactionsByUser(userId)
+TransactionEntity --> ExportService : transactionList
+ExportService -> File : createExportFile(transactionList, format)
+File --> ExportService : exportedFile
+ExportService -> Controller : exportedFile
+Controller -> UI : exportedFile (link/download)
+UI -> User : Tampilkan file ekspor (download/link)
+@enduml

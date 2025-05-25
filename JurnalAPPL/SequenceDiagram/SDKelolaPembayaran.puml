@@ -1,0 +1,43 @@
+@startuml
+actor Admin
+participant "PaymentManagementPage" as UI
+participant "PaymentController" as Controller
+participant "PaymentService" as Service
+participant "Pembayaran" as PembayaranEntity
+
+Admin -> UI : Buka halaman kelola pembayaran
+UI -> Controller : getPembayaranList()
+Controller -> Service : fetchPembayaranList()
+Service -> PembayaranEntity : getAllPembayaran()
+PembayaranEntity --> Service : pembayaranList
+Service -> Controller : pembayaranList
+Controller -> UI : pembayaranList
+UI -> Admin : tampilkan daftar pembayaran
+
+== Verifikasi Pembayaran ==
+Admin -> UI : Verifikasi pembayaran
+UI -> Controller : verifyPembayaran(id)
+Controller -> Service : verifyPembayaran(id)
+Service -> PembayaranEntity : updateStatus(id, "verified")
+PembayaranEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Update Pembayaran ==
+Admin -> UI : Update data pembayaran
+UI -> Controller : updatePembayaran(id, data)
+Controller -> Service : updatePembayaran(id, data)
+Service -> PembayaranEntity : updatePembayaran(id, data)
+PembayaranEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+
+== Hapus Pembayaran ==
+Admin -> UI : Hapus pembayaran
+UI -> Controller : deletePembayaran(id)
+Controller -> Service : deletePembayaran(id)
+Service -> PembayaranEntity : deletePembayaran(id)
+PembayaranEntity --> Service : result
+Service -> Controller : result
+Controller -> UI : tampilkan hasil
+@enduml

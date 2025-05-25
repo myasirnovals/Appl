@@ -1,0 +1,52 @@
+@startuml
+title Activity Diagram - Pengelolaan Pesanan oleh Employee
+
+|Employee|
+start
+: Login ke sistem;
+: Cek pesanan masuk;
+
+repeat
+  : Pilih pesanan untuk diproses;
+
+  if () then (Booking baru)
+    : Verifikasi data booking;
+    |System|
+    : Cek ketersediaan lapangan;
+    |Employee|
+    : Konfirmasi booking;
+  elseif () then (Pembayaran manual)
+    : Verifikasi bukti pembayaran;
+    |System|
+    : Konfirmasi pembayaran;
+    : Update status transaksi;
+    |Employee|
+  elseif () then (Reschedule)
+    |System|
+    : Cek jadwal baru;
+    |Employee|
+    : Proses perubahan jadwal;
+    |System|
+    : Update booking;
+    |Employee|
+  elseif () then (Pembatalan)
+    : Proses pembatalan;
+    |System|
+    : Hitung refund;
+    : Update status lapangan;
+    |Employee|
+  endif
+
+  |System|
+  : Update status pesanan;
+  : Kirim notifikasi ke member;
+  |Employee|
+
+repeat while () is (Masih ada pesanan) not (Tidak ada pesanan)
+
+: Print laporan harian;
+: Logout dari sistem;
+
+stop
+
+@enduml

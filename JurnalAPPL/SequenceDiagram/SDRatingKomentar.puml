@@ -1,0 +1,16 @@
+@startuml
+actor User
+participant "RatingAndCommentPage/BookingHistoryPage" as UI
+participant "RatingController" as Controller
+participant "RatingService" as Service
+participant "RatingEntity" as RatingEntity
+
+User -> UI : Isi rating & komentar, klik Kirim
+UI -> Controller : submitRatingComment(userId, bookingId, rating, comment)
+Controller -> Service : saveRatingComment(userId, bookingId, rating, comment)
+Service -> RatingEntity : createRatingComment(userId, bookingId, rating, comment)
+RatingEntity --> Service : success
+Service -> Controller : success
+Controller -> UI : success
+UI -> User : Tampilkan notifikasi sukses
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+actor Admin
+participant "UserManagementPage" as UI
+participant "UserController" as Controller
+participant "UserService" as Service
+participant "User" as UserEntity
+participant "Blacklist" as BlacklistEntity
+
+Admin -> UI : Buka halaman kelola user
+UI -> Controller : getUserList()
+Controller -> Service : fetchUsers()
+Service -> UserEntity : getAllUsers()
+UserEntity --> Service : userList
+Service -> Controller : userList
+Controller -> UI : userList
+
+Admin -> UI : Pilih user & klik Blacklist
+UI -> Controller : blacklistUser(userId)
+Controller -> Service : blacklistUser(userId)
+Service -> BlacklistEntity : addUserToBlacklist(userId)
+BlacklistEntity --> Service : result
+Service -> UserEntity : updateStatus(userId, "blacklisted")
+UserEntity --> Service : result
+Service -> Controller : blacklistResult
+Controller -> UI : tampilkan hasil
+UI -> Admin : tampilkan notifikasi
+@enduml

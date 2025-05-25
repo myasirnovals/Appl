@@ -1,0 +1,20 @@
+@startuml
+actor User
+participant "DashboardPage" as UI
+participant "DashboardController" as Controller
+participant "DashboardService" as Service
+participant "User/Booking/Payment" as Entity
+
+User -> UI : Buka halaman dashboard
+UI -> Controller : getDashboardData(userId)
+Controller -> Service : fetchDashboardData(userId)
+Service -> Entity : getUserSummary(userId)
+Entity --> Service : userSummary
+Service -> Entity : getBookingSummary(userId)
+Entity --> Service : bookingSummary
+Service -> Entity : getPaymentSummary(userId)
+Entity --> Service : paymentSummary
+Service -> Service : composeDashboardData(userSummary, bookingSummary, paymentSummary)
+Service -> Controller : dashboardData
+Controller -> UI : Tampilkan data dashboard
+@enduml
