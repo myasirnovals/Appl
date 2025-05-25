@@ -1,0 +1,108 @@
+@startuml
+actor Mahasiswa
+actor "Dosen Pembimbing" as Pembimbing
+actor "Dosen Penguji" as Penguji
+actor "Koordinator TA" as Koordinator
+participant "UI Seminar" as UI
+participant "SistemTA" as Sistem
+participant "PenilaianTA" as Penilaian
+participant "JadwalSeminarTA" as Jadwal
+
+== Pembuatan jadwal seminar ==
+Koordinator -> Sistem: buatJadwalSeminar()
+activate Koordinator
+activate Sistem
+Sistem -> Jadwal: tambahJadwal()
+activate Jadwal
+Jadwal --> Sistem: jadwalBerhasil()
+deactivate Jadwal
+Sistem --> UI: tampilkanJadwal()
+activate UI
+UI --> Mahasiswa: notifikasi jadwal seminar
+deactivate UI
+deactivate Sistem
+deactivate Koordinator
+
+== Melihat berita acara ==
+Mahasiswa -> UI: tampilkan berita acara
+activate Mahasiswa
+activate UI
+UI -> Sistem: getBeritaAcara()
+activate Sistem
+Sistem --> UI: dataBeritaAcara
+deactivate Sistem
+UI --> Mahasiswa: tampilkan berita acara
+deactivate UI
+deactivate Mahasiswa
+
+== Input nilai bimbingan ==
+Pembimbing -> UI: input nilai bimbingan
+activate Pembimbing
+activate UI
+UI -> Sistem: inputNilaiBimbingan()
+activate Sistem
+Sistem -> Penilaian: tambahNilai(nilaiBimbingan)
+activate Penilaian
+Penilaian --> Sistem: success
+deactivate Penilaian
+Sistem --> UI: konfirmasi
+deactivate Sistem
+deactivate UI
+deactivate Pembimbing
+
+== Input nilai seminar ==
+Penguji -> UI: input nilai seminar
+activate Penguji
+activate UI
+UI -> Sistem: inputNilaiSeminar()
+activate Sistem
+Sistem -> Penilaian: tambahNilai(nilaiSeminar)
+activate Penilaian
+Penilaian --> Sistem: success
+deactivate Penilaian
+Sistem --> UI: konfirmasi
+deactivate Sistem
+deactivate UI
+deactivate Penguji
+
+== Input nilai administrasi ==
+Koordinator -> UI: input nilai administrasi
+activate Koordinator
+activate UI
+UI -> Sistem: inputNilaiAdministrasi()
+activate Sistem
+Sistem -> Penilaian: tambahNilai(nilaiAdm)
+activate Penilaian
+Penilaian --> Sistem: success
+deactivate Penilaian
+Sistem --> UI: konfirmasi
+deactivate Sistem
+deactivate UI
+deactivate Koordinator
+
+== Perhitungan nilai akhir ==
+Sistem -> Sistem: trigger perhitungan
+activate Sistem
+Sistem -> Penilaian: jumlahNilai()
+activate Penilaian
+Penilaian -> Penilaian: rataRataNilai()
+Penilaian -> Penilaian: uploadStatusLulus()
+Penilaian --> Sistem: hasilPenilaian
+deactivate Penilaian
+
+== Notifikasi hasil ==
+Sistem -> UI: tampilkanHasilSeminar()
+activate UI
+
+UI --> Mahasiswa: notifikasi hasil seminar
+
+UI --> Pembimbing: notifikasi hasil seminar
+
+UI --> Penguji: notifikasi hasil seminar
+
+UI --> Koordinator: notifikasi hasil seminar
+
+deactivate UI
+deactivate Sistem
+
+@enduml

@@ -36,11 +36,68 @@ rectangle "Sistem Penyewaan Lapangan Olahraga" {
   usecase "Forum \nDiskusi" as uc24
 }
 
-Member -- uc14
-uc14 -- Employee
-uc14 -- Manager
-uc14 -- Admin
+' Guest associations
+Guest ---- uc2
+Guest ---- uc10
+Guest ---- uc11
+Guest ---- uc12
+Guest ---- uc13
 
-Guest -- uc2
+' Member/Penyewa associations
+Member ---- uc1
+Member ---- uc3
+Member ---- uc4
+Member ---- uc5
+Member ---- uc6
+Member ---- uc7
+Member ---- uc8
+Member ---- uc9
+Member ---- uc10
+Member ---- uc14
+Member ---- uc24
+
+' Employee/Pengelola associations
+uc14 ---- Employee
+uc15 ---- Employee
+uc16 ---- Employee
+uc17 ---- Employee
+uc18 ---- Employee
+uc19 ---- Employee
+uc20 ---- Employee
+uc21 ---- Employee
+
+' Admin associations
+uc14 ---- Admin
+uc22 ---- Admin
+uc23 ---- Admin
+uc24 ---- Admin
+
+' Use case relationships
+uc14 <.. uc1 : <<include>>
+uc14 <.. uc3 : <<include>>
+uc14 <.. uc4 : <<include>>
+uc14 <.. uc5 : <<include>>
+uc14 <.. uc6 : <<include>>
+uc14 <.. uc7 : <<include>>
+uc14 <.. uc8 : <<include>>
+uc14 <.. uc9 : <<include>>
+uc14 <.. uc15 : <<include>>
+uc14 <.. uc16 : <<include>>
+uc14 <.. uc17 : <<include>>
+uc14 <.. uc18 : <<include>>
+uc14 <.. uc19 : <<include>>
+uc14 <.. uc20 : <<include>>
+uc14 <.. uc21 : <<include>>
+uc14 <.. uc22 : <<include>>
+uc14 <.. uc23 : <<include>>
+uc14 <.. uc24 : <<include>>
+
+uc10 <.. uc11 : <<extend>>
+uc10 <.. uc12 : <<extend>>
+uc10 <.. uc13 : <<extend>>
+
+uc6 ..> uc5 : <<include>>
+uc5 ..> uc4 : <<include>>
+uc19 ..> uc20 : <<include>>
 
 @enduml

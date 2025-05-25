@@ -1,0 +1,36 @@
+@startuml
+actor Mahasiswa
+participant "UI Pendaftaran" as UI
+participant "SistemTA" as Sistem
+participant "PendaftaranTA" as PendaftaranTA
+participant "KoordinatorTA" as Koordinator
+
+activate Mahasiswa
+Mahasiswa -> UI: mengisi data pendaftaran TA
+activate UI
+UI -> Sistem: kirimDataPendaftaran()
+activate Sistem
+Sistem -> PendaftaranTA: tambahData()
+activate PendaftaranTA
+PendaftaranTA -> PendaftaranTA: cekSyarat()
+alt syarat terpenuhi
+    PendaftaranTA --> Sistem: true
+    deactivate PendaftaranTA
+    Sistem -> Koordinator: kirimNotifikasiPendaftaran()
+    activate Koordinator
+    Koordinator -> Sistem: validasiPendaftaran()
+    deactivate Koordinator
+    Sistem --> UI: pendaftaranBerhasil()
+    deactivate Sistem
+    UI --> Mahasiswa: tampilkan notifikasi berhasil
+    deactivate UI
+else syarat tidak terpenuhi
+    PendaftaranTA --> Sistem: false
+    deactivate PendaftaranTA
+    Sistem --> UI: pendaftaranGagal()
+    deactivate Sistem
+    UI --> Mahasiswa: tampilkan pesan error
+    deactivate UI
+end
+deactivate Mahasiswa
+@enduml

@@ -1,0 +1,187 @@
+@startuml
+class Users {
+-IdUsers
+-NamaUser
+-NoHP
+-Email
+-Password
++Roles
++Status
+
++setIdUsers()
++getIdUsers()
++setNamaUser()
++getNamaUser()
++setNoHP()
++getNoHP()
++setEmail()
++getEmail()
++setPassword()
++getPassword()
++login()
++create()
++update()
++delete()
++logout()
+}
+
+class Member {
++buatPesanan()
++lihatJadwal()
++kelolaProfil()
+}
+
+class KategoriLapangan {
++IdKategori
++NamaKategori
+
++create()
++update()
++delete()
++list()
+}
+
+class Lapangan {
++IdLapangan
++NamaLapangan
++Harga
++LuasLapangan
++fasilitas
++status
++deskripsi
+
++create()
++update()
++delete()
+}
+
+class Rating {
++IdRating
++Rating
+
++create()
++update()
++delete()
+}
+
+class Ulasan {
++IdUlasan
++Ulasan
+
++create()
++update()
++delete()
+}
+
+class GambarLapangan {
++IdGambar
++NamaLapangan
++Gambar
+
++create()
++update()
++delete()
+}
+
+class Jadwal {
++IdJadwal
++Tanggal
++WaktuMulai
++WaktuSelesai
+
++create()
++update()
++delete()
+}
+
+class Pesanan {
++IdPesanan
++Status
+
++create()
++update()
++delete()
+}
+
+class Pembayaran {
++IdPembayaran
++Status
++TotalHarga
+
++create()
++update()
++delete()
+}
+
+class TypePembayaran {
++IdTypePembayaran
++NamaPembayaran
++Status
+
++create()
++update()
++delete()
+}
+
+class Transaksi {
++IdTransaksi
++Tagihan
++Status
+
++create()
++update()
++delete()
+}
+
+class GambarTransaksi {
++IdGambarTransaksi
++GambarTransaksi
+
++create()
++update()
++delete()
+}
+
+class Notifikasi {
++IdNotifikasi
++Status
++Pesan
++TanggalKirim
+}
+
+class Admin {
++kelolaLapangan()
++kelolaJadwal()
+}
+
+class Kasir {
++konfirmasiPesanan()
+}
+
+Users <|-- Member
+Users <|-- Admin
+Users <|-- Kasir
+Rating "1" -- "1" Users
+Rating "1" -- "1" Lapangan
+
+Lapangan "1" - "1..*" KategoriLapangan
+
+KategoriLapangan "1..*" -- "1" Users
+
+Jadwal "1..*" - "1" Lapangan
+Lapangan "1" -- "1..*" Pesanan
+Pesanan "0..*" -- "1" Users
+
+Lapangan "1" -- "1" GambarLapangan
+
+Pesanan "1" -- "1" Jadwal
+Lapangan "1" -- "1..*" Ulasan
+Ulasan "0..*" -- "1" Users
+Users "1" -- "1" Pembayaran
+Pesanan "1" - "1" Pembayaran
+
+Pembayaran "1" -- "1" TypePembayaran
+Pembayaran "1" - "1" Transaksi
+Transaksi "1" - "1" GambarTransaksi
+Pesanan "1" - "1" Notifikasi
+@enduml

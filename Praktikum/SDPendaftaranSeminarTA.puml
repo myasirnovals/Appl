@@ -1,0 +1,72 @@
+@startuml
+actor Mahasiswa
+actor "Dosen Pembimbing" as Pembimbing
+participant "UI Seminar" as UI
+participant "SistemTA" as Sistem
+participant "PendaftaranSeminarTA" as PendaftaranSeminar
+participant "KoordinatorTA" as Koordinator
+
+activate Mahasiswa
+Mahasiswa -> UI: daftar seminar TA
+activate UI
+UI -> Sistem: kirimPendaftaranSeminar()
+activate Sistem
+Sistem -> PendaftaranSeminar: tambahData()
+activate PendaftaranSeminar
+deactivate PendaftaranSeminar
+deactivate Sistem
+deactivate UI
+
+Mahasiswa -> UI: upload proposal TA
+activate UI
+UI -> Sistem: uploadProposal()
+activate Sistem
+Sistem -> PendaftaranSeminar: updateData(proposal=true)
+activate PendaftaranSeminar
+deactivate PendaftaranSeminar
+deactivate Sistem
+deactivate UI
+deactivate Mahasiswa
+
+activate Pembimbing
+Pembimbing -> UI: upload surat kelayakan
+activate UI
+UI -> Sistem: uploadSuratKelayakan()
+activate Sistem
+Sistem -> PendaftaranSeminar: updateData(suratKelayakan=true)
+activate PendaftaranSeminar
+deactivate PendaftaranSeminar
+deactivate Sistem
+deactivate UI
+deactivate Pembimbing
+
+activate Koordinator
+Koordinator -> Sistem: cekKelayakanSeminar()
+activate Sistem
+Sistem -> PendaftaranSeminar: cekSyarat()
+activate PendaftaranSeminar
+
+alt syarat terpenuhi
+    PendaftaranSeminar --> Sistem: true
+    deactivate PendaftaranSeminar
+    Sistem -> Koordinator: tampilkanDataKelayakan()
+    Koordinator -> Sistem: setujuiPendaftaranSeminar()
+    Sistem --> UI: pendaftaranSeminarBerhasil()
+    activate UI
+    UI --> Mahasiswa: tampilkan notifikasi berhasil
+    activate Mahasiswa
+    deactivate Mahasiswa
+    deactivate UI
+else syarat tidak terpenuhi
+    PendaftaranSeminar --> Sistem: false
+    deactivate PendaftaranSeminar
+    Sistem --> UI: pendaftaranSeminarGagal()
+    activate UI
+    UI --> Mahasiswa: tampilkan pesan error
+    activate Mahasiswa
+    deactivate Mahasiswa
+    deactivate UI
+end
+deactivate Sistem
+deactivate Koordinator
+@enduml
