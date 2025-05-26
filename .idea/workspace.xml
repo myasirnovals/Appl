@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="menambahkan gambar uc">
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/SequenceDiagram/MainSD/SDInformasiBrowsing.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/SequenceDiagram/MainSD/SDKomunikasi.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/SequenceDiagram/MainSD/SDManajemenAkun.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/SequenceDiagram/MainSD/SDManajemenArena.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/SequenceDiagram/MainSD/SDManajemenKeuangan.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/SequenceDiagram/MainSD/SDManajemenSistem.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/SequenceDiagram/MainSD/SDManajemenUser.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/SequenceDiagram/MainSD/SDRiwayatTracking.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/SequenceDiagram/MainSD/SDTransaksiBooking.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/StateDiagram/StateDiagramBookingLapanganOlahraga.puml" afterDir="false" />
+    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="menyelesaikan state dan sequence diagram">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JurnalAPPL/UseCaseDiagram/UCLapanganOlahraga.asta" beforeDir="false" afterPath="$PROJECT_DIR$/JurnalAPPL/UseCaseDiagram/UCLapanganOlahraga.asta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +106,7 @@
       <workItem from="1748131346256" duration="7234000" />
       <workItem from="1748159170672" duration="1841000" />
       <workItem from="1748200532231" duration="9485000" />
-      <workItem from="1748285780913" duration="1794000" />
+      <workItem from="1748285780913" duration="9594000" />
     </task>
     <task id="LOCAL-00001" summary="update directory">
       <option name="closed" value="true" />
@@ -181,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748211183987</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="menyelesaikan state dan sequence diagram">
+      <option name="closed" value="true" />
+      <created>1748287759251</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1748287759251</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,7 +194,8 @@
     <MESSAGE value="melengkapi sequence diagram" />
     <MESSAGE value="Tinggal membuat state diagram" />
     <MESSAGE value="menambahkan gambar uc" />
-    <option name="LAST_COMMIT_MESSAGE" value="menambahkan gambar uc" />
+    <MESSAGE value="menyelesaikan state dan sequence diagram" />
+    <option name="LAST_COMMIT_MESSAGE" value="menyelesaikan state dan sequence diagram" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
