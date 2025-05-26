@@ -1,0 +1,135 @@
+@startuml
+title Sequence Diagram - Manajemen User (Kelola User, Blacklist, List Penyewa, Notifikasi)
+
+actor Admin
+participant "Web Admin" as App
+participant "UserController" as Controller
+participant "UserService" as UserSvc
+participant "NotificationService" as NotifSvc
+database "Database" as DB
+
+== Kelola User ==
+Admin -> App : Akses manajemen user
+activate App
+App -> Controller : getUserList()
+activate Controller
+Controller -> UserSvc : fetchAllUsers()
+activate UserSvc
+UserSvc -> DB : query daftar user
+activate DB
+DB --> UserSvc : user list
+deactivate DB
+UserSvc --> Controller : user list
+deactivate UserSvc
+Controller --> App : tampilkan daftar user
+deactivate Controller
+deactivate App
+
+Admin -> App : Edit data user
+activate App
+App -> Controller : updateUser(userId, data)
+activate Controller
+Controller -> UserSvc : updateUser(userId, data)
+activate UserSvc
+UserSvc -> DB : update user
+activate DB
+DB --> UserSvc : success
+deactivate DB
+UserSvc --> Controller : success
+deactivate UserSvc
+Controller --> App : update berhasil
+deactivate Controller
+deactivate App
+
+== Blacklist User ==
+Admin -> App : Blacklist user
+activate App
+App -> Controller : blacklistUser(userId, reason)
+activate Controller
+Controller -> UserSvc : blacklistUser(userId, reason)
+activate UserSvc
+UserSvc -> DB : update status user (blacklisted)
+activate DB
+DB --> UserSvc : success
+deactivate DB
+UserSvc --> Controller : success
+deactivate UserSvc
+Controller --> App : user diblacklist
+deactivate Controller
+deactivate App
+
+== List Penyewa ==
+Admin -> App : Lihat daftar penyewa
+activate App
+App -> Controller : getPenyewaList()
+activate Controller
+Controller -> UserSvc : fetchPenyewaList()
+activate UserSvc
+UserSvc -> DB : query user WHERE role=penyewa
+activate DB
+DB --> UserSvc : penyewa list
+deactivate DB
+UserSvc --> Controller : penyewa list
+deactivate UserSvc
+Controller --> App : tampilkan daftar penyewa
+deactivate Controller
+deactivate App
+
+== Kelola Notifikasi ==
+Admin -> App : Buat notifikasi baru
+activate App
+App -> Controller : createNotification(data)
+activate Controller
+Controller -> NotifSvc : createNotification(data)
+activate NotifSvc
+NotifSvc -> DB : simpan notifikasi
+activate DB
+DB --> NotifSvc : success
+deactivate DB
+NotifSvc --> Controller : success
+deactivate NotifSvc
+Controller --> App : notifikasi dibuat
+deactivate Controller
+deactivate App
+
+Admin -> App : Edit/hapus notifikasi
+activate App
+App -> Controller : updateNotification(id, data) / deleteNotification(id)
+activate Controller
+Controller -> NotifSvc : update/delete notification
+activate NotifSvc
+NotifSvc -> DB : update/delete notifikasi
+activate DB
+DB --> NotifSvc : success
+deactivate DB
+NotifSvc --> Controller : success
+deactivate NotifSvc
+Controller --> App : update/hapus berhasil
+deactivate Controller
+deactivate App
+
+== Melihat Notifikasi ==
+Admin -> App : Lihat notifikasi
+activate App
+App -> Controller : getNotifications()
+activate Controller
+Controller -> NotifSvc : fetchNotifications()
+activate NotifSvc
+NotifSvc -> DB : query notifikasi
+activate DB
+DB --> NotifSvc : notifikasi list
+deactivate DB
+NotifSvc --> Controller : notifikasi list
+deactivate NotifSvc
+Controller --> App : tampilkan notifikasi
+deactivate Controller
+deactivate App
+
+' Destruction (opsional, aktifkan jika ingin menampilkan objek di-destroy)
+' destroy App
+' destroy Controller
+' destroy UserSvc
+' destroy NotifSvc
+' destroy DB
+
+@enduml

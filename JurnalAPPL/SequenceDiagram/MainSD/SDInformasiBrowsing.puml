@@ -1,0 +1,121 @@
+@startuml
+title Sequence Diagram - Informasi & Browsing (Arena, Jadwal, Harga, Kategori, Jenis Lapangan, Promo)
+
+actor Pengunjung
+participant "Web/Mobile App" as App
+participant "InfoController" as Controller
+participant "ArenaService" as ArenaSvc
+participant "ScheduleService" as SchedSvc
+participant "PromoService" as PromoSvc
+database "Database" as DB
+
+== Browse Arena & Fasilitas ==
+Pengunjung -> App : Browse arena & fasilitas
+activate App
+App -> Controller : getArenaList()
+activate Controller
+Controller -> ArenaSvc : fetchArenas()
+activate ArenaSvc
+ArenaSvc -> DB : query daftar arena & fasilitas
+activate DB
+DB --> ArenaSvc : arena list
+deactivate DB
+ArenaSvc --> Controller : arena list
+deactivate ArenaSvc
+Controller --> App : tampilkan arena & fasilitas
+deactivate Controller
+deactivate App
+
+== Lihat Jadwal Ketersediaan ==
+Pengunjung -> App : Lihat jadwal ketersediaan
+activate App
+App -> Controller : getJadwalKetersediaan(arenaId)
+activate Controller
+Controller -> SchedSvc : fetchJadwalKetersediaan(arenaId)
+activate SchedSvc
+SchedSvc -> DB : query jadwal ketersediaan
+activate DB
+DB --> SchedSvc : jadwal
+deactivate DB
+SchedSvc --> Controller : jadwal
+deactivate SchedSvc
+Controller --> App : tampilkan jadwal ketersediaan
+deactivate Controller
+deactivate App
+
+== Lihat Informasi Harga ==
+Pengunjung -> App : Lihat harga sewa
+activate App
+App -> Controller : getHargaSewa(arenaId)
+activate Controller
+Controller -> ArenaSvc : fetchHargaSewa(arenaId)
+activate ArenaSvc
+ArenaSvc -> DB : query harga sewa
+activate DB
+DB --> ArenaSvc : harga
+deactivate DB
+ArenaSvc --> Controller : harga
+deactivate ArenaSvc
+Controller --> App : tampilkan harga sewa
+deactivate Controller
+deactivate App
+
+== Lihat Kategori Lokasi ==
+Pengunjung -> App : Lihat kategori lokasi
+activate App
+App -> Controller : getKategoriLokasi()
+activate Controller
+Controller -> ArenaSvc : fetchKategoriLokasi()
+activate ArenaSvc
+ArenaSvc -> DB : query kategori lokasi
+activate DB
+DB --> ArenaSvc : kategori lokasi
+deactivate DB
+ArenaSvc --> Controller : kategori lokasi
+deactivate ArenaSvc
+Controller --> App : tampilkan kategori lokasi
+deactivate Controller
+deactivate App
+
+== Lihat Jenis Lapangan ==
+Pengunjung -> App : Lihat jenis lapangan
+activate App
+App -> Controller : getJenisLapangan()
+activate Controller
+Controller -> ArenaSvc : fetchJenisLapangan()
+activate ArenaSvc
+ArenaSvc -> DB : query jenis lapangan
+activate DB
+DB --> ArenaSvc : jenis lapangan
+deactivate DB
+ArenaSvc --> Controller : jenis lapangan
+deactivate ArenaSvc
+Controller --> App : tampilkan jenis lapangan
+deactivate Controller
+deactivate App
+
+== Lihat Promo Aktif ==
+Pengunjung -> App : Lihat promo aktif
+activate App
+App -> Controller : getPromoAktif()
+activate Controller
+Controller -> PromoSvc : fetchPromoAktif()
+activate PromoSvc
+PromoSvc -> DB : query promo aktif
+activate DB
+DB --> PromoSvc : promo list
+deactivate DB
+PromoSvc --> Controller : promo list
+deactivate PromoSvc
+Controller --> App : tampilkan promo aktif
+deactivate Controller
+deactivate App
+
+' Contoh destruction jika ingin menghapus objek (opsional)
+' destroy App
+' destroy Controller
+' destroy ArenaSvc
+' destroy SchedSvc
+' destroy PromoSvc
+
+@enduml

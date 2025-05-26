@@ -1,0 +1,148 @@
+@startuml
+title Sequence Diagram - Transaksi & Booking (Transaksi Sewa, Booking, Pembayaran, Pesanan, Reschedule, Print Tiket)
+
+actor Member
+actor Admin
+participant "Web App" as App
+participant "BookingController" as Controller
+participant "BookingService" as BookingSvc
+participant "PaymentService" as PaymentSvc
+participant "OrderService" as OrderSvc
+participant "TicketService" as TicketSvc
+database "Database" as DB
+participant "Printer" as Printer
+
+== Kelola Transaksi Sewa ==
+Admin -> App : Akses transaksi sewa
+activate App
+App -> Controller : getBookingList()
+activate Controller
+Controller -> BookingSvc : fetchBookings()
+activate BookingSvc
+BookingSvc -> DB : query transaksi sewa
+activate DB
+DB --> BookingSvc : booking list
+deactivate DB
+BookingSvc --> Controller : booking list
+deactivate BookingSvc
+Controller --> App : tampilkan transaksi sewa
+deactivate Controller
+deactivate App
+
+== Sewa Lapangan (Booking) ==
+Member -> App : Pilih jadwal & booking lapangan
+activate App
+App -> Controller : createBooking(data)
+activate Controller
+Controller -> BookingSvc : createBooking(data)
+activate BookingSvc
+BookingSvc -> DB : insert booking baru
+activate DB
+DB --> BookingSvc : bookingId
+deactivate DB
+BookingSvc --> Controller : bookingId
+deactivate BookingSvc
+Controller --> App : booking berhasil
+deactivate Controller
+deactivate App
+
+== Lakukan Pembayaran ==
+Member -> App : Lakukan pembayaran
+activate App
+App -> Controller : payBooking(bookingId, metode)
+activate Controller
+Controller -> PaymentSvc : processPayment(bookingId, metode)
+activate PaymentSvc
+PaymentSvc -> DB : update status pembayaran
+activate DB
+DB --> PaymentSvc : success
+deactivate DB
+PaymentSvc --> Controller : success
+deactivate PaymentSvc
+Controller --> App : pembayaran berhasil
+deactivate Controller
+deactivate App
+
+== Kelola Pesanan ==
+Admin -> App : Kelola pesanan
+activate App
+App -> Controller : getOrderList()
+activate Controller
+Controller -> OrderSvc : fetchOrders()
+activate OrderSvc
+OrderSvc -> DB : query pesanan
+activate DB
+DB --> OrderSvc : order list
+deactivate DB
+OrderSvc --> Controller : order list
+deactivate OrderSvc
+Controller --> App : tampilkan pesanan
+deactivate Controller
+deactivate App
+
+== Batalkan Pesanan ==
+Member -> App : Batalkan pesanan
+activate App
+App -> Controller : cancelBooking(bookingId)
+activate Controller
+Controller -> BookingSvc : cancelBooking(bookingId)
+activate BookingSvc
+BookingSvc -> DB : update status booking (batal)
+activate DB
+DB --> BookingSvc : success
+deactivate DB
+BookingSvc --> Controller : success
+deactivate BookingSvc
+Controller --> App : pesanan dibatalkan
+deactivate Controller
+deactivate App
+
+== Reschedule Booking ==
+Member -> App : Ajukan reschedule booking
+activate App
+App -> Controller : rescheduleBooking(bookingId, jadwalBaru)
+activate Controller
+Controller -> BookingSvc : rescheduleBooking(bookingId, jadwalBaru)
+activate BookingSvc
+BookingSvc -> DB : update jadwal booking
+activate DB
+DB --> BookingSvc : success
+deactivate DB
+BookingSvc --> Controller : success
+deactivate BookingSvc
+Controller --> App : booking di-reschedule
+deactivate Controller
+deactivate App
+
+== Print Tiket ==
+Member -> App : Print tiket booking
+activate App
+App -> Controller : printTicket(bookingId)
+activate Controller
+Controller -> TicketSvc : generateTicket(bookingId)
+activate TicketSvc
+TicketSvc -> DB : ambil data booking
+activate DB
+DB --> TicketSvc : booking data
+deactivate DB
+TicketSvc --> Controller : ticket data
+deactivate TicketSvc
+Controller -> Printer : print(ticket data)
+activate Printer
+Printer --> Controller : selesai
+deactivate Printer
+Controller --> App : tiket berhasil dicetak
+deactivate Controller
+deactivate App
+
+' Destruction (opsional, aktifkan jika ingin menampilkan objek di-destroy)
+' destroy App
+' destroy Controller
+' destroy BookingSvc
+' destroy PaymentSvc
+' destroy OrderSvc
+' destroy TicketSvc
+' destroy DB
+' destroy Printer
+
+@enduml

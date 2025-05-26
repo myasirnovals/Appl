@@ -1,0 +1,77 @@
+@startuml
+title Sequence Diagram - Riwayat & Tracking (Riwayat Transaksi, Export, Rating & Komentar)
+
+actor Member
+participant "Web/Mobile App" as App
+participant "HistoryController" as Controller
+participant "HistoryService" as HistorySvc
+participant "ExportService" as ExportSvc
+participant "RatingService" as RatingSvc
+database "Database" as DB
+participant "File" as File
+
+== Lihat Riwayat Transaksi ==
+Member -> App : Lihat riwayat transaksi
+activate App
+App -> Controller : getTransactionHistory(memberId)
+activate Controller
+Controller -> HistorySvc : fetchTransactionHistory(memberId)
+activate HistorySvc
+HistorySvc -> DB : query riwayat transaksi
+activate DB
+DB --> HistorySvc : riwayat transaksi
+deactivate DB
+HistorySvc --> Controller : riwayat transaksi
+deactivate HistorySvc
+Controller --> App : tampilkan riwayat transaksi
+deactivate Controller
+deactivate App
+
+== Export Riwayat ==
+Member -> App : Export riwayat transaksi
+activate App
+App -> Controller : exportTransactionHistory(memberId, format)
+activate Controller
+Controller -> ExportSvc : exportTransactionHistory(memberId, format)
+activate ExportSvc
+ExportSvc -> DB : query riwayat transaksi
+activate DB
+DB --> ExportSvc : riwayat transaksi
+deactivate DB
+ExportSvc -> File : generate file (pdf/excel)
+activate File
+File --> ExportSvc : file siap
+deactivate File
+ExportSvc --> Controller : file siap
+deactivate ExportSvc
+Controller --> App : download file
+deactivate Controller
+deactivate App
+
+== Rating & Komentar ==
+Member -> App : Beri rating & komentar
+activate App
+App -> Controller : submitRating(bookingId, rating, komentar)
+activate Controller
+Controller -> RatingSvc : saveRating(bookingId, rating, komentar)
+activate RatingSvc
+RatingSvc -> DB : insert rating & komentar
+activate DB
+DB --> RatingSvc : success
+deactivate DB
+RatingSvc --> Controller : success
+deactivate RatingSvc
+Controller --> App : notifikasi berhasil
+deactivate Controller
+deactivate App
+
+' Destruction (opsional, aktifkan jika ingin menampilkan objek di-destroy)
+' destroy App
+' destroy Controller
+' destroy HistorySvc
+' destroy ExportSvc
+' destroy RatingSvc
+' destroy DB
+' destroy File
+
+@enduml

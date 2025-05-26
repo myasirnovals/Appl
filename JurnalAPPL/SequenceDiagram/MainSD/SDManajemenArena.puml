@@ -1,0 +1,168 @@
+@startuml
+title Sequence Diagram - Manajemen Arena (Arena, Kategori, Inventaris, Jadwal, Status Lapangan)
+
+actor Admin
+participant "Web Admin" as App
+participant "ArenaController" as Controller
+participant "ArenaService" as ArenaSvc
+participant "InventoryService" as InvSvc
+participant "ScheduleService" as SchedSvc
+database "Database" as DB
+
+== Kelola Arena & Fasilitas ==
+Admin -> App : Akses kelola arena
+activate App
+App -> Controller : getArenaList()
+activate Controller
+Controller -> ArenaSvc : fetchArenas()
+activate ArenaSvc
+ArenaSvc -> DB : query daftar arena & fasilitas
+activate DB
+DB --> ArenaSvc : arena list
+deactivate DB
+ArenaSvc --> Controller : arena list
+deactivate ArenaSvc
+Controller --> App : tampilkan daftar arena
+deactivate Controller
+deactivate App
+
+Admin -> App : Tambah/Edit/Hapus arena
+activate App
+App -> Controller : saveArena(data) / deleteArena(id)
+activate Controller
+Controller -> ArenaSvc : saveArena(data) / deleteArena(id)
+activate ArenaSvc
+ArenaSvc -> DB : insert/update/delete arena
+activate DB
+DB --> ArenaSvc : success
+deactivate DB
+ArenaSvc --> Controller : success
+deactivate ArenaSvc
+Controller --> App : proses berhasil
+deactivate Controller
+deactivate App
+
+== Kelola Kategori Arena ==
+Admin -> App : Kelola kategori arena
+activate App
+App -> Controller : getKategoriList()
+activate Controller
+Controller -> ArenaSvc : fetchKategoriArena()
+activate ArenaSvc
+ArenaSvc -> DB : query kategori arena
+activate DB
+DB --> ArenaSvc : kategori list
+deactivate DB
+ArenaSvc --> Controller : kategori list
+deactivate ArenaSvc
+Controller --> App : tampilkan kategori
+deactivate Controller
+deactivate App
+
+Admin -> App : Tambah/Edit/Hapus kategori
+activate App
+App -> Controller : saveKategori(data) / deleteKategori(id)
+activate Controller
+Controller -> ArenaSvc : saveKategori(data) / deleteKategori(id)
+activate ArenaSvc
+ArenaSvc -> DB : insert/update/delete kategori
+activate DB
+DB --> ArenaSvc : success
+deactivate DB
+ArenaSvc --> Controller : success
+deactivate ArenaSvc
+Controller --> App : proses berhasil
+deactivate Controller
+deactivate App
+
+== Kelola Inventaris ==
+Admin -> App : Kelola inventaris
+activate App
+App -> Controller : getInventarisList()
+activate Controller
+Controller -> InvSvc : fetchInventaris()
+activate InvSvc
+InvSvc -> DB : query inventaris
+activate DB
+DB --> InvSvc : inventaris list
+deactivate DB
+InvSvc --> Controller : inventaris list
+deactivate InvSvc
+Controller --> App : tampilkan inventaris
+deactivate Controller
+deactivate App
+
+Admin -> App : Tambah/Edit/Hapus inventaris
+activate App
+App -> Controller : saveInventaris(data) / deleteInventaris(id)
+activate Controller
+Controller -> InvSvc : saveInventaris(data) / deleteInventaris(id)
+activate InvSvc
+InvSvc -> DB : insert/update/delete inventaris
+activate DB
+DB --> InvSvc : success
+deactivate DB
+InvSvc --> Controller : success
+deactivate InvSvc
+Controller --> App : proses berhasil
+deactivate Controller
+deactivate App
+
+== Kelola Jadwal Lapangan ==
+Admin -> App : Kelola jadwal lapangan
+activate App
+App -> Controller : getJadwalLapangan(arenaId)
+activate Controller
+Controller -> SchedSvc : fetchJadwalLapangan(arenaId)
+activate SchedSvc
+SchedSvc -> DB : query jadwal lapangan
+activate DB
+DB --> SchedSvc : jadwal list
+deactivate DB
+SchedSvc --> Controller : jadwal list
+deactivate SchedSvc
+Controller --> App : tampilkan jadwal
+deactivate Controller
+deactivate App
+
+Admin -> App : Tambah/Edit/Hapus jadwal
+activate App
+App -> Controller : saveJadwal(data) / deleteJadwal(id)
+activate Controller
+Controller -> SchedSvc : saveJadwal(data) / deleteJadwal(id)
+activate SchedSvc
+SchedSvc -> DB : insert/update/delete jadwal
+activate DB
+DB --> SchedSvc : success
+deactivate DB
+SchedSvc --> Controller : success
+deactivate SchedSvc
+Controller --> App : proses berhasil
+deactivate Controller
+deactivate App
+
+== Update Status Lapangan ==
+Admin -> App : Update status lapangan
+activate App
+App -> Controller : updateStatusLapangan(lapanganId, status)
+activate Controller
+Controller -> SchedSvc : updateStatusLapangan(lapanganId, status)
+activate SchedSvc
+SchedSvc -> DB : update status lapangan
+activate DB
+DB --> SchedSvc : success
+deactivate DB
+SchedSvc --> Controller : success
+deactivate SchedSvc
+Controller --> App : status lapangan diperbarui
+deactivate Controller
+deactivate App
+
+' Destruction (opsional, aktifkan jika ingin menampilkan objek di-destroy)
+' destroy App
+' destroy Controller
+' destroy ArenaSvc
+' destroy InvSvc
+' destroy SchedSvc
+
+@enduml

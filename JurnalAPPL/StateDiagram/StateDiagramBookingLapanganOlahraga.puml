@@ -1,0 +1,39 @@
+@startuml
+title State Diagram - Booking Lapangan Olahraga
+
+[*] --> Created : Booking dibuat
+
+Created --> PendingPayment : Menunggu pembayaran
+PendingPayment --> Paid : Pembayaran diterima
+PendingPayment --> Expired : Batas waktu pembayaran habis
+
+Paid --> Confirmed : Konfirmasi admin/otomatis
+Paid --> Cancelled : Pembatalan oleh user/admin
+
+Confirmed --> Active : Waktu booking dimulai
+Active --> Completed : Waktu booking selesai
+Active --> Extended : Booking diperpanjang
+Active --> Cancelled : Pembatalan saat aktif
+
+Created --> Cancelled : Pembatalan sebelum bayar
+PendingPayment --> Cancelled : Pembatalan sebelum bayar
+
+Paid --> Refunded : Refund diproses
+Confirmed --> Refunded : Refund diproses (misal force majeure)
+
+AnyState --> Maintenance : Lapangan maintenance (force majeure)
+Maintenance --> Cancelled : Booking dibatalkan oleh sistem
+
+state Extended {
+  [*] --> Active : Selesai perpanjangan
+}
+
+state Cancelled {
+  [*] --> [*]
+}
+
+state Refunded {
+  [*] --> [*]
+}
+
+@enduml
