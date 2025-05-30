@@ -1,0 +1,35 @@
+@startuml
+title Component Diagram - Sistem Booking Lapangan Olahraga
+
+package "User Interface" {
+    [Web App]
+    [Mobile App]
+}
+
+package "Backend Services" {
+    [REST API]
+    [Business Logic Service]
+    [Notification Service]
+    [Payment Service]
+    [File Storage Service]
+}
+
+package "External Systems" {
+    [Database]
+    [Email/SMS Gateway]
+    [Payment Gateway]
+    [Cloud Storage]
+}
+
+[Web App] --> [REST API]
+[Mobile App] --> [REST API]
+[REST API] --> [Business Logic Service]
+[Business Logic Service] --> [Database]
+[Business Logic Service] --> [Notification Service]
+[Business Logic Service] --> [Payment Service]
+[Business Logic Service] --> [File Storage Service]
+[Notification Service] --> [Email/SMS Gateway]
+[Payment Service] --> [Payment Gateway]
+[File Storage Service] --> [Cloud Storage]
+
+@enduml

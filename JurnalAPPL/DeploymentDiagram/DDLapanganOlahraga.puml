@@ -1,0 +1,39 @@
+@startuml
+title Deployment Diagram - Sistem Booking Lapangan Olahraga
+
+node "Client" {
+    component "Web App"
+    component "Mobile App"
+}
+
+node "Application Server" {
+    component "REST API"
+    component "Business Logic Service"
+    component "Notification Service"
+    component "Payment Service"
+    component "File Storage Service"
+}
+
+node "Database Server" {
+    database "Database"
+}
+
+node "External Services" {
+    component "Email/SMS Gateway"
+    component "Payment Gateway"
+    component "Cloud Storage"
+}
+
+"Web App" -[hidden]-> "Mobile App"
+"Web App" --> "REST API"
+"Mobile App" --> "REST API"
+"REST API" --> "Business Logic Service"
+"Business Logic Service" --> "Database"
+"Business Logic Service" --> "Notification Service"
+"Business Logic Service" --> "Payment Service"
+"Business Logic Service" --> "File Storage Service"
+"Notification Service" --> "Email/SMS Gateway"
+"Payment Service" --> "Payment Gateway"
+"File Storage Service" --> "Cloud Storage"
+
+@enduml

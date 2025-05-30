@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="menyelesaikan state dan sequence diagram">
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/Flowchart/DiagramAlurPenelitian.puml" afterDir="false" />
+    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="menambahkan flowchart dan gambar uc sebagai svg">
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/ComponentDiagram/ComponentLapanganOlahraga.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/DeploymentDiagram/DDLapanganOlahraga.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/ERD/ERDLapanganOlahraga.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JurnalAPPL/LapanganOlahraga.png" beforeDir="false" afterPath="$PROJECT_DIR$/JurnalAPPL/LapanganOlahraga.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JurnalAPPL/LapanganOlahraga.png.bak" beforeDir="false" afterPath="$PROJECT_DIR$/JurnalAPPL/LapanganOlahraga.png.bak" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JurnalAPPL/UseCaseDiagram/UCLapanganOlahraga.asta" beforeDir="false" afterPath="$PROJECT_DIR$/JurnalAPPL/UseCaseDiagram/UCLapanganOlahraga.asta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,11 +22,12 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="UML State" />
-        <option value="UML Deployment" />
         <option value="UML Use Case" />
-        <option value="UML Activity" />
         <option value="UML Class" />
         <option value="UML Sequence" />
+        <option value="UML Deployment" />
+        <option value="UML Component" />
+        <option value="UML Activity" />
       </list>
     </option>
   </component>
@@ -46,22 +46,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Sequence&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;H:/Documents/materi-pembelajaran/Appl&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultPlantUmlFileTemplate": "UML Activity",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "H:/Documents/materi-pembelajaran/Appl",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.sync",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="H:\Documents\materi-pembelajaran\Appl" />
@@ -110,7 +110,8 @@
       <workItem from="1748159170672" duration="1841000" />
       <workItem from="1748200532231" duration="9485000" />
       <workItem from="1748285780913" duration="9594000" />
-      <workItem from="1748567021179" duration="2694000" />
+      <workItem from="1748567021179" duration="2949000" />
+      <workItem from="1748582907399" duration="3363000" />
     </task>
     <task id="LOCAL-00001" summary="update directory">
       <option name="closed" value="true" />
@@ -184,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748287759251</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="menambahkan flowchart dan gambar uc sebagai svg">
+      <option name="closed" value="true" />
+      <created>1748570393263</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1748570393263</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +208,8 @@
     <MESSAGE value="Tinggal membuat state diagram" />
     <MESSAGE value="menambahkan gambar uc" />
     <MESSAGE value="menyelesaikan state dan sequence diagram" />
-    <option name="LAST_COMMIT_MESSAGE" value="menyelesaikan state dan sequence diagram" />
+    <MESSAGE value="menambahkan flowchart dan gambar uc sebagai svg" />
+    <option name="LAST_COMMIT_MESSAGE" value="menambahkan flowchart dan gambar uc sebagai svg" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
