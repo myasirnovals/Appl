@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="menambahkan flowchart dan gambar uc sebagai svg">
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/ComponentDiagram/ComponentLapanganOlahraga.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/DeploymentDiagram/DDLapanganOlahraga.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JurnalAPPL/ERD/ERDLapanganOlahraga.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="pembaruan diagram" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -111,7 +106,7 @@
       <workItem from="1748200532231" duration="9485000" />
       <workItem from="1748285780913" duration="9594000" />
       <workItem from="1748567021179" duration="2949000" />
-      <workItem from="1748582907399" duration="3363000" />
+      <workItem from="1748582907399" duration="3948000" />
     </task>
     <task id="LOCAL-00001" summary="update directory">
       <option name="closed" value="true" />
@@ -193,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748570393263</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="pembaruan diagram">
+      <option name="closed" value="true" />
+      <created>1748587350010</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1748587350010</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,7 +212,8 @@
     <MESSAGE value="menambahkan gambar uc" />
     <MESSAGE value="menyelesaikan state dan sequence diagram" />
     <MESSAGE value="menambahkan flowchart dan gambar uc sebagai svg" />
-    <option name="LAST_COMMIT_MESSAGE" value="menambahkan flowchart dan gambar uc sebagai svg" />
+    <MESSAGE value="pembaruan diagram" />
+    <option name="LAST_COMMIT_MESSAGE" value="pembaruan diagram" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
