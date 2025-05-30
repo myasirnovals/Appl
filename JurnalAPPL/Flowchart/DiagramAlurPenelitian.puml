@@ -1,0 +1,11 @@
+@startuml
+start
+:Identifikasi Masalah;
+:Identifikasi Kebutuhan Pengguna;
+:Studi Literatur;
+:Analisis dan Sintesis;
+:Perancangan Sistem;
+:Evaluasi Rancangan;
+:Kesimpulan dan Saran;
+stop
+@enduml
