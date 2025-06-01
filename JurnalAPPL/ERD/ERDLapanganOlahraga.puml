@@ -1,8 +1,64 @@
 @startuml
-'https://plantuml.com/activity-diagram-beta
+title ERD - Sistem Booking Lapangan Olahraga
 
-left to right direction
+entity User {
+  +user_id : int <<PK>>
+  name : varchar
+  email : varchar
+  password : varchar
+  phone : varchar
+  role : varchar
+}
 
+entity Field {
+  +field_id : int <<PK>>
+  name : varchar
+  type : varchar
+  location : varchar
+  price_per_hour : decimal
+  status : varchar
+}
 
+entity Booking {
+  +booking_id : int <<PK>>
+  booking_date : datetime
+  start_time : time
+  end_time : time
+  status : varchar
+  total_price : decimal
+  user_id : int <<FK>>
+  field_id : int <<FK>>
+}
+
+entity Payment {
+  +payment_id : int <<PK>>
+  payment_date : datetime
+  amount : decimal
+  method : varchar
+  status : varchar
+  booking_id : int <<FK>>
+}
+
+entity Notification {
+  +notification_id : int <<PK>>
+  user_id : int <<FK>>
+  message : varchar
+  sent_at : datetime
+  type : varchar
+}
+
+entity Maintenance {
+  +maintenance_id : int <<PK>>
+  field_id : int <<FK>>
+  scheduled_date : datetime
+  description : varchar
+  status : varchar
+}
+
+User ||--o{ Booking : "makes"
+Field ||--o{ Booking : "booked"
+Booking ||--|| Payment : "has"
+User ||--o{ Notification : "receives"
+Field ||--o{ Maintenance : "maintained"
 
 @enduml
