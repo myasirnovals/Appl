@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="pembaruan diagram">
+      <change afterPath="$PROJECT_DIR$/Praktikum/ERDUniversitasXYZ.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JurnalAPPL/ERD/ERDLapanganOlahraga.puml" beforeDir="false" afterPath="$PROJECT_DIR$/JurnalAPPL/ERD/ERDLapanganOlahraga.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,6 +111,9 @@
       <workItem from="1748567021179" duration="2949000" />
       <workItem from="1748582907399" duration="7892000" />
       <workItem from="1748762523338" duration="767000" />
+      <workItem from="1748950583312" duration="1277000" />
+      <workItem from="1749082507161" duration="2071000" />
+      <workItem from="1749090747917" duration="843000" />
     </task>
     <task id="LOCAL-00001" summary="update directory">
       <option name="closed" value="true" />

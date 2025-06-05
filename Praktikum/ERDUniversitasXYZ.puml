@@ -1,0 +1,81 @@
+@startuml
+
+entity Mahasiswa {
+    *nim : String
+    namaMhs : String
+    email : String
+    programStudi : String
+}
+
+entity PendaftaranTA {
+    *idPendaftaranTA : int
+    nim : String
+    jumlahSks : int
+    nilaiPrak : double
+    nilaiMatKul : double
+}
+
+entity PendaftaranSeminarTA {
+    *idPendaftaranSeminar : int
+    idPendaftaranTA : int
+    bimbinganTA : int
+    suratKelayakan : boolean
+    proposal : boolean
+}
+
+entity JadwalSeminarTA {
+    *idJadwalSeminar : int
+    tglSeminar : Date
+}
+
+entity KoordinatorTA {
+    *idKoordinator : int
+    namaKoordinator : String
+    noKoordinator : String
+}
+
+entity PenilaianTA {
+    *idPenilaian : int
+    idPendaftaranSeminar : int
+    nilaiAdm : double
+    nilaiBimbingan : double
+    nilaiSeminar : double
+    jumlahNilai : double
+    rataRata : double
+    statusLulus : boolean
+}
+
+entity Dosen {
+    *nid : String
+    nama : String
+    email : String
+}
+
+entity DosenPembimbing {
+    *nid : String
+    bidangKeahlian : String
+    statusKetersediaan : boolean
+}
+
+entity DosenPenguji {
+    *nid : String
+    bidangKeahlian : String
+    statusKehadiran : boolean
+}
+
+' Relasi
+Mahasiswa ||--o{ PendaftaranTA : "memiliki"
+PendaftaranTA ||--o{ PendaftaranSeminarTA : "memiliki"
+PendaftaranSeminarTA ||--|| PenilaianTA : "dinilai"
+JadwalSeminarTA ||--o{ PendaftaranSeminarTA : "menjadwalkan"
+KoordinatorTA ||--o{ PendaftaranTA : "mengelola"
+KoordinatorTA ||--o{ PendaftaranSeminarTA : "mengelola"
+KoordinatorTA ||--o{ JadwalSeminarTA : "membuat"
+Dosen ||--|> DosenPembimbing
+Dosen ||--|> DosenPenguji
+
+' Asosiasi dosen dan mahasiswa
+DosenPembimbing ||--o{ Mahasiswa : "membimbing"
+DosenPenguji ||--o{ Mahasiswa : "menguji"
+
+@enduml
