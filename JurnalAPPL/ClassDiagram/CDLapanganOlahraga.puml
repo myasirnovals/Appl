@@ -1,321 +1,246 @@
 @startuml
-title Class Diagram - Sistem Booking Lapangan Olahraga
+!theme plain
 
-' ===== ENUMERATIONS =====
-enum UserRole {
-    ADMIN
-    MANAJER
-    EMPLOYEE
-    MEMBER
-    GUEST
+' User Management Classes
+abstract class User {
+  - id: int
+  - nama: string
+  - email: string
+  - password: string
+  - noTelepon: string
+  - alamat: string
+  - tanggalDaftar: date
+  - status: string
+  + login(email: string, password: string): boolean
+  + logout(): void
+  + updateProfile(): boolean
+  + validateCredentials(): boolean
 }
 
-enum BookingStatus {
-    PENDING
-    CONFIRMED
-    CANCELLED
-    COMPLETED
-    EXPIRED
+class Guest {
+  - sessionId: string
+  - ipAddress: string
+  + browseLapangan(): List<Lapangan>
+  + register(): Member
 }
 
-enum PaymentStatus {
-    PENDING
-    PAID
-    FAILED
-    REFUNDED
-    PARTIAL
+class Member extends User {
+  - membershipType: string
+  - poin: int
+  - totalBooking: int
+  + bookingLapangan(): Booking
+  + melakukanPembayaran(): Pembayaran
+  + memberikanRating(): Rating
+  + melihatRiwayatBooking(): List<Booking>
+  + updateProfile(): boolean
 }
 
-enum PaymentMethod {
-    CASH
-    TRANSFER_BANK
-    E_WALLET
-    VIRTUAL_ACCOUNT
-    CREDIT_CARD
+class Admin extends User {
+  - adminLevel: string
+  - permissions: List<string>
+  + kelolaUser(): boolean
+  + kelolaLapangan(): boolean
+  + kelolaPembayaran(): boolean
+  + generateLaporan(): Laporan
+  + kelolaBooking(): boolean
 }
 
-enum ArenaCategory {
-    FUTSAL
-    BADMINTON
-    BASKETBALL
-    TENNIS
-    VOLLEYBALL
-    MULTIPURPOSE
+class Manager extends User {
+  - department: string
+  - accessLevel: string
+  + generateLaporan(): Laporan
+  + kelolaJadwal(): boolean
+  + monitoringRevenue(): RevenueReport
+  + approvePricing(): boolean
 }
 
-enum LapanganStatus {
-    AVAILABLE
-    BOOKED
-    MAINTENANCE
-    CLOSED
+class Employee extends User {
+  - shift: string
+  - posisi: string
+  + kelolaLapangan(): boolean
+  + updateStatusLapangan(): boolean
+  + handleCustomerService(): boolean
+  + inputMaintenance(): boolean
 }
 
-' ===== CORE ENTITIES =====
-
-class User {
-    -userId: String
-    -username: String
-    -email: String
-    -password: String
-    -fullName: String
-    -phoneNumber: String
-    -address: String
-    -role: UserRole
-    -isActive: boolean
-    -isVerified: boolean
-    -createdAt: DateTime
-    -updatedAt: DateTime
-    +login(username: String, password: String): boolean
-    +logout(): void
-    +updateProfile(): boolean
-    +changePassword(): boolean
-    +resetPassword(): boolean
-    +verifyEmail(): boolean
-    +deactivateAccount(): void
-}
-
-class Member {
-    -memberId: String
-    -membershipType: String
-    -joinDate: DateTime
-    -totalBookings: int
-    -totalSpent: double
-    -loyaltyPoints: int
-    -blacklisted: boolean
-    -blacklistReason: String
-    +addLoyaltyPoints(points: int): void
-    +redeemPoints(points: int): boolean
-    +getMembershipBenefits(): List
-    +getBookingHistory(): List
-    +blacklistMember(reason: String): void
-}
-
-class Arena {
-    -arenaId: String
-    -arenaName: String
-    -category: ArenaCategory
-    -description: String
-    -location: String
-    -facilities: String
-    -operatingHours: String
-    -contactInfo: String
-    -isActive: boolean
-    -createdAt: DateTime
-    +addLapangan(): void
-    +removeLapangan(): void
-    +updateFacilities(): void
-    +setOperatingHours(): void
-    +getAvailableLapangan(): List
-}
-
+' Core Business Classes
 class Lapangan {
-    -lapanganId: String
-    -lapanganName: String
-    -arenaId: String
-    -capacity: int
-    -pricePerHour: double
-    -status: LapanganStatus
-    -description: String
-    -equipment: String
-    -maintenanceSchedule: DateTime
-    -createdAt: DateTime
-    +updateStatus(): void
-    +setPricing(): void
-    +scheduleMaintenance(): void
-    +checkAvailability(): boolean
-    +getBookingSchedule(): List
+  - id: int
+  - nama: string
+  - jenis: string
+  - deskripsi: string
+  - harga: decimal
+  - fasilitas: List<string>
+  - status: string
+  - kapasitas: int
+  - lokasi: string
+  - foto: List<string>
+  - rating: decimal
+  - createdAt: datetime
+  - updatedAt: datetime
+  + getAvailableSlots(date: date): List<TimeSlot>
+  + updateStatus(status: string): boolean
+  + calculatePrice(duration: int): decimal
+  + addFasilitas(fasilitas: string): boolean
 }
 
 class Booking {
-    -bookingId: String
-    -memberId: String
-    -lapanganId: String
-    -bookingDate: Date
-    -startTime: Time
-    -endTime: Time
-    -duration: int
-    -totalPrice: double
-    -discount: double
-    -finalPrice: double
-    -status: BookingStatus
-    -notes: String
-    -createdAt: DateTime
-    -confirmedBy: String
-    +calculateTotalPrice(): double
-    +applyDiscount(): void
-    +confirmBooking(): void
-    +cancelBooking(): void
-    +extendBooking(): boolean
-    +checkConflict(): boolean
+  - id: int
+  - memberId: int
+  - lapanganId: int
+  - tanggalBooking: date
+  - jamMulai: time
+  - jamSelesai: time
+  - durasi: int
+  - totalHarga: decimal
+  - status: string
+  - catatan: string
+  - createdAt: datetime
+  - updatedAt: datetime
+  + confirmBooking(): boolean
+  + cancelBooking(): boolean
+  + updateStatus(status: string): boolean
+  + calculateTotalPrice(): decimal
+  + isValidTimeSlot(): boolean
 }
 
-class Payment {
-    -paymentId: String
-    -bookingId: String
-    -amount: double
-    -method: PaymentMethod
-    -status: PaymentStatus
-    -transactionId: String
-    -bankAccount: String
-    -proofOfPayment: String
-    -paidAt: DateTime
-    -verifiedBy: String
-    -verifiedAt: DateTime
-    +processPayment(): boolean
-    +verifyPayment(): boolean
-    +refundPayment(): boolean
-    +generateInvoice(): Invoice
-    +sendPaymentConfirmation(): void
+class Pembayaran {
+  - id: int
+  - bookingId: int
+  - jumlah: decimal
+  - metodePembayaran: string
+  - statusPembayaran: string
+  - tanggalPembayaran: datetime
+  - referensiPembayaran: string
+  - buktiPembayaran: string
+  + prosessPembayaran(): boolean
+  + verifikasiPembayaran(): boolean
+  + generateInvoice(): Invoice
+  + refundPembayaran(): boolean
+}
+
+class Rating {
+  - id: int
+  - memberId: int
+  - lapanganId: int
+  - bookingId: int
+  - rating: int
+  - komentar: string
+  - tanggalRating: datetime
+  + submitRating(): boolean
+  + updateRating(): boolean
+  + validateRating(): boolean
+}
+
+class Jadwal {
+  - id: int
+  - lapanganId: int
+  - tanggal: date
+  - jamMulai: time
+  - jamSelesai: time
+  - status: string
+  - bookingId: int
+  + checkAvailability(): boolean
+  + blockTimeSlot(): boolean
+  + releaseTimeSlot(): boolean
+}
+
+class Laporan {
+  - id: int
+  - jenisLaporan: string
+  - periodeMulai: date
+  - periodeSelesai: date
+  - data: string
+  - createdBy: int
+  - createdAt: datetime
+  + generateRevenueReport(): RevenueReport
+  + generateBookingReport(): BookingReport
+  + generateMemberReport(): MemberReport
+  + exportToPDF(): boolean
+  + exportToExcel(): boolean
+}
+
+class RevenueReport extends Laporan {
+  - totalRevenue: decimal
+  - totalBooking: int
+  - avgRevenuePerBooking: decimal
+  + calculateMonthlyRevenue(): decimal
+  + compareWithPreviousPeriod(): decimal
+}
+
+class BookingReport extends Laporan {
+  - totalBooking: int
+  - cancelledBooking: int
+  - completedBooking: int
+  - popularLapangan: List<Lapangan>
+  + getMostPopularTime(): List<TimeSlot>
+  + getBookingTrends(): List<BookingTrend>
+}
+
+class MemberReport extends Laporan {
+  - totalMember: int
+  - activeMember: int
+  - newMember: int
+  - memberRetention: decimal
+  + getMemberGrowth(): List<MemberGrowth>
+  + getTopMembers(): List<Member>
+}
+
+' Supporting Classes
+class TimeSlot {
+  - jamMulai: time
+  - jamSelesai: time
+  - available: boolean
+  + isAvailable(): boolean
+  + getDuration(): int
 }
 
 class Invoice {
-    -invoiceId: String
-    -paymentId: String
-    -invoiceNumber: String
-    -issueDate: DateTime
-    -dueDate: DateTime
-    -subtotal: double
-    -tax: double
-    -discount: double
-    -totalAmount: double
-    -notes: String
-    +generateInvoiceNumber(): String
-    +addItem(): void
-    +calculateTotal(): double
-    +printInvoice(): void
-    +sendInvoiceEmail(): void
+  - id: int
+  - bookingId: int
+  - invoiceNumber: string
+  - tanggalInvoice: date
+  - totalAmount: decimal
+  - pajak: decimal
+  - grandTotal: decimal
+  + generateInvoiceNumber(): string
+  + calculateTax(): decimal
+  + printInvoice(): boolean
 }
 
-class InvoiceItem {
-    -itemId: String
-    -description: String
-    -quantity: int
-    -unitPrice: double
-    -totalPrice: double
-    +calculateItemTotal(): double
+class Session {
+  - sessionId: string
+  - userId: int
+  - userType: string
+  - loginTime: datetime
+  - lastActivity: datetime
+  - isActive: boolean
+  + validateSession(): boolean
+  + refreshSession(): boolean
+  + destroySession(): void
 }
 
-class Notification {
-    -notificationId: String
-    -userId: String
-    -title: String
-    -message: String
-    -type: String
-    -isRead: boolean
-    -sentAt: DateTime
-    -readAt: DateTime
-    +markAsRead(): void
-    +sendNotification(): boolean
-    +scheduleNotification(): void
-}
+' Relationships
+User ||--o{ Session : "has"
+Member ||--o{ Booking : "makes"
+Member ||--o{ Rating : "gives"
+Member ||--o{ Pembayaran : "makes"
 
-class Promo {
-    -promoId: String
-    -promoCode: String
-    -promoName: String
-    -description: String
-    -discountType: String
-    -discountValue: double
-    -minimumAmount: double
-    -startDate: DateTime
-    -endDate: DateTime
-    -usageLimit: int
-    -usedCount: int
-    -isActive: boolean
-    +validatePromo(): boolean
-    +applyPromo(): double
-    +incrementUsage(): void
-    +deactivatePromo(): void
-}
+Lapangan ||--o{ Booking : "booked in"
+Lapangan ||--o{ Rating : "receives"
+Lapangan ||--o{ Jadwal : "has schedule"
 
-class Schedule {
-    -scheduleId: String
-    -lapanganId: String
-    -date: Date
-    -isHoliday: boolean
-    -specialPricing: double
-    -notes: String
-    +addTimeSlot(): void
-    +removeTimeSlot(): void
-    +checkAvailability(): boolean
-    +setSpecialPricing(): void
-}
+Booking ||--|| Pembayaran : "has payment"
+Booking ||--o| Rating : "can be rated"
+Booking ||--|| Invoice : "generates"
 
-class TimeSlot {
-    -slotId: String
-    -startTime: Time
-    -endTime: Time
-    -isAvailable: boolean
-    -price: double
-    -bookingId: String
-    +bookSlot(): void
-    +releaseSlot(): void
-    +updatePrice(): void
-}
+Admin ||--o{ Laporan : "generates"
+Manager ||--o{ Laporan : "generates"
 
-class Report {
-    -reportId: String
-    -reportType: String
-    -title: String
-    -description: String
-    -generatedBy: String
-    -generatedAt: DateTime
-    -filePath: String
-    -format: String
-    +generateReport(): boolean
-    +exportToPDF(): String
-    +exportToExcel(): String
-    +exportToCSV(): String
-    +scheduleReport(): void
-}
+Lapangan ||--o{ TimeSlot : "has"
+Booking }o--|| TimeSlot : "reserves"
 
-class SystemLog {
-    -logId: String
-    -userId: String
-    -action: String
-    -description: String
-    -ipAddress: String
-    -userAgent: String
-    -timestamp: DateTime
-    -severity: String
-    +logUserAction(): void
-    +logSystemEvent(): void
-    +getLogsByUser(): List
-    +getLogsByDate(): List
-}
-
-class BankAccount {
-    -accountId: String
-    -bankName: String
-    -accountNumber: String
-    -accountHolder: String
-    -isActive: boolean
-    -createdAt: DateTime
-    +activateAccount(): void
-    +deactivateAccount(): void
-    +updateAccountInfo(): void
-}
-
-' ===== RELATIONSHIPS =====
-
-User <|-- Member
-
-User "1" -- "0..*" Booking : creates
-User "1" -- "0..*" Notification : receives
-User "1" -- "0..*" SystemLog : generates
-User "1" -- "0..*" Report : generates
-
-Arena "1" -- "1..*" Lapangan : contains
-Lapangan "1" -- "0..*" Booking : booked_for
-Lapangan "1" -- "0..*" Schedule : has
-
-Booking "1" -- "1" Payment : has
-Booking "0..*" -- "0..1" Promo : uses
-
-Payment "1" -- "1" Invoice : generates
-Invoice "1" -- "1..*" InvoiceItem : contains
-
-Schedule "1" -- "1..*" TimeSlot : contains
-TimeSlot "0..1" -- "1" Booking : reserved_by
+' Inheritance relationships shown with extends
+Guest --|> User
 
 @enduml
