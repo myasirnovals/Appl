@@ -1,0 +1,60 @@
+@startuml
+actor Admin
+participant "Halaman Pengelolaan Jadwal" as SchedulePage
+participant "Sistem" as System
+participant "Database" as DB
+
+Admin -> SchedulePage : Membuka halaman pengelolaan jadwal
+activate SchedulePage
+SchedulePage -> System : Request daftar jadwal
+activate System
+System -> DB : Ambil data jadwal
+activate DB
+DB --> System : Data jadwal
+deactivate DB
+System --> SchedulePage : Daftar jadwal
+deactivate System
+SchedulePage -> Admin : Menampilkan daftar jadwal
+
+Admin -> SchedulePage : Memilih aksi (buat/ubah/hapus jadwal)
+alt Membuat jadwal
+    SchedulePage -> Admin : Menampilkan form tambah jadwal
+    Admin -> SchedulePage : Mengisi data jadwal baru
+    SchedulePage -> System : Request tambah jadwal
+    activate System
+    System -> DB : Simpan data jadwal baru
+    activate DB
+    DB --> System : Konfirmasi berhasil/gagal
+    deactivate DB
+    System --> SchedulePage : Notifikasi hasil
+    deactivate System
+    SchedulePage -> Admin : Menampilkan notifikasi
+else Mengubah jadwal
+    SchedulePage -> Admin : Menampilkan form edit jadwal
+    Admin -> SchedulePage : Mengubah data jadwal
+    SchedulePage -> System : Request update jadwal
+    activate System
+    System -> DB : Update data jadwal
+    activate DB
+    DB --> System : Konfirmasi berhasil/gagal
+    deactivate DB
+    System --> SchedulePage : Notifikasi hasil
+    deactivate System
+    SchedulePage -> Admin : Menampilkan notifikasi
+else Menghapus jadwal
+    SchedulePage -> Admin : Konfirmasi penghapusan jadwal
+    Admin -> SchedulePage : Konfirmasi hapus
+    SchedulePage -> System : Request hapus jadwal
+    activate System
+    System -> DB : Hapus data jadwal
+    activate DB
+    DB --> System : Konfirmasi berhasil/gagal
+    deactivate DB
+    System --> SchedulePage : Notifikasi hasil
+    deactivate System
+    SchedulePage -> Admin : Menampilkan notifikasi
+end
+
+deactivate SchedulePage
+
+@enduml

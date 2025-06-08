@@ -1,0 +1,47 @@
+@startuml
+actor Member
+participant "Halaman Riwayat Pemesanan" as HistoryPage
+participant "Sistem" as System
+participant "Database" as DB
+
+Member -> HistoryPage : Membuka halaman riwayat pemesanan
+activate HistoryPage
+HistoryPage -> System : Request daftar pemesanan selesai
+activate System
+System -> DB : Ambil data pemesanan selesai milik member
+activate DB
+DB --> System : Data daftar pemesanan selesai
+deactivate DB
+System --> HistoryPage : Data daftar pemesanan selesai
+deactivate System
+HistoryPage -> Member : Menampilkan daftar pemesanan selesai
+
+Member -> HistoryPage : Memilih pemesanan yang ingin diberi rating
+HistoryPage -> System : Request detail pemesanan & status rating
+activate System
+System -> DB : Ambil detail pemesanan & status rating
+activate DB
+DB --> System : Detail pemesanan & status rating
+deactivate DB
+System --> HistoryPage : Detail pemesanan & status rating
+deactivate System
+HistoryPage -> Member : Menampilkan detail & opsi beri rating
+
+alt Sudah pernah rating
+    HistoryPage -> Member : Notifikasi rating sudah pernah diberikan
+else Belum pernah rating
+    Member -> HistoryPage : Mengisi rating/review dan menekan "Kirim"
+    HistoryPage -> System : Kirim data rating/review
+    activate System
+    System -> DB : Simpan rating/review
+    activate DB
+    DB --> System : Konfirmasi penyimpanan
+    deactivate DB
+    System --> HistoryPage : Notifikasi rating berhasil
+    deactivate System
+    HistoryPage -> Member : Menampilkan notifikasi rating berhasil
+end
+
+deactivate HistoryPage
+
+@enduml

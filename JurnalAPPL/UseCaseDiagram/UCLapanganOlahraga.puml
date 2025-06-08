@@ -1,204 +1,38 @@
-@startuml Sistem Booking Lapangan Olahraga
-
+@startuml
 left to right direction
-
-' ===== ACTORS =====
-actor Admin
-actor Manajer
-actor Employee
-actor Member
 actor Guest
+actor Member
+actor Admin
+actor Manager
+actor Employee
 
-' ===== GENERALIZED ACTORS =====
-Admin ----|> Manajer : extends
-Manajer ----|> Employee : extends
-
-' ===== SYSTEM BOUNDARY =====
 rectangle "Sistem Booking Lapangan Olahraga" {
+  Guest -- (Register)
+  Guest -- (Login)
+  Guest -- (Browse Lapangan)
 
-    ' ===== GENERALIZED USE CASES =====
-    usecase "Kelola Akun" as UC_Account
-    usecase "Kelola Sistem" as UC_System
-    usecase "Kelola Arena" as UC_Arena
-    usecase "Kelola Keuangan" as UC_Finance
-    usecase "Proses Transaksi" as UC_Transaction
-    usecase "Browse Informasi" as UC_Browse
-    usecase "Komunikasi" as UC_Communication
+  Member -- (Login)
+  Member -- (Browse Lapangan)
+  Member -- (Booking Lapangan)
+  Member -- (Melakukan Pembayaran)
+  Member -- (Melihat Riwayat Booking)
+  Member -- (Memberikan Rating)
 
-    ' ===== MANAJEMEN AKUN =====
-    usecase "Login" as UC_Login
-    usecase "Logout" as UC_Logout
-    usecase "Registrasi" as UC_Register
-    usecase "Reset Password" as UC_ResetPassword
-    usecase "Ubah Password" as UC_ChangePassword
-    usecase "Kelola Profil" as UC_Profile
-    usecase "Verifikasi Email/Telepon" as UC_Verify
+  Admin -- (Login)
+  Admin -- (Kelola User)
+  Admin -- (Kelola Lapangan)
+  Admin -- (Kelola Jadwal)
+  Admin -- (Kelola Pembayaran)
+  Admin -- (Generate Laporan)
 
-    ' ===== MANAJEMEN SISTEM =====
-    usecase "Melihat Dashboard" as UC_Dashboard
-    usecase "Kelola Laporan" as UC_Report
-    usecase "Export Laporan" as UC_ExportReport
-    usecase "Backup Data" as UC_Backup
-    usecase "Monitoring Sistem" as UC_Monitor
-    usecase "Kelola Role & Permission" as UC_RolePermission
+  Manager -- (Login)
+  Manager -- (Kelola Jadwal)
+  Manager -- (Kelola Booking)
+  Manager -- (Generate Laporan)
 
-    ' ===== MANAJEMEN USER =====
-    usecase "Kelola User" as UC_ManageUser
-    usecase "Blacklist User" as UC_Blacklist
-    usecase "List Penyewa" as UC_ListRenter
-    usecase "Kelola Notifikasi" as UC_ManageNotification
-    usecase "Melihat Notifikasi" as UC_ViewNotification
-
-    ' ===== MANAJEMEN ARENA =====
-    usecase "Kelola Arena & Fasilitas" as UC_ManageArena
-    usecase "Kelola Kategori Arena" as UC_CategoryArena
-    usecase "Kelola Inventaris" as UC_Inventory
-    usecase "Kelola Jadwal Lapangan" as UC_Schedule
-    usecase "Update Status Lapangan" as UC_UpdateStatus
-
-    ' ===== MANAJEMEN KEUANGAN =====
-    usecase "Kelola Pembayaran" as UC_Payment
-    usecase "Konfirmasi Pembayaran Manual" as UC_ConfirmPayment
-    usecase "Print Transaksi" as UC_PrintTransaction
-    usecase "Kelola Rekening Bank" as UC_BankAccount
-    usecase "Kelola Refund" as UC_Refund
-    usecase "Kelola Promo/Diskon" as UC_Promo
-
-    ' ===== TRANSAKSI & BOOKING =====
-    usecase "Kelola Transaksi Sewa" as UC_ManageRental
-    usecase "Sewa Lapangan" as UC_RentField
-    usecase "Lakukan Pembayaran" as UC_MakePayment
-    usecase "Kelola Pesanan" as UC_ManageOrder
-    usecase "Batalkan Pesanan" as UC_CancelOrder
-    usecase "Reschedule Booking" as UC_Reschedule
-    usecase "Print Tiket" as UC_PrintTicket
-
-    ' ===== INFORMASI & BROWSING =====
-    usecase "Browse Arena & Fasilitas" as UC_BrowseArena
-    usecase "Lihat Jadwal Ketersediaan" as UC_ViewSchedule
-    usecase "Lihat Informasi Harga" as UC_ViewPrice
-    usecase "Lihat Kategori Lokasi" as UC_ViewLocation
-    usecase "Lihat Jenis Lapangan" as UC_ViewFieldType
-    usecase "Lihat Promo Aktif" as UC_ViewPromo
-
-    ' ===== RIWAYAT & TRACKING =====
-    usecase "Lihat Riwayat Transaksi" as UC_ViewHistory
-    usecase "Export Riwayat" as UC_ExportHistory
-    usecase "Rating & Komentar" as UC_Rating
-
-    ' ===== KOMUNIKASI =====
-    usecase "Forum Diskusi" as UC_Forum
-    usecase "Customer Service Chat" as UC_Chat
-
-    ' ===== INCLUDE RELATIONSHIPS =====
-    UC_Account ..> UC_Login : <<include>>
-    UC_Account ..> UC_Logout : <<include>>
-    UC_Account ..> UC_Profile : <<include>>
-
-    UC_System ..> UC_Dashboard : <<include>>
-    UC_System ..> UC_Monitor : <<include>>
-
-    UC_Arena ..> UC_ManageArena : <<include>>
-    UC_Arena ..> UC_Schedule : <<include>>
-
-    UC_Finance ..> UC_Payment : <<include>>
-    UC_Finance ..> UC_PrintTransaction : <<include>>
-
-    UC_Transaction ..> UC_RentField : <<include>>
-    UC_Transaction ..> UC_MakePayment : <<include>>
-
-    UC_Browse ..> UC_BrowseArena : <<include>>
-    UC_Browse ..> UC_ViewSchedule : <<include>>
-
-    UC_Communication ..> UC_Chat : <<include>>
-
-    ' ===== EXTEND RELATIONSHIPS =====
-    UC_Register ..> UC_Verify : <<extend>>
-    UC_Login ..> UC_ResetPassword : <<extend>>
-    UC_ManageOrder ..> UC_CancelOrder : <<extend>>
-    UC_ManageOrder ..> UC_Reschedule : <<extend>>
-    UC_RentField ..> UC_PrintTicket : <<extend>>
-    UC_ViewHistory ..> UC_ExportHistory : <<extend>>
-    UC_Report ..> UC_ExportReport : <<extend>>
-    UC_BrowseArena ..> UC_ViewPromo : <<extend>>
-
-    ' ===== GENERALIZATION RELATIONSHIPS =====
-    UC_ManageOrder <|---- UC_CancelOrder
-    UC_ManageOrder <|---- UC_Reschedule
-    UC_Report <|---- UC_ExportReport
-    UC_Browse <|---- UC_ViewPrice
-    UC_Browse <|---- UC_ViewLocation
-    UC_Browse <|---- UC_ViewFieldType
-
+  Employee -- (Login)
+  Employee -- (Kelola Lapangan)
+  Employee -- (Kelola Jadwal)
 }
-
-' ===== ACTOR RELATIONSHIPS =====
-
-' ADMIN
- UC_System ---- Admin
- UC_RolePermission ---- Admin
- UC_Backup ---- Admin
- UC_ManageUser ---- Admin
- UC_Blacklist ---- Admin
- UC_ListRenter ---- Admin
- UC_ManageNotification ---- Admin
- UC_Finance ---- Admin
- UC_BankAccount ---- Admin
- UC_Refund ---- Admin
- UC_Promo ---- Admin
- UC_Arena ---- Admin
- UC_ManageRental ---- Admin
- UC_ViewHistory ---- Admin
- UC_Account ---- Admin
-
-' MANAJER
-UC_System ---- Manajer
-UC_ManageUser ---- Manajer
-UC_Blacklist ---- Manajer
-UC_ListRenter ---- Manajer
-UC_ManageNotification ---- Manajer
-UC_Finance ---- Manajer
-UC_Promo ---- Manajer
-UC_Arena ---- Manajer
-UC_ManageRental ---- Manajer
-UC_ViewHistory ---- Manajer
-UC_Account ---- Manajer
-
-' EMPLOYEE
-UC_Inventory ---- Employee
-UC_Schedule ---- Employee
-UC_UpdateStatus ---- Employee
-UC_Payment ---- Employee
-UC_ConfirmPayment ---- Employee
-UC_PrintTransaction ---- Employee
-UC_ManageRental ---- Employee
-UC_ManageOrder ---- Employee
-UC_PrintTicket ---- Employee
-UC_Browse ---- Employee
-UC_ViewHistory ---- Employee
-UC_ViewNotification ---- Employee
-UC_Chat ---- Employee
-UC_Account ---- Employee
-
-' MEMBER
-Member ---- UC_Transaction
-Member ---- UC_Browse
-Member ---- UC_ViewHistory
-Member ---- UC_ExportHistory
-Member ---- UC_Rating
-Member ---- UC_ViewNotification
-Member ---- UC_Forum
-Member ---- UC_Chat
-Member ---- UC_Account
-Member ---- UC_Verify
-
-' GUEST
-Guest ---- UC_Register
-Guest ---- UC_Browse
-Guest ---- UC_Forum
-Guest ---- UC_Chat
-Guest ---- UC_Login
-Guest ---- UC_ResetPassword
-Guest ---- UC_Verify
 
 @enduml

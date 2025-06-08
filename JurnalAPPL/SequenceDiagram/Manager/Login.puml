@@ -1,0 +1,40 @@
+@startuml
+actor Manager
+participant "Halaman Login Pengelola" as AdminLoginForm
+participant "Sistem" as System
+participant "Database" as DB
+
+Manager -> AdminLoginForm : Membuka halaman login pengelola
+activate AdminLoginForm
+AdminLoginForm -> Manager : Menampilkan formulir login pengelola
+
+Manager -> AdminLoginForm : Memasukkan username/email & password
+Manager -> AdminLoginForm : Menekan tombol "Login"
+AdminLoginForm -> System : Mengirim data login pengelola
+deactivate AdminLoginForm
+
+activate System
+System -> DB : Verifikasi username/email, password, dan hak akses pengelola
+activate DB
+DB --> System : Status valid/invalid & hak akses
+deactivate DB
+
+alt Kredensial & hak akses valid
+    System -> AdminLoginForm : Tampilkan dashboard pengelola
+    activate AdminLoginForm
+    AdminLoginForm -> Manager : Login berhasil, akses fitur pengelola
+    deactivate AdminLoginForm
+else Kredensial atau hak akses tidak valid
+    System -> AdminLoginForm : Tampilkan pesan error
+    activate AdminLoginForm
+    AdminLoginForm -> Manager : Notifikasi error (login gagal)
+    deactivate AdminLoginForm
+end
+
+deactivate System
+
+destroy AdminLoginForm
+destroy System
+destroy DB
+
+@enduml

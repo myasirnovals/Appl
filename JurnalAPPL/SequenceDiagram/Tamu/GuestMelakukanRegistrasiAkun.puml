@@ -1,0 +1,45 @@
+@startuml
+actor Guest
+participant "Halaman Registrasi" as Form
+participant "Sistem" as System
+participant "Database" as DB
+
+Guest -> Form : Membuka halaman registrasi
+activate Form
+Form -> Guest : Menampilkan formulir pendaftaran
+
+Guest -> Form : Mengisi data registrasi\n(nama, email, password, dll)
+Guest -> Form : Menekan tombol "Daftar"
+Form -> System : Mengirim data registrasi
+deactivate Form
+
+activate System
+System -> System : Validasi data
+System -> DB : Cek email sudah terdaftar?
+activate DB
+DB --> System : Status email (terdaftar/tidak)
+deactivate DB
+
+alt Email belum terdaftar dan data valid
+    System -> DB : Simpan data akun baru
+    activate DB
+    DB --> System : Konfirmasi penyimpanan
+    deactivate DB
+    System -> Form : Tampilkan notifikasi sukses
+    activate Form
+    Form -> Guest : Notifikasi registrasi berhasil
+    deactivate Form
+else Email sudah terdaftar / data tidak valid
+    System -> Form : Tampilkan pesan error
+    activate Form
+    Form -> Guest : Notifikasi error\n(perbaiki data)
+    deactivate Form
+end
+
+deactivate System
+
+destroy Form
+destroy System
+destroy DB
+
+@enduml

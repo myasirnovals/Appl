@@ -1,0 +1,42 @@
+@startuml
+actor Admin
+participant "Halaman Laporan" as ReportPage
+participant "Sistem" as System
+participant "Database" as DB
+
+Admin -> ReportPage : Membuka menu laporan
+activate ReportPage
+ReportPage -> System : Request opsi jenis laporan
+activate System
+System -> DB : Ambil data opsi laporan
+activate DB
+DB --> System : Data opsi laporan
+deactivate DB
+System --> ReportPage : Tampilkan opsi laporan
+deactivate System
+ReportPage -> Admin : Menampilkan opsi laporan
+
+Admin -> ReportPage : Memilih jenis & periode laporan
+ReportPage -> System : Request data laporan
+activate System
+System -> DB : Ambil data laporan sesuai permintaan
+activate DB
+DB --> System : Data laporan
+deactivate DB
+
+alt Data laporan ditemukan
+    System --> ReportPage : Tampilkan laporan
+    ReportPage -> Admin : Menampilkan laporan (opsi unduh/cetak)
+else Data laporan tidak ditemukan
+    System --> ReportPage : Tampilkan pesan "Data tidak tersedia"
+    ReportPage -> Admin : Menampilkan pesan error
+end
+
+deactivate System
+deactivate ReportPage
+
+destroy ReportPage
+destroy System
+destroy DB
+
+@enduml

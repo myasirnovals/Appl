@@ -1,0 +1,50 @@
+@startuml
+|Member|
+start
+:Login ke sistem;
+:Browse lapangan tersedia;
+:Pilih lapangan yang diinginkan;
+:Pilih tanggal dan waktu;
+
+|Sistem|
+:Menerima request booking;
+
+|Database|
+:Cek ketersediaan jadwal;
+:Return status ketersediaan;
+
+|Sistem|
+if (Jadwal tersedia?) then (ya)
+  :Buat booking sementara;
+  |Member|
+  :Menerima konfirmasi booking;
+  :Redirect ke halaman pembayaran;
+  :Melakukan pembayaran;
+
+  |Sistem Pembayaran|
+  :Proses pembayaran;
+  :Return status pembayaran;
+
+  |Sistem|
+  if (Pembayaran berhasil?) then (ya)
+    |Database|
+    :Update status booking menjadi confirmed;
+    |Sistem|
+    :Generate konfirmasi booking;
+    |Member|
+    :Menerima konfirmasi booking;
+    :Booking selesai;
+    stop
+  else (tidak)
+    |Database|
+    :Batalkan booking;
+    |Member|
+    :Menerima pesan pembayaran gagal;
+    stop
+  endif
+else (tidak)
+  |Member|
+  :Menerima pesan jadwal tidak tersedia;
+  stop
+endif
+@enduml

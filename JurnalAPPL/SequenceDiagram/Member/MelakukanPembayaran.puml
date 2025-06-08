@@ -1,0 +1,43 @@
+@startuml
+actor Member
+participant "Halaman Pembayaran" as PaymentPage
+participant "Sistem" as System
+participant "Gateway Pembayaran" as PaymentGateway
+participant "Database" as DB
+
+Member -> PaymentPage : Membuka halaman pembayaran
+activate PaymentPage
+PaymentPage -> System : Request detail pembayaran & metode
+activate System
+System -> DB : Ambil data booking & metode pembayaran
+activate DB
+DB --> System : Data booking & metode pembayaran
+deactivate DB
+System --> PaymentPage : Tampilkan detail & metode pembayaran
+deactivate System
+PaymentPage -> Member : Menampilkan pilihan metode pembayaran
+
+Member -> PaymentPage : Memilih metode pembayaran & konfirmasi bayar
+PaymentPage -> System : Kirim data pembayaran
+activate System
+System -> PaymentGateway : Proses pembayaran
+activate PaymentGateway
+PaymentGateway --> System : Notifikasi pembayaran (berhasil/gagal)
+deactivate PaymentGateway
+
+alt Pembayaran berhasil
+    System -> DB : Update status booking menjadi "Lunas"
+    activate DB
+    DB --> System : Status terupdate
+    deactivate DB
+    System -> PaymentPage : Notifikasi pembayaran berhasil
+    PaymentPage -> Member : Menampilkan pembayaran berhasil
+else Pembayaran gagal
+    System -> PaymentPage : Notifikasi pembayaran gagal
+    PaymentPage -> Member : Menampilkan pembayaran gagal, minta ulangi pembayaran
+end
+
+deactivate System
+deactivate PaymentPage
+
+@enduml

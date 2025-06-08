@@ -1,0 +1,37 @@
+@startuml
+|Admin/Manager|
+start
+:Login ke sistem;
+:Masuk ke menu laporan;
+:Pilih jenis laporan;
+:Tentukan periode laporan;
+:Set filter laporan (opsional);
+:Request generate laporan;
+
+|Sistem|
+:Menerima request laporan;
+:Validasi parameter;
+
+|Database|
+:Query data berdasarkan parameter;
+:Return data mentah;
+
+|Sistem|
+:Memproses data;
+:Format data menjadi laporan;
+:Generate laporan;
+
+|Admin/Manager|
+:Menerima laporan;
+if (Export laporan?) then (ya)
+  :Pilih format export (PDF/Excel);
+  |Sistem|
+  :Generate file export;
+  :Prepare download;
+  |Admin/Manager|
+  :Download file laporan;
+else (tidak)
+  :Melihat laporan di layar;
+endif
+stop
+@enduml

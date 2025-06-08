@@ -1,0 +1,35 @@
+@startuml
+actor Admin
+participant "Halaman Manajemen User" as UserMgmt
+participant "Sistem" as System
+participant "Database" as DB
+
+Admin -> UserMgmt : Pilih user & klik "Edit"
+activate UserMgmt
+UserMgmt -> System : Request data user
+activate System
+System -> DB : Ambil data user
+activate DB
+DB --> System : Data user
+deactivate DB
+System --> UserMgmt : Data user
+deactivate System
+UserMgmt -> Admin : Tampilkan form edit user
+
+Admin -> UserMgmt : Edit data & submit
+UserMgmt -> System : Kirim data user edit
+activate System
+System -> DB : Update data user
+activate DB
+DB --> System : Konfirmasi berhasil/gagal
+deactivate DB
+System --> UserMgmt : Notifikasi hasil edit user
+deactivate System
+UserMgmt -> Admin : Tampilkan notifikasi & update daftar user
+deactivate UserMgmt
+
+destroy UserMgmt
+destroy System
+destroy DB
+
+@enduml

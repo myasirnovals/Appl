@@ -1,0 +1,40 @@
+@startuml
+actor Member
+participant "Halaman Login" as LoginForm
+participant "Sistem" as System
+participant "Database" as DB
+
+Member -> LoginForm : Membuka halaman login
+activate LoginForm
+LoginForm -> Member : Menampilkan formulir login
+
+Member -> LoginForm : Memasukkan username/email & password
+Member -> LoginForm : Menekan tombol "Login"
+LoginForm -> System : Mengirim data login
+deactivate LoginForm
+
+activate System
+System -> DB : Verifikasi username/email & password
+activate DB
+DB --> System : Status valid/invalid
+deactivate DB
+
+alt Kredensial valid
+    System -> LoginForm : Tampilkan halaman utama member
+    activate LoginForm
+    LoginForm -> Member : Login berhasil, akses fitur member
+    deactivate LoginForm
+else Kredensial tidak valid
+    System -> LoginForm : Tampilkan pesan error
+    activate LoginForm
+    LoginForm -> Member : Notifikasi error (username/password salah)
+    deactivate LoginForm
+end
+
+deactivate System
+
+destroy LoginForm
+destroy System
+destroy DB
+
+@enduml

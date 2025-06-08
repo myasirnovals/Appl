@@ -1,0 +1,32 @@
+@startuml
+actor Admin
+participant "Halaman Manajemen User" as UserMgmt
+participant "Sistem" as System
+participant "Database" as DB
+
+Admin -> UserMgmt : Pilih "Tambah User"
+activate UserMgmt
+UserMgmt -> System : Request form tambah user
+activate System
+System -> UserMgmt : Tampilkan form tambah user
+deactivate System
+UserMgmt -> Admin : Menampilkan form tambah user
+
+Admin -> UserMgmt : Mengisi data user & submit
+
+UserMgmt -> System : Kirim data user baru
+activate System
+System -> DB : Simpan data user baru
+activate DB
+DB --> System : Konfirmasi berhasil/gagal
+deactivate DB
+System --> UserMgmt : Notifikasi hasil tambah user
+deactivate System
+UserMgmt -> Admin : Tampilkan notifikasi & update daftar user
+deactivate UserMgmt
+
+destroy UserMgmt
+destroy System
+destroy DB
+
+@enduml

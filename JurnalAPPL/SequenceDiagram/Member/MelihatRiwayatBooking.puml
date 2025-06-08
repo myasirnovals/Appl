@@ -1,0 +1,26 @@
+@startuml
+actor Member
+participant "Halaman Riwayat Booking" as HistoryPage
+participant "Sistem" as System
+participant "Database" as DB
+
+Member -> HistoryPage : Membuka menu "Riwayat Booking"
+activate HistoryPage
+HistoryPage -> System : Request data riwayat booking member
+activate System
+System -> DB : Ambil data riwayat booking berdasarkan ID member
+activate DB
+DB --> System : Data riwayat booking (atau kosong)
+deactivate DB
+System --> HistoryPage : Data riwayat booking (atau pesan tidak ada data)
+deactivate System
+
+alt Ada riwayat booking
+    HistoryPage -> Member : Menampilkan daftar riwayat booking beserta status
+else Tidak ada riwayat booking
+    HistoryPage -> Member : Menampilkan pesan "Belum ada riwayat booking"
+end
+
+deactivate HistoryPage
+
+@enduml

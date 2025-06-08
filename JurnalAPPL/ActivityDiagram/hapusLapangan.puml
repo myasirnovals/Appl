@@ -1,0 +1,47 @@
+@startuml
+|Admin/Employee|
+start
+:Login ke sistem;
+:Masuk ke menu kelola lapangan;
+:Pilih "Hapus Lapangan";
+:Melihat daftar lapangan;
+:Pilih lapangan yang akan dihapus;
+
+|Sistem|
+:Load data lapangan terpilih;
+
+|Database|
+:Query data lapangan;
+:Cek apakah lapangan memiliki booking aktif;
+:Return status lapangan dan booking;
+
+|Sistem|
+if (Ada booking aktif?) then (ya)
+  |Admin/Employee|
+  :Menerima pesan "Lapangan tidak dapat dihapus
+  karena masih ada booking aktif";
+  stop
+else (tidak)
+  |Admin/Employee|
+  :Melihat detail lapangan yang akan dihapus;
+  :Tampilkan dialog konfirmasi penghapusan;
+  if (Konfirmasi penghapusan?) then (ya)
+    |Database|
+    :Hapus semua data terkait lapangan
+    (rating, review, riwayat booking lama);
+    :Hapus data lapangan dari database;
+    :Return status berhasil;
+    |Sistem|
+    :Generate pesan sukses;
+    |Admin/Employee|
+    :Menerima konfirmasi berhasil;
+    :Lapangan berhasil dihapus;
+    stop
+  else (tidak)
+    |Admin/Employee|
+    :Penghapusan dibatalkan;
+    :Kembali ke daftar lapangan;
+    stop
+  endif
+endif
+@enduml

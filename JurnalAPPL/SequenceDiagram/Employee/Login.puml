@@ -1,0 +1,40 @@
+@startuml
+actor Employee
+participant "Halaman Login Pegawai" as EmployeeLoginForm
+participant "Sistem" as System
+participant "Database" as DB
+
+Employee -> EmployeeLoginForm : Membuka halaman login pegawai
+activate EmployeeLoginForm
+EmployeeLoginForm -> Employee : Menampilkan formulir login pegawai
+
+Employee -> EmployeeLoginForm : Memasukkan username/email & password
+Employee -> EmployeeLoginForm : Menekan tombol "Login"
+EmployeeLoginForm -> System : Mengirim data login pegawai
+deactivate EmployeeLoginForm
+
+activate System
+System -> DB : Verifikasi username/email & password pegawai
+activate DB
+DB --> System : Status valid/invalid
+deactivate DB
+
+alt Kredensial valid
+    System -> EmployeeLoginForm : Tampilkan dashboard pegawai
+    activate EmployeeLoginForm
+    EmployeeLoginForm -> Employee : Login berhasil, akses fitur pegawai
+    deactivate EmployeeLoginForm
+else Kredensial tidak valid
+    System -> EmployeeLoginForm : Tampilkan pesan error
+    activate EmployeeLoginForm
+    EmployeeLoginForm -> Employee : Notifikasi error (username/password salah)
+    deactivate EmployeeLoginForm
+end
+
+deactivate System
+
+destroy EmployeeLoginForm
+destroy System
+destroy DB
+
+@enduml

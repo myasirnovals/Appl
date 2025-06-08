@@ -1,0 +1,62 @@
+@startuml
+actor Admin
+participant "Halaman Kelola Lapangan" as ManageField
+participant "Sistem" as System
+participant "Database" as DB
+
+Admin -> ManageField : Membuka halaman kelola lapangan
+activate ManageField
+ManageField -> System : Request daftar lapangan
+activate System
+System -> DB : Ambil data lapangan
+activate DB
+DB --> System : Data daftar lapangan
+deactivate DB
+System --> ManageField : Data daftar lapangan
+deactivate System
+ManageField -> Admin : Menampilkan daftar lapangan
+
+alt Tambah data lapangan
+    Admin -> ManageField : Klik "Tambah Lapangan"
+    ManageField -> Admin : Tampilkan form tambah lapangan
+    Admin -> ManageField : Mengisi data lapangan baru
+    Admin -> ManageField : Klik "Simpan"
+    ManageField -> System : Kirim data lapangan baru
+    activate System
+    System -> DB : Simpan data lapangan baru
+    activate DB
+    DB --> System : Konfirmasi berhasil/gagal
+    deactivate DB
+    System --> ManageField : Status aksi
+    deactivate System
+    ManageField -> Admin : Notifikasi berhasil/gagal
+else Ubah data lapangan
+    Admin -> ManageField : Pilih lapangan, klik "Ubah"
+    ManageField -> Admin : Tampilkan form ubah lapangan
+    Admin -> ManageField : Memperbarui data lapangan
+    Admin -> ManageField : Klik "Simpan"
+    ManageField -> System : Kirim data perubahan lapangan
+    activate System
+    System -> DB : Update data lapangan
+    activate DB
+    DB --> System : Konfirmasi berhasil/gagal
+    deactivate DB
+    System --> ManageField : Status aksi
+    deactivate System
+    ManageField -> Admin : Notifikasi berhasil/gagal
+else Hapus data lapangan
+    Admin -> ManageField : Pilih lapangan, klik "Hapus"
+    ManageField -> System : Kirim permintaan hapus lapangan
+    activate System
+    System -> DB : Hapus data lapangan
+    activate DB
+    DB --> System : Konfirmasi berhasil/gagal
+    deactivate DB
+    System --> ManageField : Status aksi
+    deactivate System
+    ManageField -> Admin : Notifikasi berhasil/gagal
+end
+
+deactivate ManageField
+
+@enduml

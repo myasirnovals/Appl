@@ -1,0 +1,31 @@
+@startuml
+actor Guest
+participant "Halaman Daftar Lapangan" as FieldList
+participant "Sistem" as System
+participant "Database" as DB
+
+Guest -> FieldList : Membuka halaman daftar lapangan
+activate FieldList
+FieldList -> System : Request data daftar lapangan
+activate System
+System -> DB : Ambil data lapangan
+activate DB
+DB --> System : Data daftar lapangan
+deactivate DB
+System --> FieldList : Data daftar lapangan
+deactivate System
+FieldList -> Guest : Menampilkan daftar lapangan
+
+Guest -> FieldList : Memilih salah satu lapangan
+FieldList -> System : Request detail lapangan
+activate System
+System -> DB : Ambil detail lapangan
+activate DB
+DB --> System : Data detail lapangan
+deactivate DB
+System --> FieldList : Data detail lapangan
+deactivate System
+FieldList -> Guest : Menampilkan detail lapangan
+deactivate FieldList
+
+@enduml

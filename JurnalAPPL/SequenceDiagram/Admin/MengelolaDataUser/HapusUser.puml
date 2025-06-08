@@ -1,0 +1,28 @@
+@startuml
+actor Admin
+participant "Halaman Manajemen User" as UserMgmt
+participant "Sistem" as System
+participant "Database" as DB
+
+Admin -> UserMgmt : Pilih user & klik "Hapus"
+activate UserMgmt
+UserMgmt -> Admin : Tampilkan konfirmasi hapus
+
+Admin -> UserMgmt : Konfirmasi hapus
+
+UserMgmt -> System : Kirim perintah hapus user
+activate System
+System -> DB : Hapus data user
+activate DB
+DB --> System : Konfirmasi berhasil/gagal
+deactivate DB
+System --> UserMgmt : Notifikasi hasil hapus user
+deactivate System
+UserMgmt -> Admin : Tampilkan notifikasi & update daftar user
+deactivate UserMgmt
+
+destroy UserMgmt
+destroy System
+destroy DB
+
+@enduml

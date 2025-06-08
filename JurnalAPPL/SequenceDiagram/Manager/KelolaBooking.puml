@@ -1,0 +1,42 @@
+@startuml
+actor Manager
+participant "Halaman Pengelolaan Booking" as BookingPage
+participant "Sistem" as System
+participant "Database" as DB
+
+Manager -> BookingPage : Membuka halaman pengelolaan booking
+activate BookingPage
+BookingPage -> System : Request daftar booking berjalan
+activate System
+System -> DB : Ambil data booking berjalan
+activate DB
+DB --> System : Data daftar booking berjalan
+deactivate DB
+System --> BookingPage : Data daftar booking berjalan
+deactivate System
+BookingPage -> Manager : Menampilkan daftar booking
+
+Manager -> BookingPage : Memilih salah satu booking
+BookingPage -> System : Request detail booking
+activate System
+System -> DB : Ambil detail booking
+activate DB
+DB --> System : Data detail booking
+deactivate DB
+System --> BookingPage : Data detail booking
+deactivate System
+BookingPage -> Manager : Menampilkan detail booking
+
+Manager -> BookingPage : Memilih aksi (konfirmasi/batalkan/perbarui status)
+BookingPage -> System : Update status booking
+activate System
+System -> DB : Update data booking
+activate DB
+DB --> System : Status update (berhasil/gagal)
+deactivate DB
+System --> BookingPage : Konfirmasi update
+deactivate System
+BookingPage -> Manager : Menampilkan hasil aksi (berhasil/gagal)
+deactivate BookingPage
+
+@enduml
