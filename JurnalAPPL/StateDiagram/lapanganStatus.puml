@@ -1,0 +1,27 @@
+@startuml
+!theme plain
+title State Diagram - Lapangan Status
+
+[*] --> Available : createLapangan()
+
+Available --> Booked : confirmBooking()
+Available --> Maintenance : scheduleMaintenance()
+Available --> Closed : closeTemporarily()
+
+Booked --> Available : bookingCompleted()
+Booked --> Maintenance : emergencyMaintenance()
+Booked --> Closed : emergencyClose()
+
+Maintenance --> Available : maintenanceCompleted()
+Maintenance --> Closed : permanentIssue()
+
+Closed --> Available : reopenLapangan()
+Closed --> Maintenance : needMaintenance()
+Closed --> [*] : permanentClosure()
+
+note right of Available : Can accept new bookings
+note right of Booked : Temporarily unavailable
+note right of Maintenance : Under maintenance
+note right of Closed : Not operational
+
+@enduml

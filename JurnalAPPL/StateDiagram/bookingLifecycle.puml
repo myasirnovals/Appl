@@ -1,0 +1,43 @@
+@startuml
+!theme plain
+title State Diagram - Booking Lifecycle
+
+[*] --> Draft : createBooking()
+
+Draft --> PendingValidation : submitBooking()
+Draft --> Cancelled : cancelDraft()
+
+PendingValidation --> PendingPayment : isValidTimeSlot() [valid]
+PendingValidation --> Rejected : isValidTimeSlot() [invalid]
+PendingValidation --> Cancelled : cancelBooking()
+
+Rejected --> Draft : modifyBooking()
+Rejected --> Cancelled : abandonBooking()
+
+PendingPayment --> PaymentProcessing : melakukanPembayaran()
+PendingPayment --> Expired : timeout()
+PendingPayment --> Cancelled : cancelBooking()
+
+PaymentProcessing --> Confirmed : prosessPembayaran() [success]
+PaymentProcessing --> PaymentFailed : prosessPembayaran() [failed]
+
+PaymentFailed --> PendingPayment : retryPayment()
+PaymentFailed --> Cancelled : abandonPayment()
+
+Confirmed --> InProgress : startTime()
+Confirmed --> Cancelled : cancelBooking() [before start]
+
+InProgress --> Completed : endTime()
+InProgress --> Cancelled : emergencyCancel()
+
+Completed --> Rated : memberikanRating()
+Completed --> [*] : timeout()
+
+Expired --> [*]
+Cancelled --> [*]
+Rated --> [*]
+
+note right of Confirmed : Can generate Invoice
+note right of Completed : Can provide Rating
+
+@enduml

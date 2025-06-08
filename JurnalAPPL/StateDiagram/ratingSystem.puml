@@ -1,0 +1,34 @@
+@startuml
+!theme plain
+title State Diagram - Rating System
+
+[*] --> Eligible : bookingCompleted()
+
+Eligible --> InProgress : memberikanRating()
+Eligible --> Expired : timeout()
+
+InProgress --> Submitted : submitRating()
+InProgress --> Cancelled : cancelRating()
+
+Submitted --> UnderReview : validateRating() [needs review]
+Submitted --> Published : validateRating() [auto-approve]
+
+UnderReview --> Published : approveRating()
+UnderReview --> Rejected : rejectRating()
+
+Rejected --> InProgress : editRating()
+Rejected --> Cancelled : abandonRating()
+
+Published --> Updated : updateRating()
+Published --> [*] : finalizeRating()
+
+Updated --> Published : submitUpdate()
+Updated --> Cancelled : cancelUpdate()
+
+Expired --> [*]
+Cancelled --> [*]
+
+note right of Published : Visible to other users
+note right of UnderReview : Admin moderation required
+
+@enduml

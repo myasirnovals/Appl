@@ -4,9 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="pembaruan use case, activity diagram, dan sequence diagram">
+    <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="pembaruan class diagram">
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/ERD/ERDLPOE.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/StateDiagram/bookingLifecycle.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/StateDiagram/invoiceGeneration.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/StateDiagram/lapanganStatus.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/StateDiagram/paymentProcessing.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/StateDiagram/ratingSystem.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/StateDiagram/sessionManagement.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/StateDiagram/userAuth.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JurnalAPPL/ClassDiagram/CDLapanganOlahraga.puml" beforeDir="false" afterPath="$PROJECT_DIR$/JurnalAPPL/ClassDiagram/CDLapanganOlahraga.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JurnalAPPL/ComponentDiagram/ComponentLapanganOlahraga.puml" beforeDir="false" afterPath="$PROJECT_DIR$/JurnalAPPL/ComponentDiagram/ComponentLapanganOlahraga.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JurnalAPPL/DeploymentDiagram/DDLapanganOlahraga.puml" beforeDir="false" afterPath="$PROJECT_DIR$/JurnalAPPL/DeploymentDiagram/DDLapanganOlahraga.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JurnalAPPL/StateDiagram/StateDiagramBookingLapanganOlahraga.puml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +29,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="UML State" />
         <option value="UML Use Case" />
         <option value="UML Class" />
         <option value="UML Deployment" />
@@ -27,6 +36,7 @@
         <option value="CSS File" />
         <option value="UML Sequence" />
         <option value="UML Activity" />
+        <option value="UML State" />
       </list>
     </option>
   </component>
@@ -45,23 +55,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Activity&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;H:/Documents/materi-pembelajaran/Appl&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultPlantUmlFileTemplate": "UML State",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "H:/Documents/materi-pembelajaran/Appl",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.sync",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="H:\Documents\materi-pembelajaran\Appl" />
@@ -121,7 +131,7 @@
       <workItem from="1749255453299" duration="7595000" />
       <workItem from="1749279885660" duration="866000" />
       <workItem from="1749280856396" duration="2334000" />
-      <workItem from="1749341293938" duration="3951000" />
+      <workItem from="1749341293938" duration="5516000" />
     </task>
     <task id="LOCAL-00001" summary="update directory">
       <option name="closed" value="true" />
@@ -219,7 +229,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749344518102</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="pembaruan class diagram">
+      <option name="closed" value="true" />
+      <created>1749345265503</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1749345265503</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,7 +255,8 @@
     <MESSAGE value="menambahkan flowchart dan gambar uc sebagai svg" />
     <MESSAGE value="pembaruan diagram" />
     <MESSAGE value="pembaruan use case, activity diagram, dan sequence diagram" />
-    <option name="LAST_COMMIT_MESSAGE" value="pembaruan use case, activity diagram, dan sequence diagram" />
+    <MESSAGE value="pembaruan class diagram" />
+    <option name="LAST_COMMIT_MESSAGE" value="pembaruan class diagram" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

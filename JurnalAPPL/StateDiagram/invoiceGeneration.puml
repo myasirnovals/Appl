@@ -1,0 +1,27 @@
+@startuml
+!theme plain
+title State Diagram - Invoice Generation
+
+[*] --> Pending : generateInvoice()
+
+Pending --> Generated : calculateTax()
+Pending --> Error : calculationError()
+
+Generated --> Sent : printInvoice()
+Generated --> Error : generationError()
+
+Sent --> Delivered : emailSent()
+Sent --> Failed : emailFailed()
+
+Failed --> Sent : resendInvoice()
+Failed --> Error : permanentFailure()
+
+Delivered --> [*] : invoiceReceived()
+
+Error --> Pending : retryGeneration()
+Error --> [*] : abandonInvoice()
+
+note right of Generated : Invoice ready
+note right of Delivered : Successfully sent to customer
+
+@enduml

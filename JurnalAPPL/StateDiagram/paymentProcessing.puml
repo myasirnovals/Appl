@@ -1,0 +1,35 @@
+@startuml
+!theme plain
+title State Diagram - Payment Processing
+
+[*] --> Initiated : createPayment()
+
+Initiated --> Processing : prosessPembayaran()
+Initiated --> Cancelled : cancelPayment()
+
+Processing --> AwaitingVerification : submitPayment()
+Processing --> Failed : paymentError()
+
+AwaitingVerification --> Verified : verifikasiPembayaran() [valid proof]
+AwaitingVerification --> Rejected : verifikasiPembayaran() [invalid proof]
+AwaitingVerification --> Expired : timeout()
+
+Rejected --> AwaitingVerification : resubmitProof()
+Rejected --> Failed : abandonPayment()
+
+Failed --> Processing : retryPayment()
+Failed --> Cancelled : abandonPayment()
+
+Verified --> Completed : generateInvoice()
+
+Completed --> Refunded : refundPembayaran()
+Completed --> [*] : finalizePayment()
+
+Expired --> Failed : timeout()
+Cancelled --> [*]
+Refunded --> [*]
+
+note right of Verified : Invoice generated automatically
+note right of Completed : Payment successful
+
+@enduml

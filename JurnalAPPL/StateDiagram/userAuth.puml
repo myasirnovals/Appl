@@ -1,0 +1,37 @@
+@startuml
+!theme plain
+title State Diagram - User Authentication
+
+[*] --> Guest : Start Application
+
+Guest --> Registering : register()
+Guest --> LoggingIn : login()
+Guest --> BrowsingLapangan : browseLapangan()
+
+Registering --> EmailVerification : submitRegistration()
+Registering --> Guest : cancelRegistration()
+
+EmailVerification --> Active : verifyEmail()
+EmailVerification --> Expired : timeout()
+
+Expired --> EmailVerification : resendVerification()
+Expired --> Guest : cancelRegistration()
+
+LoggingIn --> Active : validateCredentials() [valid]
+LoggingIn --> Guest : validateCredentials() [invalid]
+LoggingIn --> Locked : validateCredentials() [too many attempts]
+
+Active --> Inactive : logout()
+Active --> Locked : violatePolicy()
+Active --> Deactivated : deactivateAccount()
+
+Locked --> Active : resetPassword()
+Locked --> Deactivated : adminAction()
+
+Inactive --> LoggingIn : login()
+Deactivated --> [*] : permanentDeactivation()
+
+BrowsingLapangan --> LoggingIn : needLogin()
+BrowsingLapangan --> Registering : needRegister()
+
+@enduml

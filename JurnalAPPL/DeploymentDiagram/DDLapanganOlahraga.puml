@@ -1,39 +1,55 @@
 @startuml
+!theme plain
 title Deployment Diagram - Sistem Booking Lapangan Olahraga
 
-node "Client" {
-    component "Web App"
-    component "Mobile App"
+' Client Devices
+node "Client Devices" {
+    artifact "Web Browser" as Browser
+    artifact "Mobile App" as MobileApp
 }
 
-node "Application Server" {
-    component "REST API"
-    component "Business Logic Service"
-    component "Notification Service"
-    component "Payment Service"
-    component "File Storage Service"
+' Single Server (All-in-One)
+node "Application Server" as AppServer <<Ubuntu 22.04>> {
+    package "Web Layer" {
+        artifact "Nginx" as Nginx
+        artifact "SSL Certificate" as SSL
+    }
+
+    package "Application Layer" {
+        artifact "Spring Boot Application" as SpringApp
+        artifact "Business Logic" as BizLogic
+    }
+
+    package "Database Layer" {
+        artifact "PostgreSQL 14" as PostgresDB
+        artifact "Redis Cache" as RedisCache
+    }
+
+    package "File Storage" {
+        artifact "Local Storage" as LocalStorage
+        artifact "Upload Files" as UploadFiles
+    }
 }
 
-node "Database Server" {
-    database "Database"
+' External Services
+cloud "External Services" {
+    artifact "Email Service" as EmailSvc
+    artifact "Payment Gateway" as PaymentGW
 }
 
-node "External Services" {
-    component "Email/SMS Gateway"
-    component "Payment Gateway"
-    component "Cloud Storage"
-}
+' Connections
+Browser --> Nginx : HTTPS/443
+MobileApp --> Nginx : HTTPS/443
 
-"Web App" -[hidden]-> "Mobile App"
-"Web App" --> "REST API"
-"Mobile App" --> "REST API"
-"REST API" --> "Business Logic Service"
-"Business Logic Service" --> "Database"
-"Business Logic Service" --> "Notification Service"
-"Business Logic Service" --> "Payment Service"
-"Business Logic Service" --> "File Storage Service"
-"Notification Service" --> "Email/SMS Gateway"
-"Payment Service" --> "Payment Gateway"
-"File Storage Service" --> "Cloud Storage"
+Nginx --> SpringApp : HTTP/8080
+SpringApp --> PostgresDB : Local Connection
+SpringApp --> RedisCache : Local Connection
+SpringApp --> LocalStorage : File System
+
+SpringApp --> EmailSvc : SMTP
+SpringApp --> PaymentGW : HTTPS
+
+' Server Specifications
+note bottom of AppServer : **Server Specifications:**\nCPU: 8 cores\nRAM: 16GB\nStorage: 1TB SSD\nOS: Ubuntu 22.04 LTS\n\n**Software Stack:**\n- Nginx (Web Server)\n- Spring Boot (Application)\n- PostgreSQL (Database)\n- Redis (Cache)\n- Java 17 (Runtime)
 
 @enduml

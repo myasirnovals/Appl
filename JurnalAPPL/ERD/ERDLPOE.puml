@@ -1,0 +1,121 @@
+@startuml
+title ERD - Sistem Booking Lapangan Olahraga (Enhanced)
+
+entity User {
+  +user_id : int <<PK>>
+  --
+  name : varchar(100)
+  email : varchar(100) <<UK>>
+  password : varchar(255)
+  phone : varchar(20)
+  role : ENUM('member','admin','employee')
+  status : ENUM('active','inactive') DEFAULT 'active'
+  --
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity Field {
+  +field_id : int <<PK>>
+  --
+  name : varchar(100)
+  type : ENUM('football','basketball','tennis','badminton')
+  location : varchar(255)
+  price_per_hour : decimal(10,2)
+  status : ENUM('available','maintenance','closed')
+  capacity : int
+  description : text
+  --
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity Booking {
+  +booking_id : int <<PK>>
+  --
+  user_id : int <<FK>>
+  field_id : int <<FK>>
+  booking_date : date
+  start_time : time
+  end_time : time
+  duration : int
+  status : ENUM('pending','confirmed','completed','cancelled')
+  total_price : decimal(10,2)
+  notes : text
+  --
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity Payment {
+  +payment_id : int <<PK>>
+  --
+  booking_id : int <<FK>>
+  payment_date : datetime
+  amount : decimal(10,2)
+  method : ENUM('cash','transfer','ewallet','credit_card')
+  status : ENUM('pending','paid','failed','refunded')
+  reference_number : varchar(100)
+  --
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity Notification {
+  +notification_id : int <<PK>>
+  --
+  user_id : int <<FK>>
+  title : varchar(255)
+  message : text
+  type : ENUM('booking','payment','maintenance','promotion')
+  sent_at : datetime
+  read_at : datetime
+  status : ENUM('sent','delivered','read')
+}
+
+entity Maintenance {
+  +maintenance_id : int <<PK>>
+  --
+  field_id : int <<FK>>
+  scheduled_date : datetime
+  completed_date : datetime
+  description : text
+  status : ENUM('scheduled','in_progress','completed','cancelled')
+  cost : decimal(10,2)
+  technician : varchar(100)
+}
+
+' Additional useful entities
+entity TimeSlot {
+  +slot_id : int <<PK>>
+  --
+  field_id : int <<FK>>
+  start_time : time
+  end_time : time
+  is_available : boolean DEFAULT true
+  special_price : decimal(10,2)
+}
+
+entity Rating {
+  +rating_id : int <<PK>>
+  --
+  user_id : int <<FK>>
+  field_id : int <<FK>>
+  booking_id : int <<FK>>
+  rating : int CHECK (rating BETWEEN 1 AND 5)
+  comment : text
+  created_at : timestamp
+}
+
+' Relationships
+User ||--o{ Booking : "makes"
+Field ||--o{ Booking : "booked"
+Booking ||--|| Payment : "has"
+User ||--o{ Notification : "receives"
+Field ||--o{ Maintenance : "maintained"
+Field ||--o{ TimeSlot : "has"
+User ||--o{ Rating : "gives"
+Field ||--o{ Rating : "receives"
+Booking ||--o| Rating : "can be rated"
+
+@enduml
