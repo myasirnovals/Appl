@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pemesanan & Pembayaran</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Booking</a></li>
+            <li><a href="#">History</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="#">Keranjang (0)</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Booking Form & Payment Summary</h2>
+
+    <section id="order-summary">
+        <h3>Ringkasan Pesanan</h3>
+        <p><strong>Venue Name:</strong> Lapangan Futsal A (Contoh dari halaman sebelumnya)</p>
+        <p><strong>Date:</strong> 2024-12-25 (Contoh)</p>
+        <p><strong>Time:</strong> 10:00 - 11:00 (Contoh)</p>
+        <p><strong>Duration:</strong> 1 Jam (Contoh)</p>
+        <p><strong>Total Price:</strong> Rp. 50.000 (Contoh)</p>
+    </section>
+
+    <section id="booking-details-form">
+        <h3>Data Pemesan</h3>
+        <form action="#" method="post">
+            <div>
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone" required>
+            </div>
+
+            <h3>Metode Pembayaran</h3>
+            <div>
+                <label for="payment-method">Payment Method</label>
+                <select id="payment-method" name="payment-method">
+                    <option value="bank_transfer">Bank Transfer</option>
+                    <option value="credit_card">Credit Card (Placeholder)</option>
+                    <option value="ewallet">E-Wallet (Placeholder)</option>
+                </select>
+            </div>
+
+            <button type="submit">Pay Now</button>
+        </form>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2024 Aplikasi Pemesanan Lapangan Olahraga</p>
+</footer>
+</body>
+</html>

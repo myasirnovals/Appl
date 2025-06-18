@@ -1,0 +1,185 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #f0f0f0;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Untuk menata item navigasi secara horizontal */
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd; /* Memberikan batas pada container utama */
+}
+
+.form-container {
+    width: 50%;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+h1, h2, h3 {
+    color: #333;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+select {
+    width: calc(100% - 18px); /* Kalkulasi lebar agar padding tidak overflow */
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Penting untuk kalkulasi lebar yang benar */
+}
+
+button,.button {
+    display: inline-block;
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 10px 15px;
+    border: 1px solid #bbb;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+button:hover,.button:hover {
+    background-color: #d0d0d0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+.venue-list,.schedule-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Jarak antar item */
+}
+
+.venue-item,.slot-item {
+    border: 1px solid #ccc;
+    padding: 15px;
+    width: calc(33.333% - 20px); /* Contoh untuk 3 item per baris, disesuaikan dengan gap */
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}
+
+.venue-item img,.field-detail-img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    background-color: #e0e0e0; /* Placeholder color */
+    display: block; /* Agar margin bottom bekerja */
+    min-height: 150px; /* Placeholder height */
+}
+
+.popup-overlay {
+    display: none; /* Sembunyikan secara default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4); /* Abu-abu semi-transparan */
+    z-index: 1000;
+}
+
+.popup-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 30px;
+    border: 1px solid #aaa;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1001;
+    width: 80%;
+    max-width: 500px;
+}
+
+.popup-content h3 {
+    margin-top: 0;
+}
+
+.popup-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.popup-actions button {
+    margin-left: 10px;
+}
+
+/* Specific for placeholder image */
+.placeholder-image {
+    width: 100%;
+    height: 150px; /* Sesuaikan sesuai kebutuhan */
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #777;
+}
+
+.field-detail-img-container.placeholder-image {
+    height: 250px; /* Lebih besar untuk halaman detail */
+}

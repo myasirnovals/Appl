@@ -1,6 +1,6 @@
 @startuml
 !theme plain
-title Deployment Diagram - Sistem Booking Lapangan Olahraga
+title Deployment Diagram - Sistem Pemesanan Lapangan Olahraga
 
 ' Client Devices
 node "Client Devices" {

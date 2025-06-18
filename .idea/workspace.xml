@@ -5,7 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6dd0e12-7316-4ea3-a285-d20098911684" name="Changes" comment="pembaruan state diagram, Component, Deployment, dan ERD">
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/MockUp/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/MockUp/.idea/MockUp.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/MockUp/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/MockUp/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/MockUp/admin_report.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/MockUp/booking_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/MockUp/field_details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/MockUp/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/MockUp/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/MockUp/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/MockUp/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JurnalAPPL/MockUp/umum.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JurnalAPPL/DeploymentDiagram/DDLapanganOlahraga.puml" beforeDir="false" afterPath="$PROJECT_DIR$/JurnalAPPL/DeploymentDiagram/DDLapanganOlahraga.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JurnalAPPL/UseCaseDiagram/UCLapanganOlahraga.asta" beforeDir="false" afterPath="$PROJECT_DIR$/JurnalAPPL/UseCaseDiagram/UCLapanganOlahraga.asta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,6 +137,10 @@
       <workItem from="1749341293938" duration="7882000" />
       <workItem from="1749373880549" duration="744000" />
       <workItem from="1749426101313" duration="732000" />
+      <workItem from="1749715562862" duration="1662000" />
+      <workItem from="1749806833113" duration="1152000" />
+      <workItem from="1749950360864" duration="1755000" />
+      <workItem from="1750057082989" duration="2729000" />
     </task>
     <task id="LOCAL-00001" summary="update directory">
       <option name="closed" value="true" />

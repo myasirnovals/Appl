@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Lapangan & Jadwal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Booking</a></li>
+            <li><a href="#">History</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="#">Keranjang (0)</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="container">
+    <section id="field-info">
+        <h2>Lapangan Futsal A</h2>
+        <div class="field-detail-img-container">
+            <div class="placeholder-image">Large Image Placeholder</div>
+        </div>
+        <p><strong>Lokasi:</strong> Bandung</p>
+        <p><strong>Harga:</strong> Rp. 50.000/Jam</p>
+        <p><strong>Rating:</strong> 4.5/5 Bintang (Placeholder)</p>
+        <p>Deskripsi singkat mengenai fasilitas lapangan, kondisi, dll.</p>
+    </section>
+
+    <section id="schedule-selection">
+        <h3>Pilih Jadwal</h3>
+        <label for="booking-date">Tanggal:</label>
+        <input type="date" id="booking-date" name="booking-date">
+
+        <h4>Slot Waktu Tersedia:</h4>
+        <div class="schedule-slots">
+            <div class="slot-item available">08:00 - 09:00 (Available)</div>
+            <div class="slot-item booked">09:00 - 10:00 (Booked)</div>
+            <div class="slot-item available">10:00 - 11:00 (Available)</div>
+        </div>
+        <button type="button" onclick="showConfirmationPopup()">Booking Now</button>
+    </section>
+</div>
+
+<div id="confirmationPopup" class="popup-overlay">
+    <div class="popup-content">
+        <h3>Konfirmasi Jadwal Pilihan</h3>
+        <p><strong>Venue Name:</strong> Lapangan Futsal A</p>
+        <p><strong>Date:</strong> <span id="popup-date"></span></p>
+        <p><strong>Time:</strong> <span id="popup-time"></span></p>
+        <p><strong>Duration:</strong> 1 Jam (Contoh)</p>
+        <p><strong>Total Price:</strong> Rp. 50.000 (Contoh)</p>
+        <div class="popup-actions">
+            <button type="button" onclick="hideConfirmationPopup()">Cancel</button>
+            <a href="booking_form.html" class="button">Confirm</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Aplikasi Pemesanan Lapangan Olahraga</p>
+</footer>
+
+<script>
+    // JavaScript sederhana untuk menampilkan/menyembunyikan pop-up
+    function showConfirmationPopup() {
+        // Di sini Anda akan mengambil data jadwal yang dipilih pengguna
+        // Untuk contoh ini, kita gunakan placeholder
+        document.getElementById('popup-date').textContent = document.getElementById('booking-date').value || 'Belum Dipilih';
+        document.getElementById('popup-time').textContent = '08:00 - 09:00 (Contoh)'; // Ganti dengan logika pemilihan slot
+        document.getElementById('confirmationPopup').style.display = 'block';
+    }
+
+    function hideConfirmationPopup() {
+        document.getElementById('confirmationPopup').style.display = 'none';
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rancangan Dasbor Admin</title>
+    <style>
+        /* General Styling for Wireframe */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333333;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 250px;
+            background-color: #e0e0e0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #cccccc;
+        }
+        .sidebar .logo-container {
+            background-color: #cccccc;
+            padding: 20px 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .sidebar .logo-container h2 {
+            margin: 0;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .sidebar .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar .nav-menu li {
+            margin-bottom: 15px;
+        }
+        .sidebar .nav-menu a {
+            text-decoration: none;
+            color: #333333;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .sidebar .nav-menu a.active {
+            background-color: #f0f2f5;
+            font-weight: bold;
+        }
+        .sidebar .nav-menu a svg {
+            margin-right: 10px;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Header in Main Content */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .main-header .left-nav, .main-header .right-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .main-header .left-nav a {
+            text-decoration: none;
+            color: #333;
+        }
+        .main-header .search-bar {
+            border: 1px solid #cccccc;
+            padding: 8px 12px;
+            border-radius: 20px;
+            width: 250px;
+        }
+
+        /* Page Content Area */
+        .page-content {
+            padding: 30px;
+            background-color: #f0f2f5;
+            flex-grow: 1;
+        }
+        .content-box {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .content-header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        /* Table Styling */
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .table-controls .show-entries {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .table-controls select {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .data-table th, .data-table td {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 0.9em;
+        }
+        .data-table th {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+        .data-table .status {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            background-color: #e0e0e0;
+            color: #555;
+            text-align: center;
+            display: inline-block;
+        }
+        .data-table .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        .data-table .action-btn {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #d0d0d0;
+            border-radius: 4px;
+        }
+
+        /* General button */
+        .button {
+            padding: 10px 18px;
+            border: 1px solid #333333;
+            background-color: #f0f0f0;
+            color: #333333;
+            border-radius: 4px;
+            font-size: 0.9em;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Sidebar / Navigasi Samping -->
+<aside class="sidebar">
+    <div class="logo-container">
+        <!-- Teks yang diubah sesuai permintaan -->
+        <h2>PEMESANAN<br>LAPANGAN OLAHRAGA</h2>
+    </div>
+    <ul class="nav-menu">
+        <li>
+            <a href="#">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Home
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                Transaksi
+            </a>
+        </li>
+        <li>
+            <a href="#" class="active">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 2v6h6M21.5 22v-6h-6"/><path d="M22 11.5A10 10 0 0 0 3.2 7.2M2 12.5a10 10 0 0 0 18.8 4.2"/></svg>
+                Laporan
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1.51 1H15a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                Settings
+            </a>
+        </li>
+    </ul>
+</aside>
+
+<!-- Konten Utama -->
+<main class="main-content">
+    <header class="main-header">
+        <div class="left-nav">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <a href="#">Home</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="right-nav">
+            <input type="text" class="search-bar" placeholder="🔍 Search...">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+    </header>
+
+    <section class="page-content">
+        <div class="content-box">
+            <div class="content-header">
+                <h1>Data Pemesanan Lapangan Olahraga</h1>
+            </div>
+
+            <div class="table-controls">
+                <a href="#" class="button">Tambah Data</a>
+                <div class="show-entries">
+                    <span>Show</span>
+                    <select>
+                        <option value="7">7</option>
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                    </select>
+                    <span>entries</span>
+                </div>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kode Booking</th>
+                    <th>Nama Lapangan</th>
+                    <th>Tanggal</th>
+                    <th>Customer</th>
+                    <th>No Telp</th>
+                    <th>Durasi</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>21313</td>
+                    <td>Lapangan Basket</td>
+                    <td>01-06-2025</td>
+                    <td>Unjani FC</td>
+                    <td>0899999</td>
+                    <td>180</td>
+                    <td>150.000</td>
+                    <td><span class="status">Reserved</span></td>
+                    <td class="action-buttons">
+                        <div class="action-btn"></div>
+                        <div class="action-btn"></div>
+                        <div class="action-btn"></div>
+                    </td>
+                </tr>
+                <!-- Baris data lainnya bisa ditambahkan di sini -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>
