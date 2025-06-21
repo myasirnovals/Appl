@@ -2,26 +2,18 @@
 !theme plain
 title State Diagram - Invoice Generation
 
-[*] --> Pending : generateInvoice()
+[*] --> Dalam_Proses : Buat Invoice
 
-Pending --> Generated : calculateTax()
-Pending --> Error : calculationError()
+Dalam_Proses --> Terkirim : Proses & Kirim [sukses]
+Dalam_Proses --> Gagal : Proses & Kirim [gagal]
 
-Generated --> Sent : printInvoice()
-Generated --> Error : generationError()
+Terkirim --> Terkirim : Kirim Ulang
+Terkirim --> Gagal_Permanen : Gagal Kirim Permanen
 
-Sent --> Delivered : emailSent()
-Sent --> Failed : emailFailed()
+Gagal --> Dalam_Proses : Coba Lagi
+Gagal --> Gagal_Permanen : Batalkan
 
-Failed --> Sent : resendInvoice()
-Failed --> Error : permanentFailure()
-
-Delivered --> [*] : invoiceReceived()
-
-Error --> Pending : retryGeneration()
-Error --> [*] : abandonInvoice()
-
-note right of Generated : Invoice ready
-note right of Delivered : Successfully sent to customer
+Terkirim --> [*] : Diterima Pelanggan
+Gagal_Permanen --> [*]
 
 @enduml

@@ -2,42 +2,15 @@
 |Admin/Employee|
 start
 :Login ke sistem;
-:Masuk ke menu kelola lapangan;
-:Pilih "Tambah Lapangan";
-:Membuka form tambah lapangan;
-:Input data lapangan baru
-(nama, jenis, harga, fasilitas, dll);
+:Masuk menu kelola lapangan;
+:Membuka & mengisi form tambah lapangan;
 :Submit data lapangan;
 
 |Sistem|
-:Menerima data lapangan;
-:Validasi data input;
-:Cek kelengkapan data;
-if (Data valid dan lengkap?) then (ya)
-  |Database|
-  :Cek duplikasi nama lapangan;
-  if (Nama lapangan sudah ada?) then (tidak)
-    :Simpan data lapangan baru;
-    :Generate ID lapangan;
-    :Return status berhasil;
-    |Sistem|
-    :Generate pesan sukses;
-    |Admin/Employee|
-    :Menerima konfirmasi berhasil;
-    :Lapangan berhasil ditambahkan;
-    stop
-  else (ya)
-    |Sistem|
-    :Generate pesan error duplikasi;
-    |Admin/Employee|
-    :Menerima pesan "Nama lapangan sudah ada";
-    :Kembali ke form input;
-    stop
-  endif
-else (tidak)
-  |Admin/Employee|
-  :Menerima pesan error validasi;
-  :Perbaiki data input;
-  stop
+if (Data valid, lengkap & nama belum ada?) then (Ya)
+  :Simpan lapangan baru & tampilkan pesan sukses;
+else (Tidak)
+  :Tampilkan pesan error (validasi/duplikasi);
 endif
+stop
 @enduml

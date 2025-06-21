@@ -1,0 +1,23 @@
+@startuml
+actor Manager
+participant "Sistem" as System
+database "Database" as DB
+
+title 3. Alur Menandai Booking Selesai
+
+Manager -> System : 1. Memilih booking & klik "Selesaikan"
+activate System
+
+System -> DB : 2. Perbarui status menjadi 'Selesai' (UPDATE)
+activate DB
+DB --> System : 3. Konfirmasi hasil update
+deactivate DB
+
+alt Update Berhasil
+    System --> Manager : 4a. Notifikasi sukses: "Status booking telah selesai"
+else Update Gagal
+    System --> Manager : 4b. Notifikasi error
+end
+
+deactivate System
+@enduml

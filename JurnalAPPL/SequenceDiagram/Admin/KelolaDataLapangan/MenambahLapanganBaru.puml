@@ -1,0 +1,22 @@
+@startuml
+actor Admin
+participant "Sistem" as System
+database "Database" as DB
+
+title Alur Menambah Lapangan
+
+Admin -> System : 1. Mengisi & mengirimkan data lapangan baru
+activate System
+
+System -> DB : 2. Simpan data lapangan baru (INSERT)
+activate DB
+DB --> System : 3. Konfirmasi hasil simpan
+deactivate DB
+
+alt Berhasil
+    System --> Admin : 4a. Notifikasi sukses & data baru tampil di daftar
+else Gagal
+    System --> Admin : 4b. Notifikasi error
+end
+deactivate System
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+actor Member
+participant "Sistem" as System
+participant "Gateway Pembayaran" as PaymentGateway
+database "Database" as DB
+
+title 2. Alur Memproses Pembayaran
+
+Member -> System : 1. Memilih metode & konfirmasi untuk bayar
+activate System
+
+System -> PaymentGateway : 2. Meneruskan permintaan pembayaran
+activate PaymentGateway
+PaymentGateway --> System : 3. Mengirimkan status transaksi (sukses/gagal)
+deactivate PaymentGateway
+
+alt Pembayaran Sukses
+    System -> DB : 4a. Update status booking -> 'Lunas'
+    activate DB
+    DB --> System : 5a. Konfirmasi update
+    deactivate DB
+    System --> Member : 6a. Menampilkan notifikasi pembayaran berhasil
+else Pembayaran Gagal
+    System --> Member : 4b. Menampilkan notifikasi pembayaran gagal
+end
+
+deactivate System
+@enduml

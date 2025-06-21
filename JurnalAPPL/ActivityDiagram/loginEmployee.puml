@@ -1,40 +1,13 @@
 @startuml
 |Employee|
 start
-:Membuka halaman login employee;
-:Memasukkan email dan password;
-:Menekan tombol "Login";
+:Mengisi kredensial & menekan login;
 
 |Sistem|
-:Menerima kredensial;
-:Validasi format email dan password;
-
-|Database|
-:Cek kredensial di database;
-:Verifikasi role = 'Employee';
-:Return status dan data employee;
-
-|Sistem|
-if (Kredensial valid dan role Employee?) then (ya)
-  :Generate employee session token;
-  :Set employee session dengan privileges;
-  |Employee|
-  :Diarahkan ke dashboard employee;
-  :Akses fitur employee
-  (kelola lapangan, input maintenance,
-  check-in/check-out member,
-  update status lapangan,
-  handle customer service);
-  stop
-else (tidak)
-  if (Role bukan Employee?) then (ya)
-    |Employee|
-    :Menerima pesan "Akses employee ditolak";
-    stop
-  else (tidak)
-    |Employee|
-    :Menerima pesan "Email atau password salah";
-    stop
-  endif
+if (Kredensial valid & role Employee?) then (Ya)
+  :Buat sesi & arahkan ke dashboard employee;
+else (Tidak)
+  :Tampilkan pesan error login;
 endif
+stop
 @enduml

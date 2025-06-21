@@ -1,0 +1,22 @@
+@startuml
+actor Member
+participant "Sistem" as System
+database "Database" as DB
+
+title 2. Alur Memeriksa Status Rating
+
+Member -> System : 1. Memilih satu pemesanan dari riwayat
+activate System
+System -> DB : 2. Cek status rating untuk pemesanan ini
+activate DB
+DB --> System : 3. Status rating (sudah/belum)
+deactivate DB
+
+alt Belum pernah diberi rating
+    System --> Member : 4a. Menampilkan form untuk memberi rating/review
+else Sudah pernah diberi rating
+    System --> Member : 4b. Menampilkan rating yang ada & notifikasi "Anda sudah memberi rating"
+end
+
+deactivate System
+@enduml

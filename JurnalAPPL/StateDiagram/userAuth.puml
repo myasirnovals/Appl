@@ -1,37 +1,23 @@
 @startuml
 !theme plain
-title State Diagram - User Authentication
+title State Diagram - User Account Lifecycle (Sederhana)
 
-[*] --> Guest : Start Application
+[*] --> Belum_Terverifikasi : Akun Dibuat
 
-Guest --> Registering : register()
-Guest --> LoggingIn : login()
-Guest --> BrowsingLapangan : browseLapangan()
+Belum_Terverifikasi --> Aktif : Verifikasi Email
+Belum_Terverifikasi --> [*] : Dihapus (timeout)
 
-Registering --> EmailVerification : submitRegistration()
-Registering --> Guest : cancelRegistration()
+Aktif --> Aktif : Login / Logout
+Aktif --> Terkunci : Pelanggaran / Gagal Login Berulang
+Aktif --> Dinonaktifkan : Nonaktifkan Akun
 
-EmailVerification --> Active : verifyEmail()
-EmailVerification --> Expired : timeout()
+Terkunci --> Aktif : Reset Password
+Terkunci --> Dinonaktifkan : Aksi Admin
 
-Expired --> EmailVerification : resendVerification()
-Expired --> Guest : cancelRegistration()
+Dinonaktifkan --> [*] : Dihapus Permanen
 
-LoggingIn --> Active : validateCredentials() [valid]
-LoggingIn --> Guest : validateCredentials() [invalid]
-LoggingIn --> Locked : validateCredentials() [too many attempts]
 
-Active --> Inactive : logout()
-Active --> Locked : violatePolicy()
-Active --> Deactivated : deactivateAccount()
-
-Locked --> Active : resetPassword()
-Locked --> Deactivated : adminAction()
-
-Inactive --> LoggingIn : login()
-Deactivated --> [*] : permanentDeactivation()
-
-BrowsingLapangan --> LoggingIn : needLogin()
-BrowsingLapangan --> Registering : needRegister()
+note right of Terkunci : Akses ditolak sementara
+note right of Dinonaktifkan : Akun tidak bisa diakses
 
 @enduml

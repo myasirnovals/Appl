@@ -1,0 +1,22 @@
+@startuml
+actor Manager
+participant "Sistem" as System
+database "Database" as DB
+
+title 3. Alur Mengubah Jadwal
+
+Manager -> System : 1. Memilih jadwal & mengirimkan perubahan data
+activate System
+System -> DB : 2. Ubah data jadwal (UPDATE)
+activate DB
+DB --> System : 3. Konfirmasi update
+deactivate DB
+
+alt Berhasil
+    System --> Manager : 4a. Notifikasi sukses & jadwal diperbarui
+else Gagal
+    System --> Manager : 4b. Notifikasi error
+end
+
+deactivate System
+@enduml

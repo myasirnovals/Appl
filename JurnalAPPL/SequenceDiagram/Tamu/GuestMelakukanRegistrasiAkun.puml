@@ -1,45 +1,32 @@
 @startuml
+' //===== Konfigurasi Tampilan (Opsional) =====//
+' skinparam actorStyle awesome
+' skinparam sequenceParticipant underline
+' skinparam sequenceArrowingStyle open
+
+' //===== Definisi Aktor & Partisipan =====//
 actor Guest
-participant "Halaman Registrasi" as Form
 participant "Sistem" as System
-participant "Database" as DB
+database "Database" as DB
 
-Guest -> Form : Membuka halaman registrasi
-activate Form
-Form -> Guest : Menampilkan formulir pendaftaran
+' //===== Alur Diagram =====//
+title Alur Registrasi Tamu (Guest)
 
-Guest -> Form : Mengisi data registrasi\n(nama, email, password, dll)
-Guest -> Form : Menekan tombol "Daftar"
-Form -> System : Mengirim data registrasi
-deactivate Form
-
+Guest -> System : 1. Mengisi & mengirimkan data registrasi
 activate System
-System -> System : Validasi data
-System -> DB : Cek email sudah terdaftar?
-activate DB
-DB --> System : Status email (terdaftar/tidak)
-deactivate DB
 
-alt Email belum terdaftar dan data valid
-    System -> DB : Simpan data akun baru
+System -> System : 2. Validasi data & cek duplikasi email
+
+alt Data valid & email unik
+    System -> DB : 3a. Simpan data member baru (INSERT)
     activate DB
-    DB --> System : Konfirmasi penyimpanan
+    DB --> System : 4a. Konfirmasi penyimpanan
     deactivate DB
-    System -> Form : Tampilkan notifikasi sukses
-    activate Form
-    Form -> Guest : Notifikasi registrasi berhasil
-    deactivate Form
-else Email sudah terdaftar / data tidak valid
-    System -> Form : Tampilkan pesan error
-    activate Form
-    Form -> Guest : Notifikasi error\n(perbaiki data)
-    deactivate Form
+    System --> Guest: 5a. Notifikasi "Registrasi Berhasil"
+else Data tidak valid atau email sudah ada
+    System --> Guest : 3b. Notifikasi error & instruksi perbaikan
 end
 
 deactivate System
-
-destroy Form
-destroy System
-destroy DB
 
 @enduml

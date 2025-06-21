@@ -2,52 +2,29 @@
 |Admin/Employee|
 start
 :Login ke sistem;
-:Masuk ke menu kelola lapangan;
+:Masuk menu kelola lapangan;
 :Pilih "Edit Lapangan";
-:Melihat daftar lapangan;
 :Pilih lapangan yang akan diedit;
 
 |Sistem|
-:Load data lapangan terpilih;
-
-|Database|
-:Query data lapangan berdasarkan ID;
-:Return data lapangan;
+:Tampilkan form edit dengan data lapangan;
 
 |Admin/Employee|
-:Melihat form edit dengan data existing;
-:Update data lapangan
-(nama, jenis, harga, fasilitas, dll);
+:Update data lapangan;
 :Submit perubahan data;
 
 |Sistem|
-:Menerima perubahan data;
-:Validasi data yang diubah;
-:Cek kelengkapan data;
-if (Data valid dan lengkap?) then (ya)
-  |Database|
+:Validasi dan cek kelengkapan data;
+if (Data valid & lengkap?) then (Tidak)
+  :Tampilkan pesan error validasi;
+else (Ya)
   :Cek duplikasi nama (jika nama diubah);
-  if (Nama lapangan conflict?) then (tidak)
-    :Update data lapangan;
-    :Return status berhasil;
-    |Sistem|
-    :Generate pesan sukses;
-    |Admin/Employee|
-    :Menerima konfirmasi berhasil;
-    :Data lapangan berhasil diupdate;
-    stop
-  else (ya)
-    |Sistem|
-    :Generate pesan error duplikasi;
-    |Admin/Employee|
-    :Menerima pesan "Nama lapangan sudah ada";
-    :Kembali ke form edit;
-    stop
+  if (Nama lapangan sudah ada?) then (Ya)
+    :Tampilkan pesan error duplikasi nama;
+  else (Tidak)
+    :Update data lapangan di database;
+    :Tampilkan pesan sukses update;
   endif
-else (tidak)
-  |Admin/Employee|
-  :Menerima pesan error validasi;
-  :Perbaiki data input;
-  stop
 endif
+stop
 @enduml

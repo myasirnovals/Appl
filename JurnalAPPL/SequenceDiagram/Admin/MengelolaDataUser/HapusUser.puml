@@ -1,28 +1,32 @@
 @startuml
+' //===== Konfigurasi Tampilan (Opsional) =====//
+' skinparam actorStyle awesome
+' skinparam sequenceParticipant underline
+' skinparam sequenceArrowingStyle open
+
+' //===== Definisi Aktor & Partisipan =====//
 actor Admin
-participant "Halaman Manajemen User" as UserMgmt
-participant "Sistem" as System
-participant "Database" as DB
+participant "Sistem Manajemen User" as System
+database "Database" as DB
 
-Admin -> UserMgmt : Pilih user & klik "Hapus"
-activate UserMgmt
-UserMgmt -> Admin : Tampilkan konfirmasi hapus
+' //===== Alur Diagram =====//
+title Alur Hapus User
 
-Admin -> UserMgmt : Konfirmasi hapus
-
-UserMgmt -> System : Kirim perintah hapus user
+Admin -> System : 1. Meminta & mengonfirmasi hapus user
 activate System
-System -> DB : Hapus data user
-activate DB
-DB --> System : Konfirmasi berhasil/gagal
-deactivate DB
-System --> UserMgmt : Notifikasi hasil hapus user
-deactivate System
-UserMgmt -> Admin : Tampilkan notifikasi & update daftar user
-deactivate UserMgmt
 
-destroy UserMgmt
-destroy System
-destroy DB
+System -> DB : 2. Kirim perintah DELETE untuk data user
+activate DB
+
+DB --> System : 3. Konfirmasi hasil penghapusan
+deactivate DB
+
+alt Penghapusan Berhasil
+    System --> Admin : 4a. Notifikasi sukses & daftar user diperbarui
+else Penghapusan Gagal
+    System --> Admin : 4b. Notifikasi error
+end
+
+deactivate System
 
 @enduml

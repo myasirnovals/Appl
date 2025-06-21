@@ -1,55 +1,38 @@
 @startuml
 !theme plain
-title Deployment Diagram - Sistem Pemesanan Lapangan Olahraga
+title Diagram Deployment Sederhana - Sistem Pemesanan Lapangan Olahraga
 
-' Client Devices
-node "Client Devices" {
-    artifact "Web Browser" as Browser
-    artifact "Mobile App" as MobileApp
+' Client/User Devices
+node "Perangkat Pengguna" as UserDevices {
+  component "Web Browser"
+  component "Mobile App"
 }
 
-' Single Server (All-in-One)
-node "Application Server" as AppServer <<Ubuntu 22.04>> {
-    package "Web Layer" {
-        artifact "Nginx" as Nginx
-        artifact "SSL Certificate" as SSL
-    }
-
-    package "Application Layer" {
-        artifact "Spring Boot Application" as SpringApp
-        artifact "Business Logic" as BizLogic
-    }
-
-    package "Database Layer" {
-        artifact "PostgreSQL 14" as PostgresDB
-        artifact "Redis Cache" as RedisCache
-    }
-
-    package "File Storage" {
-        artifact "Local Storage" as LocalStorage
-        artifact "Upload Files" as UploadFiles
-    }
+' All-in-One Server
+node "Server Aplikasi" as AppServer <<Ubuntu 22.04>> {
+  component "Nginx" as Nginx
+  component "Spring Boot App" as App
+  database "PostgreSQL" as DB
+  database "Redis" as Cache
+  folder "Penyimpanan File Lokal" as Storage
 }
 
 ' External Services
-cloud "External Services" {
-    artifact "Email Service" as EmailSvc
-    artifact "Payment Gateway" as PaymentGW
+cloud "Layanan Eksternal" {
+  component "Email Service" as Email
+  component "Payment Gateway" as Payment
 }
 
 ' Connections
-Browser --> Nginx : HTTPS/443
-MobileApp --> Nginx : HTTPS/443
+UserDevices --> Nginx : HTTPS
 
-Nginx --> SpringApp : HTTP/8080
-SpringApp --> PostgresDB : Local Connection
-SpringApp --> RedisCache : Local Connection
-SpringApp --> LocalStorage : File System
+Nginx --> App : HTTP (Reverse Proxy)
 
-SpringApp --> EmailSvc : SMTP
-SpringApp --> PaymentGW : HTTPS
+App --> DB : Local Connection
+App --> Cache : Local Connection
+App --> Storage : Read/Write
 
-' Server Specifications
-note bottom of AppServer : **Server Specifications:**\nCPU: 8 cores\nRAM: 16GB\nStorage: 1TB SSD\nOS: Ubuntu 22.04 LTS\n\n**Software Stack:**\n- Nginx (Web Server)\n- Spring Boot (Application)\n- PostgreSQL (Database)\n- Redis (Cache)\n- Java 17 (Runtime)
+App --> Email : API/SMTP
+App --> Payment : API/HTTPS
 
 @enduml

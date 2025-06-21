@@ -1,0 +1,22 @@
+@startuml
+actor Admin
+participant "Sistem" as System
+database "Database" as DB
+
+title Alur Menghapus Lapangan
+
+Admin -> System : 1. Memilih lapangan & konfirmasi hapus
+activate System
+
+System -> DB : 2. Hapus data lapangan (DELETE)
+activate DB
+DB --> System : 3. Konfirmasi hasil hapus
+deactivate DB
+
+alt Berhasil
+    System --> Admin : 4a. Notifikasi sukses & data hilang dari daftar
+else Gagal
+    System --> Admin : 4b. Notifikasi error
+end
+deactivate System
+@enduml

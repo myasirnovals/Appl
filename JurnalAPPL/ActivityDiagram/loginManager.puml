@@ -1,39 +1,13 @@
 @startuml
 |Manager|
 start
-:Membuka halaman login manager;
-:Memasukkan email dan password;
-:Menekan tombol "Login";
+:Mengisi kredensial & menekan login;
 
 |Sistem|
-:Menerima kredensial;
-:Validasi format email dan password;
-
-|Database|
-:Cek kredensial di database;
-:Verifikasi role = 'Manager';
-:Return status dan data manager;
-
-|Sistem|
-if (Kredensial valid dan role Manager?) then (ya)
-  :Generate manager session token;
-  :Set manager session dengan privileges;
-  |Manager|
-  :Diarahkan ke dashboard manager;
-  :Akses fitur manager
-  (view laporan bisnis, analisis booking,
-  monitoring revenue, approve/reject
-  booking khusus, manage pricing);
-  stop
-else (tidak)
-  if (Role bukan Manager?) then (ya)
-    |Manager|
-    :Menerima pesan "Akses manager ditolak";
-    stop
-  else (tidak)
-    |Manager|
-    :Menerima pesan "Email atau password salah";
-    stop
-  endif
+if (Kredensial valid & role Manager?) then (Ya)
+  :Buat sesi & arahkan ke dashboard manager;
+else (Tidak)
+  :Tampilkan pesan error login;
 endif
+stop
 @enduml

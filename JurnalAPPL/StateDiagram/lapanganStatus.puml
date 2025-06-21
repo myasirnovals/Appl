@@ -1,27 +1,18 @@
 @startuml
 !theme plain
-title State Diagram - Lapangan Status
+title State Diagram - Status Lapangan
 
-[*] --> Available : createLapangan()
+[*] --> Tersedia : Buat Lapangan
 
-Available --> Booked : confirmBooking()
-Available --> Maintenance : scheduleMaintenance()
-Available --> Closed : closeTemporarily()
+Tersedia --> Dipesan : Ada Booking Baru
+Tersedia --> Tidak_Operasional : Ditutup / Perawatan
 
-Booked --> Available : bookingCompleted()
-Booked --> Maintenance : emergencyMaintenance()
-Booked --> Closed : emergencyClose()
+Dipesan --> Tersedia : Booking Selesai
 
-Maintenance --> Available : maintenanceCompleted()
-Maintenance --> Closed : permanentIssue()
+Tidak_Operasional --> Tersedia : Dibuka / Selesai Perawatan
 
-Closed --> Available : reopenLapangan()
-Closed --> Maintenance : needMaintenance()
-Closed --> [*] : permanentClosure()
-
-note right of Available : Can accept new bookings
-note right of Booked : Temporarily unavailable
-note right of Maintenance : Under maintenance
-note right of Closed : Not operational
+note right of Tersedia : Siap untuk dibooking
+note right of Dipesan : Sedang dalam sesi booking
+note right of Tidak_Operasional : Tidak bisa dibooking
 
 @enduml

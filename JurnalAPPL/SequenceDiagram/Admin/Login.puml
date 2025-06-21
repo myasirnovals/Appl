@@ -1,40 +1,31 @@
 @startuml
+' //===== Konfigurasi Tampilan (Opsional) =====//
+' skinparam actorStyle awesome
+' skinparam sequenceParticipant underline
+' skinparam sequenceArrowingStyle open
+
+' //===== Definisi Aktor & Partisipan =====//
 actor Admin
-participant "Halaman Login Admin" as AdminLoginForm
 participant "Sistem" as System
-participant "Database" as DB
+database "Database" as DB
 
-Admin -> AdminLoginForm : Membuka halaman login admin
-activate AdminLoginForm
-AdminLoginForm -> Admin : Menampilkan formulir login admin
+' //===== Alur Diagram =====//
+title Alur Login Admin (Versi Sederhana)
 
-Admin -> AdminLoginForm : Memasukkan username/email & password admin
-Admin -> AdminLoginForm : Menekan tombol "Login"
-AdminLoginForm -> System : Mengirim data login admin
-deactivate AdminLoginForm
-
+Admin -> System : 1. Mengirimkan kredensial (username & password)
 activate System
-System -> DB : Verifikasi kredensial admin
+
+System -> DB : 2. Meminta verifikasi kredensial
 activate DB
-DB --> System : Status valid/invalid
+DB --> System : 3. Mengirimkan status (valid/tidak valid)
 deactivate DB
 
-alt Kredensial valid
-    System -> AdminLoginForm : Tampilkan dashboard admin
-    activate AdminLoginForm
-    AdminLoginForm -> Admin : Login berhasil, akses fitur admin
-    deactivate AdminLoginForm
-else Kredensial tidak valid
-    System -> AdminLoginForm : Tampilkan pesan error
-    activate AdminLoginForm
-    AdminLoginForm -> Admin : Notifikasi error (username/password salah)
-    deactivate AdminLoginForm
+alt Kredensial Valid
+    System --> Admin : 4a. Memberikan akses ke dashboard
+else Kredensial Tidak Valid
+    System --> Admin : 4b. Menampilkan pesan error "Login Gagal"
 end
 
 deactivate System
-
-destroy AdminLoginForm
-destroy System
-destroy DB
 
 @enduml

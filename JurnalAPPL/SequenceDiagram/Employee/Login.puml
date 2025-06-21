@@ -1,40 +1,31 @@
 @startuml
+' //===== Konfigurasi Tampilan (Opsional) =====//
+' skinparam actorStyle awesome
+' skinparam sequenceParticipant underline
+' skinparam sequenceArrowingStyle open
+
+' //===== Definisi Aktor & Partisipan =====//
 actor Employee
-participant "Halaman Login Pegawai" as EmployeeLoginForm
 participant "Sistem" as System
-participant "Database" as DB
+database "Database" as DB
 
-Employee -> EmployeeLoginForm : Membuka halaman login pegawai
-activate EmployeeLoginForm
-EmployeeLoginForm -> Employee : Menampilkan formulir login pegawai
+' //===== Alur Diagram =====//
+title Alur Login Karyawan
 
-Employee -> EmployeeLoginForm : Memasukkan username/email & password
-Employee -> EmployeeLoginForm : Menekan tombol "Login"
-EmployeeLoginForm -> System : Mengirim data login pegawai
-deactivate EmployeeLoginForm
-
+Employee -> System : 1. Mengirimkan kredensial (username & password)
 activate System
-System -> DB : Verifikasi username/email & password pegawai
+
+System -> DB : 2. Meminta verifikasi kredensial
 activate DB
-DB --> System : Status valid/invalid
+DB --> System : 3. Mengirimkan status (valid/tidak valid)
 deactivate DB
 
-alt Kredensial valid
-    System -> EmployeeLoginForm : Tampilkan dashboard pegawai
-    activate EmployeeLoginForm
-    EmployeeLoginForm -> Employee : Login berhasil, akses fitur pegawai
-    deactivate EmployeeLoginForm
-else Kredensial tidak valid
-    System -> EmployeeLoginForm : Tampilkan pesan error
-    activate EmployeeLoginForm
-    EmployeeLoginForm -> Employee : Notifikasi error (username/password salah)
-    deactivate EmployeeLoginForm
+alt Kredensial Valid
+    System --> Employee : 4a. Memberikan akses ke dashboard karyawan
+else Kredensial Tidak Valid
+    System --> Employee : 4b. Menampilkan pesan error "Login Gagal"
 end
 
 deactivate System
-
-destroy EmployeeLoginForm
-destroy System
-destroy DB
 
 @enduml

@@ -1,0 +1,23 @@
+@startuml
+actor Employee
+participant "Sistem" as System
+database "Database" as DB
+
+title Alur Mengubah Data Lapangan (Update)
+
+Employee -> System : 1. Memilih lapangan & mengirimkan perubahan data
+activate System
+
+System -> DB : 2. Ubah data di database (UPDATE)
+activate DB
+DB --> System : 3. Konfirmasi hasil update
+deactivate DB
+
+alt Update Berhasil
+    System --> Employee : 4a. Notifikasi sukses & data di daftar diperbarui
+else Update Gagal
+    System --> Employee : 4b. Notifikasi error
+end
+
+deactivate System
+@enduml

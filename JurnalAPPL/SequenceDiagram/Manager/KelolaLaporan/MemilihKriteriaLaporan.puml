@@ -1,0 +1,15 @@
+@startuml
+actor Manager
+participant "Sistem" as System
+
+title 1. Alur Memilih Kriteria Laporan
+
+Manager -> System : 1. Membuka halaman laporan
+activate System
+System --> Manager : 2. Menampilkan pilihan jenis laporan (booking/jadwal)
+
+Manager -> System : 3. Memilih jenis laporan
+System --> Manager : 4. Menampilkan filter/parameter yang relevan (mis: periode)
+deactivate System
+
+@enduml

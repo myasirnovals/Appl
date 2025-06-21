@@ -2,36 +2,24 @@
 |Admin/Manager|
 start
 :Login ke sistem;
-:Masuk ke menu laporan;
-:Pilih jenis laporan;
-:Tentukan periode laporan;
-:Set filter laporan (opsional);
+:Masuk menu laporan;
+:Pilih jenis, periode, & filter laporan (opsional);
 :Request generate laporan;
 
 |Sistem|
-:Menerima request laporan;
-:Validasi parameter;
-
-|Database|
-:Query data berdasarkan parameter;
-:Return data mentah;
-
-|Sistem|
-:Memproses data;
-:Format data menjadi laporan;
-:Generate laporan;
+:Validasi parameter & ambil data dari database;
+:Proses & format data menjadi laporan;
+:Tampilkan laporan di layar;
 
 |Admin/Manager|
-:Menerima laporan;
-if (Export laporan?) then (ya)
+if (Ingin export laporan?) then (Ya)
   :Pilih format export (PDF/Excel);
   |Sistem|
-  :Generate file export;
-  :Prepare download;
+  :Generate & siapkan file export;
   |Admin/Manager|
   :Download file laporan;
-else (tidak)
-  :Melihat laporan di layar;
+else (Tidak)
+  :Selesai melihat laporan;
 endif
 stop
 @enduml

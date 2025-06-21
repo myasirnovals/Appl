@@ -1,0 +1,22 @@
+@startuml
+actor Admin
+participant "Sistem" as System
+database "Database" as DB
+
+title Alur Menghapus Jadwal
+
+Admin -> System : 1. Memilih jadwal & konfirmasi untuk hapus
+activate System
+
+System -> DB : 2. Hapus data jadwal (DELETE)
+activate DB
+DB --> System : 3. Konfirmasi hasil hapus
+deactivate DB
+
+alt Berhasil
+    System --> Admin : 4a. Notifikasi sukses & jadwal hilang dari daftar
+else Gagal
+    System --> Admin : 4b. Notifikasi error
+end
+deactivate System
+@enduml

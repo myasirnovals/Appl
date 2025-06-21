@@ -2,27 +2,15 @@
 !theme plain
 title State Diagram - Session Management
 
-[*] --> Created : login()
+[*] --> Aktif : Login Sukses
 
-Created --> Active : validateSession()
-Created --> Expired : sessionTimeout()
+Aktif --> Aktif : Ada Aktivitas
+Aktif --> Ditangguhkan : Aktivitas Mencurigakan
+Aktif --> Berakhir : Logout / Waktu Habis
 
-Active --> Refreshed : refreshSession()
-Active --> Expired : timeout()
-Active --> Destroyed : logout()
-Active --> Suspended : suspiciousActivity()
+Ditangguhkan --> Aktif : Verifikasi Ulang Berhasil
+Ditangguhkan --> Berakhir : Pelanggaran Keamanan
 
-Refreshed --> Active : continueSession()
-Refreshed --> Expired : refreshFailed()
-
-Suspended --> Active : verifyUser()
-Suspended --> Destroyed : securityBreach()
-
-Expired --> [*] : cleanupSession()
-Destroyed --> [*] : cleanupSession()
-
-note right of Active : User can perform actions
-note right of Suspended : Security check required
-note right of Expired : Session timed out
+Berakhir --> [*]
 
 @enduml

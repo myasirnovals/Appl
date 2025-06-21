@@ -1,0 +1,16 @@
+@startuml
+actor Member
+participant "Sistem" as System
+database "Database" as DB
+
+title 1. Alur Menampilkan Daftar Lapangan Awal
+
+Member -> System : 1. Membuka halaman daftar lapangan
+activate System
+System -> DB : 2. Ambil semua data lapangan
+activate DB
+DB --> System : 3. Data daftar lapangan
+deactivate DB
+System --> Member : 4. Menampilkan halaman dengan daftar lapangan
+deactivate System
+@enduml

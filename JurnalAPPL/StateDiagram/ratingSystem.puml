@@ -2,33 +2,19 @@
 !theme plain
 title State Diagram - Rating System
 
-[*] --> Eligible : bookingCompleted()
+[*] --> Bisa_Memberi_Rating : Booking Selesai
 
-Eligible --> InProgress : memberikanRating()
-Eligible --> Expired : timeout()
+Bisa_Memberi_Rating --> Menunggu_Moderasi : Kirim Rating
+Bisa_Memberi_Rating --> Kedaluwarsa : Waktu Habis
 
-InProgress --> Submitted : submitRating()
-InProgress --> Cancelled : cancelRating()
+Menunggu_Moderasi --> Diterbitkan : Disetujui
+Menunggu_Moderasi --> Ditolak : Ditolak
 
-Submitted --> UnderReview : validateRating() [needs review]
-Submitted --> Published : validateRating() [auto-approve]
+Ditolak --> Bisa_Memberi_Rating : Edit Rating
 
-UnderReview --> Published : approveRating()
-UnderReview --> Rejected : rejectRating()
+Diterbitkan --> Diterbitkan : Perbarui Rating
+Diterbitkan --> [*] : Selesai
 
-Rejected --> InProgress : editRating()
-Rejected --> Cancelled : abandonRating()
-
-Published --> Updated : updateRating()
-Published --> [*] : finalizeRating()
-
-Updated --> Published : submitUpdate()
-Updated --> Cancelled : cancelUpdate()
-
-Expired --> [*]
-Cancelled --> [*]
-
-note right of Published : Visible to other users
-note right of UnderReview : Admin moderation required
+Kedaluwarsa --> [*]
 
 @enduml

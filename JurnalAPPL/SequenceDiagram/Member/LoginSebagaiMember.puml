@@ -1,40 +1,31 @@
 @startuml
+' //===== Konfigurasi Tampilan (Opsional) =====//
+' skinparam actorStyle awesome
+' skinparam sequenceParticipant underline
+' skinparam sequenceArrowingStyle open
+
+' //===== Definisi Aktor & Partisipan =====//
 actor Member
-participant "Halaman Login" as LoginForm
 participant "Sistem" as System
-participant "Database" as DB
+database "Database" as DB
 
-Member -> LoginForm : Membuka halaman login
-activate LoginForm
-LoginForm -> Member : Menampilkan formulir login
+' //===== Alur Diagram =====//
+title Alur Login Member
 
-Member -> LoginForm : Memasukkan username/email & password
-Member -> LoginForm : Menekan tombol "Login"
-LoginForm -> System : Mengirim data login
-deactivate LoginForm
-
+Member -> System : 1. Mengirimkan kredensial (username & password)
 activate System
-System -> DB : Verifikasi username/email & password
+
+System -> DB : 2. Meminta verifikasi kredensial
 activate DB
-DB --> System : Status valid/invalid
+DB --> System : 3. Mengirimkan status (valid/tidak valid)
 deactivate DB
 
-alt Kredensial valid
-    System -> LoginForm : Tampilkan halaman utama member
-    activate LoginForm
-    LoginForm -> Member : Login berhasil, akses fitur member
-    deactivate LoginForm
-else Kredensial tidak valid
-    System -> LoginForm : Tampilkan pesan error
-    activate LoginForm
-    LoginForm -> Member : Notifikasi error (username/password salah)
-    deactivate LoginForm
+alt Kredensial Valid
+    System --> Member : 4a. Memberikan akses ke halaman utama member
+else Kredensial Tidak Valid
+    System --> Member : 4b. Menampilkan pesan error "Login Gagal"
 end
 
 deactivate System
-
-destroy LoginForm
-destroy System
-destroy DB
 
 @enduml

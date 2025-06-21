@@ -1,26 +1,31 @@
 @startuml
+' //===== Konfigurasi Tampilan (Opsional) =====//
+' skinparam actorStyle awesome
+' skinparam sequenceParticipant underline
+' skinparam sequenceArrowingStyle open
+
+' //===== Definisi Aktor & Partisipan =====//
 actor Member
-participant "Halaman Riwayat Booking" as HistoryPage
 participant "Sistem" as System
-participant "Database" as DB
+database "Database" as DB
 
-Member -> HistoryPage : Membuka menu "Riwayat Booking"
-activate HistoryPage
-HistoryPage -> System : Request data riwayat booking member
+' //===== Alur Diagram =====//
+title Alur Melihat Riwayat Booking (Versi Sederhana)
+
+Member -> System : 1. Meminta untuk melihat riwayat booking
 activate System
-System -> DB : Ambil data riwayat booking berdasarkan ID member
-activate DB
-DB --> System : Data riwayat booking (atau kosong)
-deactivate DB
-System --> HistoryPage : Data riwayat booking (atau pesan tidak ada data)
-deactivate System
 
-alt Ada riwayat booking
-    HistoryPage -> Member : Menampilkan daftar riwayat booking beserta status
-else Tidak ada riwayat booking
-    HistoryPage -> Member : Menampilkan pesan "Belum ada riwayat booking"
+System -> DB : 2. Ambil data riwayat booking untuk member ini
+activate DB
+DB --> System : 3. Mengirimkan data riwayat
+deactivate DB
+
+alt Data Ditemukan
+    System --> Member : 4a. Menampilkan halaman dengan daftar riwayat booking
+else Data Tidak Ditemukan
+    System --> Member : 4b. Menampilkan pesan "Anda belum memiliki riwayat booking"
 end
 
-deactivate HistoryPage
+deactivate System
 
 @enduml

@@ -2,42 +2,24 @@
 !theme plain
 title State Diagram - Booking Lifecycle
 
-[*] --> Draft : createBooking()
+[*] --> Draft : Buat Booking
 
-Draft --> PendingValidation : submitBooking()
-Draft --> Cancelled : cancelDraft()
+Draft --> Menunggu_Pembayaran : Kirim Booking
+Draft --> Dibatalkan : Batalkan
 
-PendingValidation --> PendingPayment : isValidTimeSlot() [valid]
-PendingValidation --> Rejected : isValidTimeSlot() [invalid]
-PendingValidation --> Cancelled : cancelBooking()
+Menunggu_Pembayaran --> Dikonfirmasi : Bayar [sukses]
+Menunggu_Pembayaran --> Menunggu_Pembayaran : Bayar [gagal, coba lagi]
+Menunggu_Pembayaran --> Dibatalkan : Batalkan
+Menunggu_Pembayaran --> Kedaluwarsa : Waktu Habis
 
-Rejected --> Draft : modifyBooking()
-Rejected --> Cancelled : abandonBooking()
+Dikonfirmasi --> Sedang_Digunakan : Waktu Mulai
+Dikonfirmasi --> Dibatalkan : Batalkan [sebelum mulai]
 
-PendingPayment --> PaymentProcessing : melakukanPembayaran()
-PendingPayment --> Expired : timeout()
-PendingPayment --> Cancelled : cancelBooking()
+Sedang_Digunakan --> Selesai : Waktu Selesai
 
-PaymentProcessing --> Confirmed : prosessPembayaran() [success]
-PaymentProcessing --> PaymentFailed : prosessPembayaran() [failed]
+Selesai --> [*] : Beri Rating / Selesai
 
-PaymentFailed --> PendingPayment : retryPayment()
-PaymentFailed --> Cancelled : abandonPayment()
-
-Confirmed --> InProgress : startTime()
-Confirmed --> Cancelled : cancelBooking() [before start]
-
-InProgress --> Completed : endTime()
-InProgress --> Cancelled : emergencyCancel()
-
-Completed --> Rated : memberikanRating()
-Completed --> [*] : timeout()
-
-Expired --> [*]
-Cancelled --> [*]
-Rated --> [*]
-
-note right of Confirmed : Can generate Invoice
-note right of Completed : Can provide Rating
+Dibatalkan --> [*]
+Kedaluwarsa --> [*]
 
 @enduml

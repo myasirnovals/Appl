@@ -1,0 +1,22 @@
+@startuml
+actor Admin
+participant "Sistem" as System
+database "Database" as DB
+
+title Alur Membuat Jadwal Baru
+
+Admin -> System : 1. Mengisi & mengirimkan data jadwal baru
+activate System
+
+System -> DB : 2. Simpan jadwal baru (INSERT)
+activate DB
+DB --> System : 3. Konfirmasi hasil penyimpanan
+deactivate DB
+
+alt Berhasil
+    System --> Admin : 4a. Notifikasi sukses & jadwal baru muncul
+else Gagal
+    System --> Admin : 4b. Notifikasi error (mis: jadwal bentrok)
+end
+deactivate System
+@enduml

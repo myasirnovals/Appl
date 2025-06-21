@@ -1,0 +1,16 @@
+@startuml
+actor Member
+participant "Sistem" as System
+database "Database" as DB
+
+title 1. Alur Melihat Daftar Lapangan
+
+Member -> System : 1. Membuka halaman daftar lapangan
+activate System
+System -> DB : 2. Ambil data semua lapangan
+activate DB
+DB --> System : 3. Mengirimkan data daftar lapangan
+deactivate DB
+System --> Member : 4. Menampilkan halaman dengan daftar lapangan
+deactivate System
+@enduml

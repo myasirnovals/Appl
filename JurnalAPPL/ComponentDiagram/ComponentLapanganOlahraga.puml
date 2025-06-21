@@ -1,40 +1,41 @@
 @startuml
 !theme plain
-title Component Diagram
+title Component Diagram: Sistem Pemesanan Lapangan
 
-package "Frontend" {
-    [Web App] as Web
-    [Mobile App] as Mobile
+' Packages for logical grouping
+package "Aplikasi Klien" {
+    ' Define components INSIDE the package
+    component "Aplikasi Web" as WebApp
+    component "Aplikasi Mobile" as MobileApp
 }
 
-package "Backend API" {
-    [REST Controller] as Controller
-    [Business Logic] as Service
-    [Data Access] as Repository
+package "Sistem Inti" {
+    component "Backend API Server" as BackendAPI
+    database "Database PostgreSQL" as DB
 }
 
-package "Database" {
-    database "PostgreSQL" as DB
+package "Integrasi Eksternal" {
+    component "Layanan Email Eksternal" as EmailSvc
+    component "Layanan Pembayaran Eksternal" as PaymentSvc
 }
 
-package "External" {
-    [Email Service] as Email
-    [Payment Service] as Payment
-}
+' Connections
+WebApp --> BackendAPI : "HTTP/REST"
+MobileApp --> BackendAPI : "HTTP/REST"
 
-' Simple connections
-Web --> Controller : HTTP/REST
-Mobile --> Controller : HTTP/REST
-Controller --> Service : Method Calls
-Service --> Repository : Data Operations
-Repository --> DB : SQL Queries
-Service --> Email : SMTP
-Service --> Payment : API Calls
+BackendAPI --> DB : "SQL Queries"
 
-note right of Controller : **REST Endpoints:**\n- /api/auth/*\n- /api/users/*\n- /api/bookings/*\n- /api/payments/*
+BackendAPI --> EmailSvc : "API/SMTP"
+BackendAPI --> PaymentSvc : "API Calls"
 
-note right of Service : **Core Business Logic:**\n- User Authentication\n- Booking Validation\n- Payment Processing\n- Email Notifications
+' Notes for additional context (simplified)
+note top of BackendAPI
+  Menangani semua logika bisnis,
+  autentikasi, dan akses data.
+end note
 
-note right of Repository : **Data Operations:**\n- CRUD Operations\n- Query Optimization\n- Transaction Management
+note top of DB
+  Penyimpanan data utama.
+end note
 
 @enduml

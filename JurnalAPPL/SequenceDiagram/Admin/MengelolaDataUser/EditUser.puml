@@ -1,35 +1,36 @@
 @startuml
+' //===== Konfigurasi Tampilan (Opsional) =====//
+' skinparam actorStyle awesome
+' skinparam sequenceParticipant underline
+' skinparam sequenceArrowingStyle open
+
+' //===== Definisi Aktor & Partisipan =====//
 actor Admin
-participant "Halaman Manajemen User" as UserMgmt
-participant "Sistem" as System
-participant "Database" as DB
+participant "Sistem Manajemen User" as System
+database "Database" as DB
 
-Admin -> UserMgmt : Pilih user & klik "Edit"
-activate UserMgmt
-UserMgmt -> System : Request data user
+' //===== Alur Diagram =====//
+title Alur Edit User
+
+Admin -> System : 1. Meminta untuk mengedit user
 activate System
-System -> DB : Ambil data user
-activate DB
-DB --> System : Data user
-deactivate DB
-System --> UserMgmt : Data user
-deactivate System
-UserMgmt -> Admin : Tampilkan form edit user
 
-Admin -> UserMgmt : Edit data & submit
-UserMgmt -> System : Kirim data user edit
-activate System
-System -> DB : Update data user
-activate DB
-DB --> System : Konfirmasi berhasil/gagal
-deactivate DB
-System --> UserMgmt : Notifikasi hasil edit user
-deactivate System
-UserMgmt -> Admin : Tampilkan notifikasi & update daftar user
-deactivate UserMgmt
+System --> Admin : 2. Menampilkan data user
 
-destroy UserMgmt
-destroy System
-destroy DB
+Admin -> System : 3. Mengirimkan perubahan data
+
+System -> DB : 4. Kirim perintah UPDATE data user
+activate DB
+
+DB --> System : 5. Konfirmasi hasil update (sukses/gagal)
+deactivate DB
+
+alt Update Berhasil
+    System --> Admin : 6a. Notifikasi sukses & data terbaru
+else Update Gagal
+    System --> Admin : 6b. Notifikasi error
+end
+
+deactivate System
 
 @enduml

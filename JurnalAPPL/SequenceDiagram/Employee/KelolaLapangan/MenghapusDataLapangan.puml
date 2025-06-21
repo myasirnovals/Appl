@@ -1,0 +1,23 @@
+@startuml
+actor Employee
+participant "Sistem" as System
+database "Database" as DB
+
+title Alur Menghapus Data Lapangan (Delete)
+
+Employee -> System : 1. Memilih lapangan & mengonfirmasi untuk hapus
+activate System
+
+System -> DB : 2. Hapus data dari database (DELETE)
+activate DB
+DB --> System : 3. Konfirmasi hasil penghapusan
+deactivate DB
+
+alt Penghapusan Berhasil
+    System --> Employee : 4a. Notifikasi sukses & data hilang dari daftar
+else Penghapusan Gagal
+    System --> Employee : 4b. Notifikasi error
+end
+
+deactivate System
+@enduml

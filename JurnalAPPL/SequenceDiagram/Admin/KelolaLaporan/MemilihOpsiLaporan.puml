@@ -1,0 +1,12 @@
+@startuml
+actor Admin
+participant "Sistem" as System
+
+title Alur Memilih Kriteria Laporan
+
+Admin -> System : 1. Membuka halaman laporan
+activate System
+System --> Admin : 2. Menampilkan form dengan filter (jenis & periode laporan)
+deactivate System
+
+@enduml

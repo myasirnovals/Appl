@@ -1,0 +1,22 @@
+@startuml
+actor Admin
+participant "Sistem" as System
+database "Database" as DB
+
+title Alur Mengubah Lapangan
+
+Admin -> System : 1. Memilih lapangan & mengirimkan perubahan data
+activate System
+
+System -> DB : 2. Ubah data lapangan (UPDATE)
+activate DB
+DB --> System : 3. Konfirmasi hasil update
+deactivate DB
+
+alt Berhasil
+    System --> Admin : 4a. Notifikasi sukses & data di daftar ter-update
+else Gagal
+    System --> Admin : 4b. Notifikasi error
+end
+deactivate System
+@enduml

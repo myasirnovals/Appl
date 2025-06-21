@@ -1,246 +1,115 @@
 @startuml
 !theme plain
 
-' User Management Classes
-abstract class User {
-  - id: int
-  - nama: string
-  - email: string
-  - password: string
-  - noTelepon: string
-  - alamat: string
-  - tanggalDaftar: date
-  - status: string
-  + login(email: string, password: string): boolean
+' Class for User
+class User {
+  + idUser: Integer
+  - namaUser: String
+  - email: String
+  - password: String
+  - noTelp: String
+  - alamat: String
+  - role: String
+  --
+  + login(): Boolean
   + logout(): void
-  + updateProfile(): boolean
-  + validateCredentials(): boolean
+  + updateProfile(): Boolean
+  + changePassword(): Boolean
 }
 
-class Guest {
-  - sessionId: string
-  - ipAddress: string
-  + browseLapangan(): List<Lapangan>
-  + register(): Member
+' Class for Pesanan (Booking)
+class Pesanan {
+  + idPemesanan: Integer
+  - tanggalMemesan: Date
+  - startTime: Time
+  - endTime: Time
+  - statusPemesanan: String
+  - totalHarga: Double
+  --
+  + create(): Boolean
+  + confirm(): Boolean
+  + cancel(): Boolean
+  + updateStatus(): Boolean
+  + calculateTotalPrice(): Double
+  + checkOverlap(): Boolean
 }
 
-class Member extends User {
-  - membershipType: string
-  - poin: int
-  - totalBooking: int
-  + bookingLapangan(): Booking
-  + melakukanPembayaran(): Pembayaran
-  + memberikanRating(): Rating
-  + melihatRiwayatBooking(): List<Booking>
-  + updateProfile(): boolean
-}
-
-class Admin extends User {
-  - adminLevel: string
-  - permissions: List<string>
-  + kelolaUser(): boolean
-  + kelolaLapangan(): boolean
-  + kelolaPembayaran(): boolean
-  + generateLaporan(): Laporan
-  + kelolaBooking(): boolean
-}
-
-class Manager extends User {
-  - department: string
-  - accessLevel: string
-  + generateLaporan(): Laporan
-  + kelolaJadwal(): boolean
-  + monitoringRevenue(): RevenueReport
-  + approvePricing(): boolean
-}
-
-class Employee extends User {
-  - shift: string
-  - posisi: string
-  + kelolaLapangan(): boolean
-  + updateStatusLapangan(): boolean
-  + handleCustomerService(): boolean
-  + inputMaintenance(): boolean
-}
-
-' Core Business Classes
-class Lapangan {
-  - id: int
-  - nama: string
-  - jenis: string
-  - deskripsi: string
-  - harga: decimal
-  - fasilitas: List<string>
-  - status: string
-  - kapasitas: int
-  - lokasi: string
-  - foto: List<string>
-  - rating: decimal
-  - createdAt: datetime
-  - updatedAt: datetime
-  + getAvailableSlots(date: date): List<TimeSlot>
-  + updateStatus(status: string): boolean
-  + calculatePrice(duration: int): decimal
-  + addFasilitas(fasilitas: string): boolean
-}
-
-class Booking {
-  - id: int
-  - memberId: int
-  - lapanganId: int
-  - tanggalBooking: date
-  - jamMulai: time
-  - jamSelesai: time
-  - durasi: int
-  - totalHarga: decimal
-  - status: string
-  - catatan: string
-  - createdAt: datetime
-  - updatedAt: datetime
-  + confirmBooking(): boolean
-  + cancelBooking(): boolean
-  + updateStatus(status: string): boolean
-  + calculateTotalPrice(): decimal
-  + isValidTimeSlot(): boolean
-}
-
+' Class for Pembayaran (Payment)
 class Pembayaran {
-  - id: int
-  - bookingId: int
-  - jumlah: decimal
-  - metodePembayaran: string
-  - statusPembayaran: string
-  - tanggalPembayaran: datetime
-  - referensiPembayaran: string
-  - buktiPembayaran: string
-  + prosessPembayaran(): boolean
-  + verifikasiPembayaran(): boolean
+  + idPembayaran: Integer
+  - tanggalPembayaran: Date
+  - statusPembayaran: String
+  - jumlah: Double
+  - metode: String
+  --
+  + processPayment(): Boolean
+  + verifyPayment(): Boolean
+  + refund(): Boolean
   + generateInvoice(): Invoice
-  + refundPembayaran(): boolean
 }
 
-class Rating {
-  - id: int
-  - memberId: int
-  - lapanganId: int
-  - bookingId: int
-  - rating: int
-  - komentar: string
-  - tanggalRating: datetime
-  + submitRating(): boolean
-  + updateRating(): boolean
-  + validateRating(): boolean
+' Class for Lapangan (Field)
+class Lapangan {
+  + idLapangan: Integer
+  - namaLapangan: String
+  - tipeLapangan: String
+  - lokasiLapangan: String
+  - statusLapangan: String
+  - hargaPerJam: Double
+  --
+  + create(): Boolean
+  + update(): Boolean
+  + delete(): Boolean
+  + getAvailableSlots(): List<TimeSlot>
+  + updateStatus(): Boolean
 }
 
-class Jadwal {
-  - id: int
-  - lapanganId: int
-  - tanggal: date
-  - jamMulai: time
-  - jamSelesai: time
-  - status: string
-  - bookingId: int
-  + checkAvailability(): boolean
-  + blockTimeSlot(): boolean
-  + releaseTimeSlot(): boolean
+' Class for Maintenance
+class Maintenance {
+  + id_maintenance: Integer
+  - deskripsi: String
+  - tanggalTerjadwal: Date
+  - statusMaintenance: String
+  --
+  + create(): Boolean
+  + update(): Boolean
+  + complete(): Boolean
 }
 
-class Laporan {
-  - id: int
-  - jenisLaporan: string
-  - periodeMulai: date
-  - periodeSelesai: date
-  - data: string
-  - createdBy: int
-  - createdAt: datetime
-  + generateRevenueReport(): RevenueReport
-  + generateBookingReport(): BookingReport
-  + generateMemberReport(): MemberReport
-  + exportToPDF(): boolean
-  + exportToExcel(): boolean
+' Class for Notifikasi (Notification)
+class Notifikasi {
+  + idNotifikasi: Integer
+  - pesanNotifikasi: String
+  - sentAt: DateTime
+  - tipeNotifikasi: String
+  --
+  + create(): Boolean
+  + send(): Boolean
+  + markAsRead(): Boolean
 }
 
-class RevenueReport extends Laporan {
-  - totalRevenue: decimal
-  - totalBooking: int
-  - avgRevenuePerBooking: decimal
-  + calculateMonthlyRevenue(): decimal
-  + compareWithPreviousPeriod(): decimal
-}
-
-class BookingReport extends Laporan {
-  - totalBooking: int
-  - cancelledBooking: int
-  - completedBooking: int
-  - popularLapangan: List<Lapangan>
-  + getMostPopularTime(): List<TimeSlot>
-  + getBookingTrends(): List<BookingTrend>
-}
-
-class MemberReport extends Laporan {
-  - totalMember: int
-  - activeMember: int
-  - newMember: int
-  - memberRetention: decimal
-  + getMemberGrowth(): List<MemberGrowth>
-  + getTopMembers(): List<Member>
-}
-
-' Supporting Classes
+' Additional Supporting Classes (implicitly used by methods)
 class TimeSlot {
-  - jamMulai: time
-  - jamSelesai: time
-  - available: boolean
-  + isAvailable(): boolean
-  + getDuration(): int
+  - jamMulai: Time
+  - jamSelesai: Time
+  - available: Boolean
+  + getDuration(): Integer
 }
 
 class Invoice {
-  - id: int
-  - bookingId: int
-  - invoiceNumber: string
-  - tanggalInvoice: date
-  - totalAmount: decimal
-  - pajak: decimal
-  - grandTotal: decimal
-  + generateInvoiceNumber(): string
-  + calculateTax(): decimal
-  + printInvoice(): boolean
+  - invoiceId: Integer
+  - invoiceNumber: String
+  - issueDate: Date
+  - totalAmount: Double
+  + generateNumber(): String
+  + print(): Boolean
 }
 
-class Session {
-  - sessionId: string
-  - userId: int
-  - userType: string
-  - loginTime: datetime
-  - lastActivity: datetime
-  - isActive: boolean
-  + validateSession(): boolean
-  + refreshSession(): boolean
-  + destroySession(): void
-}
-
-' Relationships
-User ||--o{ Session : "has"
-Member ||--o{ Booking : "makes"
-Member ||--o{ Rating : "gives"
-Member ||--o{ Pembayaran : "makes"
-
-Lapangan ||--o{ Booking : "booked in"
-Lapangan ||--o{ Rating : "receives"
-Lapangan ||--o{ Jadwal : "has schedule"
-
-Booking ||--|| Pembayaran : "has payment"
-Booking ||--o| Rating : "can be rated"
-Booking ||--|| Invoice : "generates"
-
-Admin ||--o{ Laporan : "generates"
-Manager ||--o{ Laporan : "generates"
-
-Lapangan ||--o{ TimeSlot : "has"
-Booking }o--|| TimeSlot : "reserves"
-
-' Inheritance relationships shown with extends
-Guest --|> User
+' Relationships / Associations
+User "1" -- "0..*" Pesanan : Membuat
+Pesanan "1" -- "1" Pembayaran : Memiliki
+Pesanan "0..*" -- "1" Lapangan : Memesan
+Lapangan "1" -- "0..*" Maintenance : Memelihara
+User "1" -- "0..*" Notifikasi : Menerima
 
 @enduml

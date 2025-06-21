@@ -1,39 +1,13 @@
 @startuml
 |Admin|
 start
-:Membuka halaman login admin;
-:Memasukkan email dan password;
-:Menekan tombol "Login";
+:Mengisi kredensial & menekan login;
 
 |Sistem|
-:Menerima kredensial;
-:Validasi format email dan password;
-
-|Database|
-:Cek kredensial di database;
-:Verifikasi role = 'Admin';
-:Return status dan data admin;
-
-|Sistem|
-if (Kredensial valid dan role Admin?) then (ya)
-  :Generate admin session token;
-  :Set admin session dengan privileges;
-  |Admin|
-  :Diarahkan ke dashboard admin;
-  :Akses fitur admin
-  (kelola lapangan, kelola user,
-  kelola booking, generate laporan,
-  system configuration);
-  stop
-else (tidak)
-  if (Role bukan Admin?) then (ya)
-    |Admin|
-    :Menerima pesan "Akses admin ditolak";
-    stop
-  else (tidak)
-    |Admin|
-    :Menerima pesan "Email atau password salah";
-    stop
-  endif
+if (Kredensial valid & role Admin?) then (Ya)
+  :Buat sesi & arahkan ke dashboard admin;
+else (Tidak)
+  :Tampilkan pesan error login;
 endif
+stop
 @enduml

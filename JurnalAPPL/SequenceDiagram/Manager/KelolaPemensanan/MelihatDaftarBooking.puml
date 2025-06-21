@@ -1,0 +1,16 @@
+@startuml
+actor Manager
+participant "Sistem" as System
+database "Database" as DB
+
+title 1. Alur Melihat Daftar Booking
+
+Manager -> System : 1. Membuka halaman pengelolaan booking
+activate System
+System -> DB : 2. Ambil data semua booking berjalan
+activate DB
+DB --> System : 3. Data booking
+deactivate DB
+System --> Manager : 4. Menampilkan halaman dengan daftar booking
+deactivate System
+@enduml

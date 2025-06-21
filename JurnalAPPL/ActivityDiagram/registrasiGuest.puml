@@ -1,35 +1,13 @@
 @startuml
 |Guest|
 start
-:Membuka halaman registrasi;
-:Mengisi formulir pendaftaran
-(nama, email, password, dll);
-:Menekan tombol "Daftar";
+:Mengisi & submit formulir pendaftaran;
 
 |Sistem|
-:Menerima data registrasi;
-:Validasi data;
-if (Data valid?) then (ya)
-  |Database|
-  :Cek email sudah terdaftar?;
-  if (Email sudah terdaftar?) then (tidak)
-    :Simpan data akun baru;
-    |Sistem|
-    :Generate konfirmasi sukses;
-    |Guest|
-    :Menerima notifikasi sukses;
-    :Registrasi berhasil;
-    stop
-  else (ya)
-    |Sistem|
-    :Generate pesan error;
-    |Guest|
-    :Menerima pesan "Email sudah terdaftar";
-    stop
-  endif
-else (tidak)
-  |Guest|
-  :Menerima pesan error validasi;
-  stop
+if (Data valid & email belum terdaftar?) then (Ya)
+  :Simpan akun baru & tampilkan pesan sukses;
+else (Tidak)
+  :Tampilkan pesan error registrasi;
 endif
+stop
 @enduml

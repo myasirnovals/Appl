@@ -1,0 +1,17 @@
+@startuml
+actor Admin
+participant "Sistem" as System
+database "Database" as DB
+
+title Alur Melihat Detail Pembayaran
+
+Admin -> System : 1. Memilih satu pembayaran dari daftar
+activate System
+System -> DB : 2. Ambil detail pembayaran spesifik
+activate DB
+DB --> System : 3. Mengirimkan detail pembayaran
+deactivate DB
+System --> Admin : 4. Menampilkan detail & bukti pembayaran
+deactivate System
+
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+actor Manager
+participant "Sistem" as System
+database "Database" as DB
+
+title 1. Alur Menampilkan Daftar Jadwal
+
+Manager -> System : 1. Membuka halaman jadwal lapangan
+activate System
+System -> DB : 2. Ambil semua data jadwal
+activate DB
+DB --> System : 3. Data jadwal
+deactivate DB
+System --> Manager : 4. Menampilkan halaman dengan daftar jadwal
+deactivate System
+@enduml

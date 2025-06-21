@@ -1,40 +1,31 @@
 @startuml
+' //===== Konfigurasi Tampilan (Opsional) =====//
+' skinparam actorStyle awesome
+' skinparam sequenceParticipant underline
+' skinparam sequenceArrowingStyle open
+
+' //===== Definisi Aktor & Partisipan =====//
 actor Manager
-participant "Halaman Login Pengelola" as AdminLoginForm
 participant "Sistem" as System
-participant "Database" as DB
+database "Database" as DB
 
-Manager -> AdminLoginForm : Membuka halaman login pengelola
-activate AdminLoginForm
-AdminLoginForm -> Manager : Menampilkan formulir login pengelola
+' //===== Alur Diagram =====//
+title Alur Login Manajer/Pengelola
 
-Manager -> AdminLoginForm : Memasukkan username/email & password
-Manager -> AdminLoginForm : Menekan tombol "Login"
-AdminLoginForm -> System : Mengirim data login pengelola
-deactivate AdminLoginForm
-
+Manager -> System : 1. Mengirimkan kredensial (username & password)
 activate System
-System -> DB : Verifikasi username/email, password, dan hak akses pengelola
+
+System -> DB : 2. Meminta verifikasi kredensial & hak akses
 activate DB
-DB --> System : Status valid/invalid & hak akses
+DB --> System : 3. Mengirimkan status (valid/tidak valid)
 deactivate DB
 
-alt Kredensial & hak akses valid
-    System -> AdminLoginForm : Tampilkan dashboard pengelola
-    activate AdminLoginForm
-    AdminLoginForm -> Manager : Login berhasil, akses fitur pengelola
-    deactivate AdminLoginForm
-else Kredensial atau hak akses tidak valid
-    System -> AdminLoginForm : Tampilkan pesan error
-    activate AdminLoginForm
-    AdminLoginForm -> Manager : Notifikasi error (login gagal)
-    deactivate AdminLoginForm
+alt Kredensial & Hak Akses Valid
+    System --> Manager : 4a. Memberikan akses ke dashboard manajer
+else Kredensial atau Hak Akses Tidak Valid
+    System --> Manager : 4b. Menampilkan pesan error "Login Gagal"
 end
 
 deactivate System
-
-destroy AdminLoginForm
-destroy System
-destroy DB
 
 @enduml

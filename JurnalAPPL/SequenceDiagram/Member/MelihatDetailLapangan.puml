@@ -1,0 +1,16 @@
+@startuml
+actor Member
+participant "Sistem" as System
+database "Database" as DB
+
+title 3. Alur Melihat Detail Lapangan
+
+Member -> System : 1. Memilih satu lapangan dari daftar
+activate System
+System -> DB : 2. Ambil detail untuk lapangan yang dipilih
+activate DB
+DB --> System : 3. Data detail lapangan
+deactivate DB
+System --> Member : 4. Menampilkan halaman detail lapangan
+deactivate System
+@enduml

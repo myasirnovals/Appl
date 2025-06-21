@@ -1,0 +1,18 @@
+@startuml
+actor Admin
+participant "Sistem" as System
+database "Database" as DB
+
+title Alur Menampilkan Daftar Lapangan
+
+Admin -> System : 1. Meminta untuk melihat daftar lapangan
+activate System
+
+System -> DB : 2. Ambil semua data lapangan
+activate DB
+DB --> System : 3. Data daftar lapangan
+deactivate DB
+
+System --> Admin : 4. Menampilkan halaman dengan daftar lapangan
+deactivate System
+@enduml

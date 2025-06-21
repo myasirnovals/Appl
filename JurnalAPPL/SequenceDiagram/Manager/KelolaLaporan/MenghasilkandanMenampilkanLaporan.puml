@@ -1,0 +1,23 @@
+@startuml
+actor Manager
+participant "Sistem" as System
+database "Database" as DB
+
+title 2. Alur Menghasilkan Laporan
+
+Manager -> System : 1. Mengirimkan permintaan laporan dengan filter/parameter
+activate System
+
+System -> DB : 2. Memproses & mengambil data laporan dari database
+activate DB
+DB --> System : 3. Mengirimkan data laporan yang sudah diproses
+deactivate DB
+
+alt Data Ditemukan
+    System --> Manager : 4a. Menampilkan laporan & menyediakan opsi unduh/cetak
+else Data Tidak Ditemukan atau Error
+    System --> Manager : 4b. Menampilkan pesan "Data tidak ditemukan" atau notifikasi error
+end
+
+deactivate System
+@enduml

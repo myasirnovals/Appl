@@ -1,38 +1,13 @@
 @startuml
 |Member|
 start
-:Membuka halaman login;
-:Memasukkan email dan password;
-:Menekan tombol "Login";
+:Mengisi kredensial & menekan login;
 
 |Sistem|
-:Menerima kredensial;
-:Validasi format email dan password;
-
-|Database|
-:Cek kredensial di database;
-:Verifikasi role = 'Member';
-:Return status dan data member;
-
-|Sistem|
-if (Kredensial valid dan role Member?) then (ya)
-  :Generate session token;
-  :Set user session;
-  |Member|
-  :Diarahkan ke dashboard member;
-  :Akses fitur member
-  (booking lapangan, riwayat booking,
-  memberikan rating, profile management);
-  stop
-else (tidak)
-  if (Role bukan Member?) then (ya)
-    |Member|
-    :Menerima pesan "Akses ditolak untuk role ini";
-    stop
-  else (tidak)
-    |Member|
-    :Menerima pesan "Email atau password salah";
-    stop
-  endif
+if (Kredensial valid & role Member?) then (Ya)
+  :Buat sesi & arahkan ke dashboard member;
+else (Tidak)
+  :Tampilkan pesan error login;
 endif
+stop
 @enduml

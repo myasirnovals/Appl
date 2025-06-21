@@ -2,49 +2,22 @@
 |Member|
 start
 :Login ke sistem;
-:Browse lapangan tersedia;
-:Pilih lapangan yang diinginkan;
-:Pilih tanggal dan waktu;
+:Pilih lapangan, tanggal & waktu;
 
 |Sistem|
-:Menerima request booking;
-
-|Database|
-:Cek ketersediaan jadwal;
-:Return status ketersediaan;
-
-|Sistem|
-if (Jadwal tersedia?) then (ya)
-  :Buat booking sementara;
+if (Jadwal tersedia?) then (Ya)
+  :Buat booking sementara & arahkan ke pembayaran;
   |Member|
-  :Menerima konfirmasi booking;
-  :Redirect ke halaman pembayaran;
   :Melakukan pembayaran;
-
-  |Sistem Pembayaran|
-  :Proses pembayaran;
-  :Return status pembayaran;
-
   |Sistem|
-  if (Pembayaran berhasil?) then (ya)
-    |Database|
-    :Update status booking menjadi confirmed;
-    |Sistem|
-    :Generate konfirmasi booking;
-    |Member|
-    :Menerima konfirmasi booking;
-    :Booking selesai;
-    stop
-  else (tidak)
-    |Database|
-    :Batalkan booking;
-    |Member|
-    :Menerima pesan pembayaran gagal;
-    stop
+  if (Pembayaran berhasil?) then (Ya)
+    :Konfirmasi booking & update status;
+    :Tampilkan konfirmasi booking;
+  else (Tidak)
+    :Batalkan booking & tampilkan pesan gagal bayar;
   endif
-else (tidak)
-  |Member|
-  :Menerima pesan jadwal tidak tersedia;
-  stop
+else (Tidak)
+  :Tampilkan pesan jadwal tidak tersedia;
 endif
+stop
 @enduml

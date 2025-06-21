@@ -1,46 +1,27 @@
 @startuml
 |Member|
 start
-:Login ke sistem;
-:Masuk ke riwayat booking;
-:Pilih booking yang sudah selesai;
+:Pilih booking selesai dari riwayat;
 
 |Sistem|
-:Load detail booking;
-
-|Database|
-:Cek status rating booking;
-:Return status rating;
-
-|Sistem|
-if (Sudah memberikan rating?) then (tidak)
+:Periksa status rating booking;
+if (Belum memberikan rating?) then (Ya)
   |Member|
-  :Membuka form rating;
-  :Memberikan rating (1-5 bintang);
-  :Menulis review (opsional);
+  :Buka form rating;
+  :Berikan rating & review (opsional);
   :Submit rating;
-
   |Sistem|
-  :Validasi rating;
-
-  |Database|
-  :Simpan rating dan review;
-  :Return konfirmasi;
-
+  :Validasi & simpan rating/review;
+  :Tampilkan konfirmasi sukses;
+else (Sudah)
   |Member|
-  :Menerima konfirmasi berhasil;
-  stop
-else (ya)
-  |Member|
-  :Melihat rating yang sudah diberikan;
-  if (Edit rating?) then (ya)
-    :Update rating dan review;
-    |Database|
-    :Update rating di database;
-    :Return konfirmasi;
-    |Member|
-    :Menerima konfirmasi berhasil;
+  :Lihat rating yang sudah diberikan;
+  if (Ingin edit rating?) then (Ya)
+    :Update rating & review;
+    |Sistem|
+    :Perbarui rating di database;
+    :Tampilkan konfirmasi sukses;
   endif
-  stop
 endif
+stop
 @enduml

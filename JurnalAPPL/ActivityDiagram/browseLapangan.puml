@@ -1,45 +1,27 @@
 @startuml
-|Guest/Member|
+|Pengguna|
 start
 :Membuka halaman browse lapangan;
-:Set filter pencarian (opsional);
+:Atur filter (opsional);
 
 |Sistem|
-:Menerima request browse;
-:Proses filter;
+:Tampilkan daftar lapangan;
 
-|Database|
-:Query daftar lapangan;
-:Return data lapangan;
-
-|Sistem|
-:Format data untuk tampilan;
-
-|Guest/Member|
-:Melihat daftar lapangan;
+|Pengguna|
 :Pilih lapangan untuk detail;
 
 |Sistem|
-:Load detail lapangan;
+:Tampilkan detail lapangan, rating, & review;
 
-|Database|
-:Query detail lapangan;
-:Query rating dan review;
-:Return data lengkap;
-
-|Guest/Member|
-:Melihat detail lapangan;
-:Melihat rating dan review;
-if (User adalah Member?) then (ya)
-  if (Ingin booking?) then (ya)
-    :Lanjut ke proses booking;
-    stop
-  else (tidak)
+|Pengguna|
+if (Member?) then (Ya)
+  if (Booking?) then (Ya)
+    :Lanjut proses booking;
+  else (Tidak)
     :Kembali ke daftar lapangan;
-    stop
   endif
-else (tidak)
-  :Melihat informasi saja;
-  stop
+else (Bukan)
+  :Lihat info saja;
 endif
+stop
 @enduml

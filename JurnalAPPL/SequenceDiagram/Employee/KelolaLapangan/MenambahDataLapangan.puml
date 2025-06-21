@@ -1,0 +1,23 @@
+@startuml
+actor Employee
+participant "Sistem" as System
+database "Database" as DB
+
+title Alur Menambah Data Lapangan (Create)
+
+Employee -> System : 1. Mengirimkan data lapangan baru
+activate System
+
+System -> DB : 2. Simpan data baru ke database (INSERT)
+activate DB
+DB --> System : 3. Konfirmasi hasil penyimpanan
+deactivate DB
+
+alt Penyimpanan Berhasil
+    System --> Employee : 4a. Notifikasi sukses & data baru muncul di daftar
+else Penyimpanan Gagal
+    System --> Employee : 4b. Notifikasi error
+end
+
+deactivate System
+@enduml

@@ -1,32 +1,32 @@
 @startuml
+' //===== Konfigurasi Tampilan (Opsional) =====//
+' skinparam actorStyle awesome
+' skinparam sequenceParticipant underline
+' skinparam sequenceArrowingStyle open
+
+' //===== Definisi Aktor & Partisipan =====//
 actor Admin
-participant "Halaman Manajemen User" as UserMgmt
-participant "Sistem" as System
-participant "Database" as DB
+participant "Sistem Manajemen User" as System
+database "Database" as DB
 
-Admin -> UserMgmt : Pilih "Tambah User"
-activate UserMgmt
-UserMgmt -> System : Request form tambah user
+' //===== Alur Diagram =====//
+title Alur Tambah User
+
+Admin -> System : 1. Mengisi & mengirimkan data user baru
 activate System
-System -> UserMgmt : Tampilkan form tambah user
-deactivate System
-UserMgmt -> Admin : Menampilkan form tambah user
 
-Admin -> UserMgmt : Mengisi data user & submit
-
-UserMgmt -> System : Kirim data user baru
-activate System
-System -> DB : Simpan data user baru
+System -> DB : 2. Kirim perintah INSERT untuk data user
 activate DB
-DB --> System : Konfirmasi berhasil/gagal
-deactivate DB
-System --> UserMgmt : Notifikasi hasil tambah user
-deactivate System
-UserMgmt -> Admin : Tampilkan notifikasi & update daftar user
-deactivate UserMgmt
 
-destroy UserMgmt
-destroy System
-destroy DB
+DB --> System : 3. Konfirmasi hasil penyimpanan
+deactivate DB
+
+alt Penyimpanan Berhasil
+    System --> Admin : 4a. Notifikasi sukses & daftar user diperbarui
+else Penyimpanan Gagal
+    System --> Admin : 4b. Notifikasi error
+end
+
+deactivate System
 
 @enduml
