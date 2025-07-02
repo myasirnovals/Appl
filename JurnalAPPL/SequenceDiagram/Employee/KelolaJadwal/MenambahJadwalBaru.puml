@@ -3,7 +3,7 @@ actor Employee
 participant "Sistem" as System
 database "Database" as DB
 
-title 2. Alur Menambah Jadwal Baru
+title Alur Menambah Jadwal Baru
 
 Employee -> System : 1. Mengirimkan data jadwal baru
 activate System

@@ -10,7 +10,7 @@ participant "Sistem" as System
 database "Database" as DB
 
 ' //===== Alur Diagram =====//
-title Alur Login Admin (Versi Sederhana)
+title Alur Login Admin
 
 Admin -> System : 1. Mengirimkan kredensial (username & password)
 activate System

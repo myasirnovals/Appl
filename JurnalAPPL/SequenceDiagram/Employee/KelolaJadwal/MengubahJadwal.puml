@@ -3,7 +3,7 @@ actor Employee
 participant "Sistem" as System
 database "Database" as DB
 
-title 3. Alur Mengubah Jadwal
+title Alur Mengubah Jadwal
 
 Employee -> System : 1. Memilih jadwal & mengirimkan perubahan data
 activate System

@@ -3,7 +3,7 @@ actor Employee
 participant "Sistem" as System
 database "Database" as DB
 
-title 4. Alur Menghapus Jadwal
+title Alur Menghapus Jadwal
 
 Employee -> System : 1. Memilih jadwal & mengonfirmasi hapus
 activate System
